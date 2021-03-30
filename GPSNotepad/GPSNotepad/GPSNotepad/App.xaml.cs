@@ -1,16 +1,23 @@
-﻿using System;
+﻿using Prism.Unity;
+using Prism;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Prism.Ioc;
+using GPSNotepad.Views;
+using GPSNotepad.ViewModels;
 
 namespace GPSNotepad
 {
-    public partial class App : Application
+    public partial class App : PrismApplication
     {
         public App()
         {
             InitializeComponent();
+        }
 
-            MainPage = new MainPage();
+        public App(IPlatformInitializer initializer = null) : base(initializer)
+        {        
         }
 
         protected override void OnStart()
@@ -23,6 +30,25 @@ namespace GPSNotepad
 
         protected override void OnResume()
         {
+        }
+
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            //Navigation
+            containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<SignInView, SignInViewModel>();
+
+
+        }
+
+        protected override void OnInitialized()
+        {
+            GoToView();
+        }
+
+        private async void GoToView()
+        {
+            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignInView)}");
         }
     }
 }

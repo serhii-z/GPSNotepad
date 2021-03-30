@@ -1,14 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GPSNotepad.Views.SignInView"
-             Title="Users SignIn">
+             x:Class="GPSNotepad.Views.SignUpView"
+             Title="Users SignUp">
+    
     <Grid BackgroundColor="White">
         <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="3*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="4*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
@@ -20,27 +23,22 @@
         </Grid.ColumnDefinitions>
         <Entry Grid.Row="1"
                Grid.Column="1"
-               Placeholder="Email"/>
+               Placeholder="Name"/>
         <Entry Grid.Row="2"
                Grid.Column="1"
+               Placeholder="Email"/>
+        <Entry Grid.Row="3"
+               Grid.Column="1"
                Placeholder="Password"/>
-        <Button Grid.Row="4"
+        <Entry Grid.Row="4"
+               Grid.Column="1"
+               Placeholder="ConfirmPassword"/>
+        <Button Grid.Row="6"
                 Grid.Column="1"
-                Text="SignIn"
+                Text="SignUp"
                 BackgroundColor="Chocolate"
                 TextColor="Black"
-                Command="{Binding LogInTapCommand}"
+                Command="{Binding SignUpTapCommand}"
                 IsEnabled="{Binding EnabledButton}"/>
-        <Label Grid.Row="5"
-               Grid.Column="1"
-               Text="SignUp"
-               TextColor="Blue"
-               TextDecorations="Underline"
-               HorizontalOptions="Center"
-               VerticalOptions="Center">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding SignUpTapCommand}"/>
-            </Label.GestureRecognizers>
-        </Label>
     </Grid>
 </ContentPage>

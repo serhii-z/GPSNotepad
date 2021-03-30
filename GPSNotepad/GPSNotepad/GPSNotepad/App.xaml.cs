@@ -37,7 +37,7 @@ namespace GPSNotepad
             //Navigation
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<SignInView, SignInViewModel>();
-
+            containerRegistry.RegisterForNavigation<SignUpView, SignUpViewModel>();
 
         }
 

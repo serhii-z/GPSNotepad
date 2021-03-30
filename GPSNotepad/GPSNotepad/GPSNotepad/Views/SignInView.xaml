@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GPSNotepad.Views.SignInView"
-             Title="Users SignIn">
+             Title="Users Signin">
     <Grid BackgroundColor="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>

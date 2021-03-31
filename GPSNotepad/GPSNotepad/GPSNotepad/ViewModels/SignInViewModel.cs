@@ -71,9 +71,9 @@ namespace GPSNotepad.ViewModels
         #endregion
 
         #region --- Private Helpers ---
-        private void OnLogInTap(object obj)
+        private async void OnLogInTap(object obj)
         {
-            
+            await navigationService.NavigateAsync($"{nameof(MainView)}");
         }
 
         private async void OnSignUpTap(object obj)

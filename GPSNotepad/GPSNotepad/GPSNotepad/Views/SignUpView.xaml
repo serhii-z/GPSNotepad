@@ -23,16 +23,20 @@
         </Grid.ColumnDefinitions>
         <Entry Grid.Row="1"
                Grid.Column="1"
-               Placeholder="Name"/>
+               Placeholder="Name"
+               Text="{Binding EntryNameText}"/>
         <Entry Grid.Row="2"
                Grid.Column="1"
-               Placeholder="Email"/>
+               Placeholder="Email"
+               Text="{Binding EntryEmailText}"/>
         <Entry Grid.Row="3"
                Grid.Column="1"
-               Placeholder="Password"/>
+               Placeholder="Password"
+               Text="{Binding EntryPasswordText}"/>
         <Entry Grid.Row="4"
                Grid.Column="1"
-               Placeholder="ConfirmPassword"/>
+               Placeholder="ConfirmPassword"
+               Text="{Binding EntryConfirmPassword}"/>
         <Button Grid.Row="6"
                 Grid.Column="1"
                 Text="SignUp"

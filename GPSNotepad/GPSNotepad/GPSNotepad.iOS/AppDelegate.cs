@@ -25,8 +25,8 @@ namespace GPSNotepad.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App(new IOSInitializer()));
-
+            Xamarin.FormsMaps.Init();
+            LoadApplication(new App(new IOSInitializer()));   
             return base.FinishedLaunching(app, options);
         }
 

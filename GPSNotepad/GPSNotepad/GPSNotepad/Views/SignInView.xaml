@@ -20,10 +20,12 @@
         </Grid.ColumnDefinitions>
         <Entry Grid.Row="1"
                Grid.Column="1"
-               Placeholder="Email"/>
+               Placeholder="Email"
+               Text="{Binding EntryEmailText}"/>
         <Entry Grid.Row="2"
                Grid.Column="1"
-               Placeholder="Password"/>
+               Placeholder="Password"
+               Text="{Binding EntryPasswordText}"/>
         <Button Grid.Row="4"
                 Grid.Column="1"
                 Text="SignIn"

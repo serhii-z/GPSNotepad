@@ -3,11 +3,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GPSNotepad.Views.PinListView"
              Title="Pins">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+    
+    <AbsoluteLayout BackgroundColor="{DynamicResource pageBackgroundColor}">
+        <ListView CachingStrategy="RecycleElement"
+                    ItemsSource="{Binding PinList, Mode=TwoWay}"
+                    SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                    AbsoluteLayout.LayoutFlags="All"
+                    AbsoluteLayout.LayoutBounds="0,1,1,1"
+                    HasUnevenRows="True"
+                    VerticalOptions="FillAndExpand"
+                    x:Name="listView">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <StackLayout>
+                                <Label Text="{Binding Name}" 
+                                            FontSize="18" 
+                                            FontAttributes="Bold"/>
+                                <Label Text="{Binding Description}" />
+                                <Label Text="{Binding Latitude}" />
+                                <Label Text="{Binding Longitude}" />
+                            </StackLayout>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Behaviors>
+            </ListView.Behaviors>
+        </ListView>
+        <ImageButton Source="add.png"
+                WidthRequest="96" 
+                HeightRequest="96"
+                HorizontalOptions="End" 
+                VerticalOptions="End"
+                BackgroundColor="Transparent"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                AbsoluteLayout.LayoutBounds="1.0,1.0,-1,-1"
+                Margin="0,0,20,40"
+                Command="{Binding AddTapCommand}">
+        </ImageButton>
+    </AbsoluteLayout>
+    
 </ContentPage>

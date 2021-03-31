@@ -39,6 +39,13 @@ namespace GPSNotepad
             containerRegistry.RegisterForNavigation<SignInView, SignInViewModel>();
             containerRegistry.RegisterForNavigation<SignUpView, SignUpViewModel>();
             containerRegistry.RegisterForNavigation<MainView, MainViewModel>();
+            containerRegistry.RegisterForNavigation<PinListView, PinListViewModel>();
+            containerRegistry.RegisterForNavigation<AddPinView, AddPinViewModel>();
+
+            //Packages
+
+            //Services
+
         }
 
         protected override void OnInitialized()

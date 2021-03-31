@@ -6,6 +6,7 @@ using Xamarin.Forms.Xaml;
 using Prism.Ioc;
 using GPSNotepad.Views;
 using GPSNotepad.ViewModels;
+using GPSNotepad.Services.Repositiry;
 
 namespace GPSNotepad
 {
@@ -45,7 +46,8 @@ namespace GPSNotepad
             //Packages
 
             //Services
-
+            containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
+            containerRegistry.RegisterInstance<ILocalApi>(Container.Resolve<LocalApi>());
         }
 
         protected override void OnInitialized()

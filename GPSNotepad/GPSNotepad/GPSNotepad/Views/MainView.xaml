@@ -4,7 +4,7 @@
             x:Class="GPSNotepad.Views.MainView"
             Title="MainView">
   <!--Pages can be added as references or inline-->
-    <TabbedPage.Children>
+    <TabbedPage.Children >
         <local:MapView />
         <local:PinListView />
     </TabbedPage.Children>

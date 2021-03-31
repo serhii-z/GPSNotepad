@@ -1,12 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              x:Class="GPSNotepad.Views.AddPinView">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to AddPinView!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+            <Entry Grid.Column="1" 
+               Grid.Row="2"
+               Placeholder="Name"
+               Text="{Binding EntryNameText, Mode=TwoWay}"/>
+            <Entry Grid.Column="1" 
+               Grid.Row="3" 
+               Placeholder="Description"
+               Text="{Binding EntryDescriptionText, Mode=TwoWay}"/>
+            <Entry Grid.Column="1" 
+               Grid.Row="2"
+               Placeholder="Latitude"
+               Text="{Binding EntryLatitudeText, Mode=TwoWay}"/>
+            <Entry Grid.Column="1" 
+               Grid.Row="3" 
+               Placeholder="Longitude"
+               Text="{Binding EntryLongitudeText, Mode=TwoWay}"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <maps:Map x:Name="map" />
+        </Grid>
+    </Grid>
 </ContentPage>

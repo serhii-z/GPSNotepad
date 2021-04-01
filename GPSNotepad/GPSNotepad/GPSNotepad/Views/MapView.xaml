@@ -4,5 +4,18 @@
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              x:Class="GPSNotepad.Views.MapView"
              Title="Map">
-    <maps:Map x:Name="map" />
+    
+    <StackLayout>
+        <SearchBar Placeholder="Search pin"></SearchBar>
+        <maps:Map x:Name="map" ItemsSource="{Binding Locations}">
+            <maps:Map.ItemTemplate>
+                <DataTemplate>
+                    <maps:Pin Position="{Binding Position}"
+                              Address="{Binding Address}"
+                              Label="{Binding Description}" />
+                </DataTemplate>
+            </maps:Map.ItemTemplate>
+        </maps:Map>
+    </StackLayout>
+
 </ContentPage>

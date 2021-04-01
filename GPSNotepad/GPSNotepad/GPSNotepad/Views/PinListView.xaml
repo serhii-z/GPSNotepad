@@ -5,6 +5,7 @@
              Title="Pins">
     
     <AbsoluteLayout BackgroundColor="{DynamicResource pageBackgroundColor}">
+        <SearchBar Placeholder="Search pin"></SearchBar>
         <ListView CachingStrategy="RecycleElement"
                     ItemsSource="{Binding PinList, Mode=TwoWay}"
                     SelectedItem="{Binding SelectedItem, Mode=TwoWay}"

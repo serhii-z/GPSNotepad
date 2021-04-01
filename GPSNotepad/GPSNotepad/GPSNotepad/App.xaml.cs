@@ -47,7 +47,6 @@ namespace GPSNotepad
 
             //Services
             containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
-            containerRegistry.RegisterInstance<ILocalApi>(Container.Resolve<LocalApi>());
         }
 
         protected override void OnInitialized()

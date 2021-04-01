@@ -28,5 +28,16 @@ namespace GPSNotepad.ViewModels
         }
 
         #endregion
+
+        #region --- Overrides ---
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            //base.OnNavigatedTo(parameters);
+
+
+        }
+
+        #endregion
     }
 }

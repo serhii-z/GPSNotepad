@@ -41,6 +41,5 @@
 
   <ItemGroup>
     <Folder Include="Services\Pin\" />
-    <Folder Include="Services\Repositiry\" />
   </ItemGroup>
 </Project>

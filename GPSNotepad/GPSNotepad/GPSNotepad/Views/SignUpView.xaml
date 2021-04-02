@@ -32,11 +32,13 @@
         <Entry Grid.Row="3"
                Grid.Column="1"
                Placeholder="Password"
-               Text="{Binding EntryPasswordText}"/>
+               Text="{Binding EntryPasswordText}"
+               IsPassword="True"/>
         <Entry Grid.Row="4"
                Grid.Column="1"
                Placeholder="ConfirmPassword"
-               Text="{Binding EntryConfirmPassword}"/>
+               Text="{Binding EntryConfirmPasswordText}"
+               IsPassword="True"/>
         <Button Grid.Row="6"
                 Grid.Column="1"
                 Text="SignUp"

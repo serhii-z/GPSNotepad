@@ -1,9 +1,9 @@
-﻿using GPSNotepad.Views;
+﻿using GPSNotepad.Services.Authentication;
+using GPSNotepad.Services.Authorization;
+using GPSNotepad.Views;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
+using Prism.Services;
 using System.ComponentModel;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -11,8 +11,17 @@ namespace GPSNotepad.ViewModels
 {
     public class SignInViewModel : BaseViewModel
     {
-        public SignInViewModel(INavigationService navigationService) : base(navigationService)
+        private IAuthenticationService _authenticationService;
+        private IAuthorizationService _authorizationService;
+        private IPageDialogService _pageDialog;
+        public SignInViewModel(INavigationService navigationService, 
+            IAuthenticationService authenticationService, 
+            IAuthorizationService authorizationService, 
+            IPageDialogService pageDialogService) : base(navigationService)
         {
+            _authenticationService = authenticationService;
+            _authorizationService = authorizationService;
+            _pageDialog = pageDialogService;
         }
 
         #region --- Public Properties ---
@@ -68,15 +77,40 @@ namespace GPSNotepad.ViewModels
             EnabledButton = false;
         }
 
+        private bool IsAuthorization()
+        {
+            var userId = _authenticationService.VerifyUser(_entryEmailText, _entryPasswordText);
+
+            if (userId > 0)
+            {
+                _authorizationService.UserId = userId;
+                return true;
+            }
+
+            ShowAlert("Invalid login or password!");
+            EntryEmailText = string.Empty;
+            EntryPasswordText = string.Empty;
+
+            return false;
+        }
+
+        private async void ShowAlert(string message)
+        {
+            await _pageDialog.DisplayAlertAsync("Message", message, "OK");
+        }
+
         #endregion
 
         #region --- Private Helpers ---
-        private async void OnLogInTap(object obj)
+        private async void OnLogInTap()
         {
-            await navigationService.NavigateAsync($"{nameof(MainView)}");
+            if (IsAuthorization())
+            {
+                await navigationService.NavigateAsync($"{nameof(MainView)}");
+            }
         }
 
-        private async void OnSignUpTap(object obj)
+        private async void OnSignUpTap()
         {
             await navigationService.NavigateAsync($"{nameof(SignUpView)}");
         }
@@ -97,6 +131,14 @@ namespace GPSNotepad.ViewModels
             if (args.PropertyName == nameof(EntryPasswordText))
             {
                 CheckTextInput(_entryPasswordText);
+            }
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            if (parameters.TryGetValue("login", out string login))
+            {
+                EntryEmailText = login;
             }
         }
 

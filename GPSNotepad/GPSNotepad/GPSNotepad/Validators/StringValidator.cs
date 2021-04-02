@@ -4,11 +4,22 @@ namespace GPSNotepad.Validators
 {
     public static class StringValidator
     {
-        public static bool IsFirstSimbolDigit(string item)
+        public static bool IsValidName(string name)
         {
-            var hasNumber = new Regex(@"^[0-9]");
+            var hasSequence = new Regex(@"[A-Z][a-z]+\s[A-Z][a-z]+");
 
-            if (hasNumber.IsMatch(item))
+            if (hasSequence.IsMatch(name))
+            {
+                return true;
+            }
+
+            return false;
+        }
+        public static bool IsValidEmail(string email)
+        {
+            var hasSequence = new Regex(@"[a-z0-9._%+-]+@[a-z]+.[a-z]{2,4}");
+
+            if (hasSequence.IsMatch(email))
             {
                 return true;
             }

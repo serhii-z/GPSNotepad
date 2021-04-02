@@ -5,9 +5,9 @@ using System.Text;
 
 namespace GPSNotepad.ViewModels
 {
-    public class MainViewModel : BaseViewModel
+    public class MapViewModel : BaseViewModel
     {
-        public MainViewModel(INavigationService navigationService) : base(navigationService)
+        public MapViewModel(INavigationService navigationService) : base(navigationService)
         {
         }
     }

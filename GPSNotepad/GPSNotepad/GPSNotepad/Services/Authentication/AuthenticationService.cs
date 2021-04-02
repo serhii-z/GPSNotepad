@@ -30,12 +30,12 @@ namespace GPSNotepad.Services.Authentication
         {
             var user = GetAllUsers().Where(x => x.Email == login).ToList();
 
-            if (user == null)
+            if (user.Count == 1)
             {
-                return false;
+                return true;
             }
 
-            return true;
+            return false;
         }
 
         public int AddUser(UserModel user)

@@ -27,7 +27,8 @@
         <Entry Grid.Row="2"
                Grid.Column="1"
                Placeholder="Password"
-               Text="{Binding EntryPasswordText}"/>
+               Text="{Binding EntryPasswordText}"
+               IsPassword="True"/>
         <Button Grid.Row="4"
                 Grid.Column="1"
                 Text="SignIn"

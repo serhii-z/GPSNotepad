@@ -14,7 +14,7 @@ namespace GPSNotepad.Services.Repositiry
         {
             _database = new Lazy<SQLiteAsyncConnection>(() =>
             {
-                var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "profilebook.db");
+                var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "pinbook.db");
                 var database = new SQLiteAsyncConnection(path);
 
                 database.CreateTableAsync<UserModel>();

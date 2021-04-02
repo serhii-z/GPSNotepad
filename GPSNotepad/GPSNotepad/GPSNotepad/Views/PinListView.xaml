@@ -5,15 +5,14 @@
              Title="Pins">
     
     <AbsoluteLayout BackgroundColor="{DynamicResource pageBackgroundColor}">
-        <SearchBar Placeholder="Search pin"></SearchBar>
+        
         <ListView CachingStrategy="RecycleElement"
                     ItemsSource="{Binding PinList, Mode=TwoWay}"
                     SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                     AbsoluteLayout.LayoutFlags="All"
                     AbsoluteLayout.LayoutBounds="0,1,1,1"
                     HasUnevenRows="True"
-                    VerticalOptions="FillAndExpand"
-                    x:Name="listView">
+                    VerticalOptions="FillAndExpand">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -33,6 +32,10 @@
             <ListView.Behaviors>
             </ListView.Behaviors>
         </ListView>
+        <Label  Text="No pins added."
+                IsVisible="{Binding IsNoPins}"                       
+                AbsoluteLayout.LayoutBounds="0.5, 0.5, 200, 25"
+                AbsoluteLayout.LayoutFlags="PositionProportional"/>
         <ImageButton Source="add.png"
                 WidthRequest="96" 
                 HeightRequest="96"

@@ -7,6 +7,8 @@ using GPSNotepad.ViewModels;
 using GPSNotepad.Services.Repositiry;
 using GPSNotepad.Services.Authentication;
 using GPSNotepad.Services.Authorization;
+using GPSNotepad.Services.Pin;
+using GPSNotepad.Behaviors;
 
 namespace GPSNotepad
 {
@@ -39,7 +41,8 @@ namespace GPSNotepad
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<SignInView, SignInViewModel>();
             containerRegistry.RegisterForNavigation<SignUpView, SignUpViewModel>();
-            containerRegistry.RegisterForNavigation<MainView, MainViewModel>();
+            containerRegistry.RegisterForNavigation<MainView>();
+            containerRegistry.RegisterForNavigation<MapView, MapViewModel>();
             containerRegistry.RegisterForNavigation<PinListView, PinListViewModel>();
             containerRegistry.RegisterForNavigation<AddPinView, AddPinViewModel>();
 
@@ -49,6 +52,8 @@ namespace GPSNotepad
             containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
             containerRegistry.RegisterInstance<IAuthenticationService>(Container.Resolve<AuthenticationService>());
             containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
+            containerRegistry.RegisterInstance<IPinService>(Container.Resolve<PinService>());
+            containerRegistry.RegisterInstance(Container.Resolve<MainViewNavigationBehaviors>());
         }
 
         protected override void OnInitialized()

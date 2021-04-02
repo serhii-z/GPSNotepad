@@ -1,8 +1,9 @@
-﻿using Prism.Navigation;
-using System;
-using System.Collections.Generic;
+﻿using GPSNotepad.Models;
+using GPSNotepad.Services.Authentication;
+using GPSNotepad.Validators;
+using Prism.Navigation;
+using Prism.Services;
 using System.ComponentModel;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -10,8 +11,14 @@ namespace GPSNotepad.ViewModels
 {
     public class SignUpViewModel : BaseViewModel
     {
-        public SignUpViewModel(INavigationService navigationService) : base(navigationService)
+        private IAuthenticationService _authenticationService;
+        private IPageDialogService _pageDialog;
+        public SignUpViewModel(INavigationService navigationService, 
+            IAuthenticationService authenticationService,
+            IPageDialogService pageDialogService) : base(navigationService)
         {
+            _authenticationService = authenticationService;
+            _pageDialog = pageDialogService;
         }
 
         #region --- Public Properties ---
@@ -82,13 +89,110 @@ namespace GPSNotepad.ViewModels
             EnabledButton = false;
         }
 
+        private UserModel AddUser()
+        {
+            UserModel user = null;
+
+            if (IsPassValidation())
+            {
+                if (IsLogin())
+                {
+                    ShowAlert("This login is already token!");
+                    ClearEntries();
+                }
+                else
+                {
+                    user = CreateUser();
+                    _authenticationService.AddUser(user);
+                }
+            }
+
+            return user;
+        }
+
+        private bool IsLogin()
+        {
+            var isBusy = _authenticationService.IsLogin(_entryEmailText);
+
+            return isBusy;
+        }
+
+        private UserModel CreateUser()
+        {
+            var user = new UserModel()
+            {
+                Name = _entryNameText,
+                Email = _entryEmailText,
+                Password = _entryPasswordText
+            };
+
+            return user;
+        }
+
+        private void ClearEntries()
+        {
+            EntryNameText = string.Empty;
+            EntryEmailText = string.Empty;
+            EntryPasswordText = string.Empty;
+            EntryConfirmPasswordText = string.Empty;
+        }
+
+        private async void ShowAlert(string message)
+        {
+            await _pageDialog.DisplayAlertAsync("Message", message, "OK");
+        }
+
+        private bool IsPassValidation()
+        {
+            if (!StringValidator.IsValidName(_entryNameText))
+            {
+                ShowAlert("Invalid name!");
+                ClearEntries();
+                return false;
+            }
+            if (!StringValidator.IsValidEmail(_entryEmailText))
+            {
+                ShowAlert("Invalid email!");
+                ClearEntries();
+                return false;
+            }
+            if (!StringValidator.IsQuantityCorrect(_entryPasswordText, 8))
+            {
+                ShowAlert("Invalid number of characters!");
+                ClearEntries();
+                return false;
+            }
+            if (!StringValidator.IsAvailability(_entryPasswordText))
+            {
+                ShowAlert("Invalid availability!");
+                ClearEntries();
+                return false;
+            }
+            if (!StringValidator.IsPasswordsEqual(_entryPasswordText, _entryConfitmPasswordText))
+            {
+                ShowAlert("Password and confirm password are not equal!");
+                ClearEntries();
+                return false;
+            }
+
+            return true;
+        }
+
         #endregion
 
         #region ---- Private Helpers ---
 
-        private void OnSignUpTap(object obj)
+        private async void OnSignUpTap()
         {
+            var user = AddUser();
 
+            if (user != null)
+            {
+                var parameters = new NavigationParameters();
+                parameters.Add("login", user.Email);
+
+                await navigationService.GoBackAsync(parameters);
+            }
         }
 
         #endregion

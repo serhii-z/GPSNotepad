@@ -1,10 +1,9 @@
 ﻿using GPSNotepad.Models;
 using GPSNotepad.Services.Authorization;
+using GPSNotepad.Services.Pin;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
@@ -15,17 +14,20 @@ namespace GPSNotepad.ViewModels
     {
         private PinModel _pin;
         private IAuthorizationService _authorizationService;
+        private IPinService _pinService;
 
-        public AddPinViewModel(INavigationService navigationService, IAuthorizationService authorizationService) : base(navigationService)
+        public AddPinViewModel(INavigationService navigationService, 
+            IAuthorizationService authorizationService, 
+            IPinService pinService) : base(navigationService)
         {
             _authorizationService = authorizationService;
+            _pinService = pinService;
             Map = new Map();
         }
 
         #region --- Public Properties ---
 
         public ICommand SaveTapCommand => new Command(OnSaveTap);
-
 
         private Map _map;
         public Map Map
@@ -83,7 +85,7 @@ namespace GPSNotepad.ViewModels
             if (_pin == null)
             {
                 CreatePin();
-                //_pinService.AddPin(_pin);
+                _pinService.AddPin(_pin);
             }
         }
 

@@ -20,22 +20,13 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Image HorizontalOptions="Center"
-               Aspect="AspectFit"
-               Source="{Binding PinImage}" >
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ImageTapCommand}"/>
-                </Image.GestureRecognizers>
-            </Image>
-        </Grid>
-        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="2*"/>
-                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"/>
@@ -62,7 +53,7 @@
                 BackgroundColor="LightGray" 
                 MaxLength="30"/>
         </Grid>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="1">
             <ContentView Content="{Binding Map}"/>
         </Grid>
     </Grid>

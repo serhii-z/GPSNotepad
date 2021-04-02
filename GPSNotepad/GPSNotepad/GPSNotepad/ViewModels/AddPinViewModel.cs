@@ -31,13 +31,6 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _map, value);
         }
 
-        private ImageSource _pinImage = "pin.png";
-        public ImageSource PinImage
-        {
-            get => _pinImage;
-            set => SetProperty(ref _pinImage, value);
-        }
-
         private string _entryNameText;
         public string EntryNameText
         {
@@ -74,7 +67,6 @@ namespace GPSNotepad.ViewModels
         {
             _pin = new PinModel
             {
-                ImagePath = ExtractPath(),
                 Name = _entryNameText,
                 Latitude =  Convert.ToDouble(_entryLatitudeText),
                 Longitude = Convert.ToDouble(_entryLongitudeText),
@@ -83,17 +75,19 @@ namespace GPSNotepad.ViewModels
             };
         }
 
-        private string ExtractPath()
+        private void AddPin()
         {
-            var path = _pinImage.ToString();
-            path = path.Substring(6);
-
-            return path;
+            if (_pin == null)
+            {
+                CreatePin();
+                //_pinService.AddPin(_pin);
+            }
         }
 
         #endregion
 
         #region --- Private Helpers ---
+
         private void OnMapTap(object sender, MapClickedEventArgs e)
         {
             var position = e.Position;
@@ -102,9 +96,17 @@ namespace GPSNotepad.ViewModels
             EntryLongitudeText = position.Longitude.ToString();
         }
 
-        private void OnSaveTap(object obj)
+        private async void OnSaveTap(object obj)
         {
-            
+            if (!string.IsNullOrEmpty(_entryNameText) && 
+                !string.IsNullOrEmpty(_entryLatitudeText) && 
+                !string.IsNullOrEmpty(_entryLongitudeText) && 
+                !string.IsNullOrEmpty(_editorText))
+            {
+                AddPin();
+
+                await navigationService.GoBackAsync();
+            }
         }
 
         #endregion

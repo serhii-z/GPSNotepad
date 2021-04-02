@@ -1,12 +1,12 @@
 ﻿using Prism.Unity;
 using Prism;
-using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 using Prism.Ioc;
 using GPSNotepad.Views;
 using GPSNotepad.ViewModels;
 using GPSNotepad.Services.Repositiry;
+using GPSNotepad.Services.Authentication;
+using GPSNotepad.Services.Authorization;
 
 namespace GPSNotepad
 {
@@ -46,7 +46,9 @@ namespace GPSNotepad
             //Packages
 
             //Services
-            containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
+            containerRegistry.RegisterInstance(Container.Resolve<Repository>());
+            containerRegistry.RegisterInstance<IAuthenticationService>(Container.Resolve<AuthenticationService>());
+            containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
         }
 
         protected override void OnInitialized()
@@ -56,7 +58,12 @@ namespace GPSNotepad
 
         private async void GoToView()
         {
-            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignInView)}");
+            var userId = Container.Resolve<AuthorizationService>().Id;
+
+            if(userId > 0)
+                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainView)}");
+            else
+                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignInView)}");
         }
     }
 }

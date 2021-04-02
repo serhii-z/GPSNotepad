@@ -33,7 +33,7 @@ namespace GPSNotepad.ViewModels
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            //base.OnNavigatedTo(parameters);
+            base.OnNavigatedTo(parameters);
 
 
         }

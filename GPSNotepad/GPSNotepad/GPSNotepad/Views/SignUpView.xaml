@@ -45,4 +45,5 @@
                 Command="{Binding SignUpTapCommand}"
                 IsEnabled="{Binding EnabledButton}"/>
     </Grid>
+    
 </ContentPage>

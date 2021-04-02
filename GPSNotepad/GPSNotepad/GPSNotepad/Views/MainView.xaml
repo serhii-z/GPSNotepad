@@ -2,10 +2,12 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:GPSNotepad.Views"
             x:Class="GPSNotepad.Views.MainView"
-            Title="MainView">
-  <!--Pages can be added as references or inline-->
+            Title="MainView"
+            NavigationPage.HasBackButton="False">
+    
     <TabbedPage.Children >
         <local:MapView />
         <local:PinListView />
     </TabbedPage.Children>
+    
 </TabbedPage>

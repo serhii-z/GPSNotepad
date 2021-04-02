@@ -58,7 +58,7 @@ namespace GPSNotepad
 
         private async void GoToView()
         {
-            var userId = Container.Resolve<AuthorizationService>().Id;
+            var userId = Container.Resolve<AuthorizationService>().UserId;
 
             if(userId > 0)
                 await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainView)}");

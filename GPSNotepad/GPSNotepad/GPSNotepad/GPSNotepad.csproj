@@ -41,6 +41,5 @@
 
   <ItemGroup>
     <Folder Include="Validators\" />
-    <Folder Include="Services\Pin\" />
   </ItemGroup>
 </Project>

@@ -6,6 +6,6 @@ namespace GPSNotepad.Services.Authorization
 {
     public interface IAuthorizationService
     {
-        int Id { get; set; }
+        int UserId { get; set; }
     }
 }

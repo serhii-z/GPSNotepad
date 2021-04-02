@@ -7,10 +7,10 @@ namespace GPSNotepad.Services.Authorization
 {
     public class AuthorizationService : IAuthorizationService
     {
-        public int Id 
+        public int UserId 
         {
-            get => Preferences.Get(nameof(Id), 0);
-            set => Preferences.Set(nameof(Id), value); 
+            get => Preferences.Get(nameof(UserId), 0);
+            set => Preferences.Set(nameof(UserId), value); 
         }
     }
 }

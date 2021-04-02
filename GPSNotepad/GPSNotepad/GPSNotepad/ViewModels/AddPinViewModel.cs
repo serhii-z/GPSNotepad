@@ -1,4 +1,5 @@
 ﻿using GPSNotepad.Models;
+using GPSNotepad.Services.Authorization;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,11 @@ namespace GPSNotepad.ViewModels
     public class AddPinViewModel : BaseViewModel
     {
         private PinModel _pin;
+        private IAuthorizationService _authorizationService;
 
-        public AddPinViewModel(INavigationService navigationService) : base(navigationService)
+        public AddPinViewModel(INavigationService navigationService, IAuthorizationService authorizationService) : base(navigationService)
         {
+            _authorizationService = authorizationService;
             Map = new Map();
         }
 
@@ -68,10 +71,10 @@ namespace GPSNotepad.ViewModels
             _pin = new PinModel
             {
                 Name = _entryNameText,
-                Latitude =  Convert.ToDouble(_entryLatitudeText),
+                Latitude = Convert.ToDouble(_entryLatitudeText),
                 Longitude = Convert.ToDouble(_entryLongitudeText),
                 Description = _editorText,
-                //UserId = _authorizationService.GetAuthorizedUserId()
+                UserId = _authorizationService.UserId
             };
         }
 

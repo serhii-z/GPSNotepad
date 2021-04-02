@@ -88,7 +88,7 @@ namespace GPSNotepad.ViewModels
 
         private void OnSignUpTap(object obj)
         {
-            
+
         }
 
         #endregion

@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace GPSNotepad.Services.Repositiry
 {
-    public class Repository
+    public class Repository : IRepository
     {
-        private static Lazy<SQLiteAsyncConnection> database;
+        private Lazy<SQLiteAsyncConnection> _database;
         public Repository()
         {
-            database = new Lazy<SQLiteAsyncConnection>(() =>
+            _database = new Lazy<SQLiteAsyncConnection>(() =>
             {
                 var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "profilebook.db");
                 var database = new SQLiteAsyncConnection(path);
@@ -24,24 +24,24 @@ namespace GPSNotepad.Services.Repositiry
             });
         }
 
-        public static Task<int> InsertAsync<T>(T item) where T : IEntityBase, new()
+        public Task<int> InsertAsync<T>(T item) where T : IEntityBase, new()
         {
-            return database.Value.InsertAsync(item);
+            return _database.Value.InsertAsync(item);
         }
 
-        public static Task<int> UpdateAsync<T>(T item) where T : IEntityBase, new()
+        public Task<int> UpdateAsync<T>(T item) where T : IEntityBase, new()
         {
-            return database.Value.UpdateAsync(item);
+            return _database.Value.UpdateAsync(item);
         }
 
-        public static Task<int> DeleteAsync<T>(T item) where T : IEntityBase, new()
+        public Task<int> DeleteAsync<T>(T item) where T : IEntityBase, new()
         {
-            return database.Value.DeleteAsync(item);
+            return _database.Value.DeleteAsync(item);
         }
 
-        public static Task<List<T>> GetAllAsync<T>() where T : IEntityBase, new()
+        public Task<List<T>> GetAllAsync<T>() where T : IEntityBase, new()
         {
-            return database.Value.Table<T>().ToListAsync();
+            return _database.Value.Table<T>().ToListAsync();
         }
     }
 }

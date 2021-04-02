@@ -46,7 +46,7 @@ namespace GPSNotepad
             //Packages
 
             //Services
-            containerRegistry.RegisterInstance(Container.Resolve<Repository>());
+            containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
             containerRegistry.RegisterInstance<IAuthenticationService>(Container.Resolve<AuthenticationService>());
             containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
         }

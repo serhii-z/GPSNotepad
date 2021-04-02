@@ -7,30 +7,37 @@ namespace GPSNotepad.Services.Pin
 {
     public class PinService : IPinService
     {
+        private IRepository _repository;
+
+        public PinService(IRepository repository)
+        {
+            _repository = repository;
+        }
+
         public int AddPin(PinModel profile)
         {
-            var result = Repository.InsertAsync(profile).Result;
+            var result = _repository.InsertAsync(profile).Result;
 
             return result;
         }
 
         public int UpdatePin(PinModel profile)
         {
-            var result = Repository.UpdateAsync(profile).Result;
+            var result = _repository.UpdateAsync(profile).Result;
 
             return result;
         }
 
         public int DeletePin(PinModel profile)
         {
-            var result = Repository.DeleteAsync(profile).Result;
+            var result = _repository.DeleteAsync(profile).Result;
 
             return result;
         }
 
         public List<PinModel> GetAllPins(int userId)
         {
-            var pin = Repository.GetAllAsync<PinModel>().Result;
+            var pin = _repository.GetAllAsync<PinModel>().Result;
             pin = pin.Where(x => x.UserId == userId).ToList();
 
             return pin;

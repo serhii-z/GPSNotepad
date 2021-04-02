@@ -7,6 +7,13 @@ namespace GPSNotepad.Services.Authentication
 {
     public class AuthenticationService : IAuthenticationService
     {
+        private IRepository _repository;
+
+        public AuthenticationService(IRepository repository)
+        {
+            _repository = repository;
+        }
+
         public int VerifyUser(string login, string password)
         {
             var user = GetAllUsers().Where(x => x.Email == login && x.Password == password).ToList();
@@ -33,14 +40,14 @@ namespace GPSNotepad.Services.Authentication
 
         public int AddUser(UserModel user)
         {
-            var result = Repository.InsertAsync(user).Result;
+            var result = _repository.InsertAsync(user).Result;
 
             return result;
         }
 
         private List<UserModel> GetAllUsers()
         {
-            var users = Repository.GetAllAsync<UserModel>().Result;
+            var users = _repository.GetAllAsync<UserModel>().Result;
 
             return users;
         }

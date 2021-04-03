@@ -22,15 +22,15 @@ namespace GPSNotepad.ViewModels
         {
             _pinService = pinService;
             _authorizationService = authorizationService;
-            PinList = new ObservableCollection<PinModel>();
+            PinList = new ObservableCollection<PinViewModel>();
         }
 
         #region --- Public Properties ---
 
         public ICommand AddTapCommand => new Command(OnAddTap);
 
-        private ObservableCollection<PinModel> _pinList;
-        public ObservableCollection<PinModel> PinList
+        private ObservableCollection<PinViewModel> _pinList;
+        public ObservableCollection<PinViewModel> PinList
         {
             get { return _pinList; }
             set => SetProperty(ref _pinList, value);
@@ -54,7 +54,7 @@ namespace GPSNotepad.ViewModels
 
         #region --- Private Methods ---
 
-        private void ShowProfiles(List<PinModel> pinList)
+        private void ShowProfiles(List<PinViewModel> pinList)
         {
             if (pinList.Count > 0)
             {
@@ -73,7 +73,7 @@ namespace GPSNotepad.ViewModels
             }
         }
 
-        private List<PinModel> GetPins()
+        private List<PinViewModel> GetPins()
         {
             var pinList = _pinService.GetAllPins(_authorizationService.UserId);
 
@@ -107,7 +107,6 @@ namespace GPSNotepad.ViewModels
                 OnSelectedItemTap();
             }
         }
-
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {

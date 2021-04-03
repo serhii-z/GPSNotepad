@@ -8,6 +8,6 @@ namespace GPSNotepad.Services.Pin
         int AddPin(PinModel profile);
         int UpdatePin(PinModel profile);
         int DeletePin(PinModel profile);
-        List<PinModel> GetAllPins(int userId);
+        List<PinViewModel> GetAllPins(int userId);
     }
 }

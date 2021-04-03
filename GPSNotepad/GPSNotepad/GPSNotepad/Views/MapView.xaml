@@ -1,21 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:local1="clr-namespace:GPSNotepad.Controls"
              x:Class="GPSNotepad.Views.MapView"
              Title="Map">
     
     <StackLayout>
         <SearchBar Placeholder="Search pin"></SearchBar>
-        <maps:Map x:Name="map" ItemsSource="{Binding Locations}">
-            <maps:Map.ItemTemplate>
-                <DataTemplate>
-                    <maps:Pin Position="{Binding Position}"
-                              Address="{Binding Address}"
-                              Label="{Binding Description}" />
-                </DataTemplate>
-            </maps:Map.ItemTemplate>
-        </maps:Map>
+        <local1:CustomMap MapType="Street" />
     </StackLayout>
 
 </ContentPage>

@@ -5,14 +5,17 @@
              Title="Pins">
     
     <AbsoluteLayout BackgroundColor="{DynamicResource pageBackgroundColor}">
-        
+        <SearchBar Placeholder="Search pin" 
+                   AbsoluteLayout.LayoutFlags="All" 
+                   AbsoluteLayout.LayoutBounds="0,0,1,0.08"/>
         <ListView CachingStrategy="RecycleElement"
                     ItemsSource="{Binding PinList, Mode=TwoWay}"
                     SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                     AbsoluteLayout.LayoutFlags="All"
-                    AbsoluteLayout.LayoutBounds="0,1,1,1"
+                    AbsoluteLayout.LayoutBounds="0,1,1,0.91"
                     HasUnevenRows="True"
-                    VerticalOptions="FillAndExpand">
+                    VerticalOptions="FillAndExpand"
+                  BackgroundColor="Beige">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

@@ -1,4 +1,5 @@
-﻿using GPSNotepad.Models;
+﻿using GPSNotepad.Controls;
+using GPSNotepad.Models;
 using GPSNotepad.Services.Authorization;
 using GPSNotepad.Services.Pin;
 using Prism.Navigation;
@@ -18,11 +19,11 @@ namespace GPSNotepad.ViewModels
 
         public AddPinViewModel(INavigationService navigationService, 
             IAuthorizationService authorizationService, 
-            IPinService pinService) : base(navigationService)
+            IPinService pinService, CustomMap customMap) : base(navigationService)
         {
             _authorizationService = authorizationService;
             _pinService = pinService;
-            Map = new Map();
+            Map = customMap;
         }
 
         #region --- Public Properties ---

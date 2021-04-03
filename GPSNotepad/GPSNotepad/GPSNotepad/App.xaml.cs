@@ -9,6 +9,7 @@ using GPSNotepad.Services.Authentication;
 using GPSNotepad.Services.Authorization;
 using GPSNotepad.Services.Pin;
 using GPSNotepad.Behaviors;
+using GPSNotepad.Controls;
 
 namespace GPSNotepad
 {
@@ -54,6 +55,7 @@ namespace GPSNotepad
             containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
             containerRegistry.RegisterInstance<IPinService>(Container.Resolve<PinService>());
             containerRegistry.RegisterInstance(Container.Resolve<MainViewNavigationBehaviors>());
+            containerRegistry.RegisterInstance(Container.Resolve<CustomMap>());
         }
 
         protected override void OnInitialized()

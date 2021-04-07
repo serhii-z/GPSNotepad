@@ -1,5 +1,4 @@
-﻿using GPSNotepad.Controls;
-using GPSNotepad.Models;
+﻿using GPSNotepad.Models;
 using GPSNotepad.Services.Authorization;
 using GPSNotepad.Services.Pin;
 using Prism.Navigation;
@@ -7,7 +6,7 @@ using System;
 using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
-using Xamarin.Forms.Maps;
+using Xamarin.Forms.GoogleMaps;
 
 namespace GPSNotepad.ViewModels
 {
@@ -19,23 +18,17 @@ namespace GPSNotepad.ViewModels
 
         public AddPinViewModel(INavigationService navigationService, 
             IAuthorizationService authorizationService, 
-            IPinService pinService, CustomMap customMap) : base(navigationService)
+            IPinService pinService) : base(navigationService)
         {
             _authorizationService = authorizationService;
             _pinService = pinService;
-            Map = customMap;
         }
 
         #region --- Public Properties ---
 
-        public ICommand SaveTapCommand => new Command(OnSaveTap);
+        public ICommand SaveTappedCommand => new Command(OnSaveTap);
 
-        private Map _map;
-        public Map Map
-        {
-            get => _map;
-            set => SetProperty(ref _map, value);
-        }
+        public ICommand MapTappedCommand => new Command<Position>(OnMapTap);
 
         private string _entryNameText;
         public string EntryNameText
@@ -67,36 +60,11 @@ namespace GPSNotepad.ViewModels
 
         #endregion
 
-        #region --- Private Methods ---
-
-        private void CreatePin()
-        {
-            _pin = new PinModel
-            {
-                Name = _entryNameText,
-                Latitude = Convert.ToDouble(_entryLatitudeText),
-                Longitude = Convert.ToDouble(_entryLongitudeText),
-                Description = _editorText,
-                UserId = _authorizationService.UserId
-            };
-        }
-
-        private void AddPin()
-        {
-            if (_pin == null)
-            {
-                CreatePin();
-                _pinService.AddPin(_pin);
-            }
-        }
-
-        #endregion
-
         #region --- Private Helpers ---
 
-        private void OnMapTap(object sender, MapClickedEventArgs e)
+        private void OnMapTap(Position obj)
         {
-            var position = e.Position;
+            var position = obj;
 
             EntryLatitudeText = position.Latitude.ToString();
             EntryLongitudeText = position.Longitude.ToString();
@@ -117,16 +85,26 @@ namespace GPSNotepad.ViewModels
 
         #endregion
 
+        #region --- Private Methods ---
 
-        #region --- Overrides ---
-
-        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+        private void CreatePin()
         {
-            base.OnPropertyChanged(args);
-
-            if (args.PropertyName == nameof(Map))
+            _pin = new PinModel
             {
-                _map.MapClicked += new EventHandler<MapClickedEventArgs>(OnMapTap);
+                Name = _entryNameText,
+                Latitude = Convert.ToDouble(_entryLatitudeText),
+                Longitude = Convert.ToDouble(_entryLongitudeText),
+                Description = _editorText,
+                UserId = _authorizationService.UserId
+            };
+        }
+
+        private void AddPin()
+        {
+            if (_pin == null)
+            {
+                CreatePin();
+                _pinService.AddPin(_pin);
             }
         }
 

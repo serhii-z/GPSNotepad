@@ -9,7 +9,7 @@
                    AbsoluteLayout.LayoutFlags="All" 
                    AbsoluteLayout.LayoutBounds="0,0,1,0.08"/>
         <ListView CachingStrategy="RecycleElement"
-                    ItemsSource="{Binding PinList, Mode=TwoWay}"
+                    ItemsSource="{Binding PinViewModels, Mode=TwoWay}"
                     SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                     AbsoluteLayout.LayoutFlags="All"
                     AbsoluteLayout.LayoutBounds="0,1,1,0.91"

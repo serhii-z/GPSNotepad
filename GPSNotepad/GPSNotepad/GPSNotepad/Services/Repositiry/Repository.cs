@@ -18,7 +18,7 @@ namespace GPSNotepad.Services.Repositiry
                 var database = new SQLiteAsyncConnection(path);
 
                 database.CreateTableAsync<UserModel>();
-                database.CreateTableAsync<PinModel>();
+                database.CreateTableAsync<PinModel>().Wait();
 
                 return database;
             });

@@ -11,29 +11,24 @@ using Xamarin.Forms;
 
 namespace GPSNotepad.ViewModels
 {
-    public class PinListViewModel : BaseViewModel
+    public class PinListViewModel : BaseTabViewModel
     {
-        private IAuthorizationService _authorizationService;
-        private IPinService _pinService;
-
         public PinListViewModel(INavigationService navigationService, 
             IAuthorizationService authorizationService, 
-            IPinService pinService) : base(navigationService)
+            IPinService pinService) : base(navigationService, authorizationService, pinService)
         {
-            _pinService = pinService;
-            _authorizationService = authorizationService;
-            PinList = new ObservableCollection<PinViewModel>();
+            PinViewModels = new ObservableCollection<PinViewModel>();
         }
 
         #region --- Public Properties ---
 
         public ICommand AddTapCommand => new Command(OnAddTap);
 
-        private ObservableCollection<PinViewModel> _pinList;
-        public ObservableCollection<PinViewModel> PinList
+        private ObservableCollection<PinViewModel> _pinViewModels;
+        public ObservableCollection<PinViewModel> PinViewModels
         {
-            get { return _pinList; }
-            set => SetProperty(ref _pinList, value);
+            get { return _pinViewModels; }
+            set => SetProperty(ref _pinViewModels, value);
         }
 
         private bool _isNoPins;
@@ -52,46 +47,20 @@ namespace GPSNotepad.ViewModels
 
         #endregion
 
-        #region --- Private Methods ---
-
-        private void ShowProfiles(List<PinViewModel> pinList)
-        {
-            if (pinList.Count > 0)
-            {
-                PinList.Clear();
-
-                foreach (var item in pinList)
-                {
-                    PinList.Add(item);
-                }
-
-                IsNoPins = false;
-            }
-            else
-            {
-                IsNoPins = true;
-            }
-        }
-
-        private List<PinViewModel> GetPins()
-        {
-            var pinList = _pinService.GetAllPins(_authorizationService.UserId);
-
-            return pinList;
-        }
-
-        private void OnSelectedItemTap()
-        {
-            
-        }
-
-        #endregion
-
         #region --- Private Helpers ---
 
         private async void OnAddTap(object obj)
         {
             await navigationService.NavigateAsync($"{nameof(AddPinView)}");
+        }
+
+        private async void OnSelectedItemTap()
+        {
+            var item = _selectedItem as PinViewModel;
+            var parameters = new NavigationParameters();
+            parameters.Add("pinViewModel", item);
+
+            await navigationService.NavigateAsync($"{nameof(MainView)}", parameters);
         }
 
         #endregion
@@ -113,8 +82,40 @@ namespace GPSNotepad.ViewModels
             base.OnNavigatedTo(parameters);
 
             var pinList = GetPins();
-            ShowProfiles(pinList);
+            ShowPins(pinList);
         }
+
+        #endregion
+
+        #region --- Private Methods ---
+
+        private void ShowPins(List<PinViewModel> pinList)
+        {
+            if (pinList.Count > 0)
+            {
+                PinViewModels.Clear();
+
+                foreach (var item in pinList)
+                {
+                    PinViewModels.Add(item);
+                }
+
+                IsNoPins = false;
+            }
+            else
+            {
+                IsNoPins = true;
+            }
+        }
+
+        private List<PinViewModel> GetPins()
+        {
+            var pinList = GetAllPins(authorizationService.UserId);
+
+            return pinList;
+        }
+
+
 
         #endregion
     }

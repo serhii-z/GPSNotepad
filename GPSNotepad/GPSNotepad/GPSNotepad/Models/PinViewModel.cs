@@ -1,8 +1,6 @@
-﻿using Xamarin.Forms.Maps;
-
-namespace GPSNotepad.Models
+﻿namespace GPSNotepad.Models
 {
-    public class PinViewModel : Pin
+    public class PinViewModel
     {
         public int PinId { get; set; }
         public string Name { get; set; }

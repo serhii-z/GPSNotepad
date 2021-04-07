@@ -51,6 +51,33 @@ namespace GPSNotepad.ViewModels
 
         #endregion
 
+        #region --- Overrides ---
+
+        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            base.OnPropertyChanged(args);
+
+            if (args.PropertyName == nameof(EntryEmailText))
+            {
+                CheckTextInput(_entryEmailText);
+            }
+
+            if (args.PropertyName == nameof(EntryPasswordText))
+            {
+                CheckTextInput(_entryPasswordText);
+            }
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            if (parameters.TryGetValue("login", out string login))
+            {
+                EntryEmailText = login;
+            }
+        }
+
+        #endregion
+
         #region --- Private Methods ---
 
         private void CheckTextInput(string elementText)
@@ -113,33 +140,6 @@ namespace GPSNotepad.ViewModels
         private async void OnSignUpTap()
         {
             await navigationService.NavigateAsync($"{nameof(SignUpView)}");
-        }
-
-        #endregion
-
-        #region --- Overrides ---
-
-        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
-        {
-            base.OnPropertyChanged(args);
-
-            if (args.PropertyName == nameof(EntryEmailText))
-            {
-                CheckTextInput(_entryEmailText);
-            }
-
-            if (args.PropertyName == nameof(EntryPasswordText))
-            {
-                CheckTextInput(_entryPasswordText);
-            }
-        }
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            if (parameters.TryGetValue("login", out string login))
-            {
-                EntryEmailText = login;
-            }
         }
 
         #endregion

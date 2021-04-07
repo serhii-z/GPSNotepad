@@ -59,6 +59,52 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _enabledButton, value);
         }
 
+        #endregion   
+
+        #region ---- Private Helpers ---
+
+        private async void OnSignUpTap()
+        {
+            var user = AddUser();
+
+            if (user != null)
+            {
+                var parameters = new NavigationParameters();
+                parameters.Add("login", user.Email);
+
+                await navigationService.GoBackAsync(parameters);
+            }
+        }
+
+        #endregion
+
+        #region --- Overrides ---
+
+        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            base.OnPropertyChanged(args);
+
+            if (args.PropertyName == nameof(EntryNameText))
+            {
+                CheckTextInput(_entryNameText);
+            }
+
+            if (args.PropertyName == nameof(EntryEmailText))
+            {
+                CheckTextInput(_entryEmailText);
+            }
+
+            if (args.PropertyName == nameof(EntryPasswordText))
+            {
+                CheckTextInput(_entryPasswordText);
+            }
+
+            if (args.PropertyName == nameof(EntryConfirmPasswordText))
+            {
+                CheckTextInput(_entryConfitmPasswordText);
+            }
+        }
+
         #endregion
 
         #region --- Private Methods ---
@@ -176,52 +222,6 @@ namespace GPSNotepad.ViewModels
             }
 
             return true;
-        }
-
-        #endregion
-
-        #region ---- Private Helpers ---
-
-        private async void OnSignUpTap()
-        {
-            var user = AddUser();
-
-            if (user != null)
-            {
-                var parameters = new NavigationParameters();
-                parameters.Add("login", user.Email);
-
-                await navigationService.GoBackAsync(parameters);
-            }
-        }
-
-        #endregion
-
-        #region --- Overrides ---
-
-        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
-        {
-            base.OnPropertyChanged(args);
-
-            if (args.PropertyName == nameof(EntryNameText))
-            {
-                CheckTextInput(_entryNameText);
-            }
-
-            if (args.PropertyName == nameof(EntryEmailText))
-            {
-                CheckTextInput(_entryEmailText);
-            }
-
-            if (args.PropertyName == nameof(EntryPasswordText))
-            {
-                CheckTextInput(_entryPasswordText);
-            }
-
-            if (args.PropertyName == nameof(EntryConfirmPasswordText))
-            {
-                CheckTextInput(_entryConfitmPasswordText);
-            }
         }
 
         #endregion

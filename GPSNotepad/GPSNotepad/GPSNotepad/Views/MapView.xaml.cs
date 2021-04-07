@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GPSNotepad.Controls;
+using GPSNotepad.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +16,7 @@ namespace GPSNotepad.Views
     {
         public MapView()
         {
-            InitializeComponent();
+                InitializeComponent();         
         }
     }
 }

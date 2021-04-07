@@ -35,27 +35,7 @@ namespace GPSNotepad.Services.Pin
             return result;
         }
 
-        public List<PinViewModel> GetAllPins(int userId)
-        {
-            var pinViewModels = new List<PinViewModel>();
-
-            foreach(var item in GetAllPinModels(userId))
-            {
-                pinViewModels.Add(CreatePinViewModel(item));
-            }
-
-            return pinViewModels;
-        }
-
-        private PinViewModel CreatePinViewModel(PinModel pinModel)
-        {
-            var pinViewModel = new PinViewModel();
-            PinViewModelExtension.InitInstance(pinViewModel, pinModel);
-
-            return pinViewModel;
-        }
-
-        private List<PinModel> GetAllPinModels(int userId)
+        public List<PinModel> GetAllPinModels(int userId)
         {
             var pinModels = _repository.GetAllAsync<PinModel>().Result;
             pinModels = pinModels.Where(x => x.UserId == userId).ToList();

@@ -115,8 +115,6 @@ namespace GPSNotepad.ViewModels
             return pinList;
         }
 
-
-
         #endregion
     }
 }

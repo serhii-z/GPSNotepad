@@ -17,7 +17,7 @@ namespace GPSNotepad.Services.Repositiry
                 var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "pinbook.db");
                 var database = new SQLiteAsyncConnection(path);
 
-                database.CreateTableAsync<UserModel>();
+                database.CreateTableAsync<UserModel>().Wait();
                 database.CreateTableAsync<PinModel>().Wait();
 
                 return database;

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GPSNotepad.Views.PinInfoView"
+             BackgroundColor="Transparent">
+
+    <AbsoluteLayout>
+        <AbsoluteLayout.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding GoBackTapCommand}"/>
+        </AbsoluteLayout.GestureRecognizers>
+        <Frame AbsoluteLayout.LayoutFlags="All"
+            AbsoluteLayout.LayoutBounds="0.5,0.9,0.6,0.2"
+            IsVisible="{Binding HasVisible}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Text="{Binding Name}" 
+                       HorizontalOptions="Center" 
+                       VerticalOptions="CenterAndExpand" />
+                <Label Grid.Row="1" Text="{Binding Description}"/>
+            </Grid>
+        </Frame>
+    </AbsoluteLayout>
+    
+
+
+</ContentPage>

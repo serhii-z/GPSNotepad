@@ -1,36 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:GPSNotepad.Controls" 
+             xmlns:local="clr-namespace:GPSNotepad.Controls"
              x:Class="GPSNotepad.Views.MapView"
              Title="Map">
+
     <AbsoluteLayout>
         <SearchBar Placeholder="Search pin" 
                    AbsoluteLayout.LayoutFlags="All" 
                    AbsoluteLayout.LayoutBounds="0,0,1,0.08"></SearchBar>
+        <ListView  AbsoluteLayout.LayoutFlags="All" 
+                   AbsoluteLayout.LayoutBounds="0,0.36,1,0.74"
+                  ItemsSource="{Binding SearchResults}" />
         <local:CustomMap
             AbsoluteLayout.LayoutFlags="All"
             AbsoluteLayout.LayoutBounds="0,1,1,0.91"
             PinsSource="{Binding Pins}"
-            CommandPinTap="{Binding PinTappedCommand}" 
-            PinPosition="{Binding CameraPosition}">
+            CommandPinTap="{Binding PinTappedCommand}"
+            Region="{Binding Region}"
+            Animated="{Binding Animated}">
         </local:CustomMap>
-        <Frame AbsoluteLayout.LayoutFlags="All"
-            AbsoluteLayout.LayoutBounds="0.5,1,0.6,0.2"
-            IsVisible="{Binding HasVisible}">
-            <Frame.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding FrameTappedCommand}"/>
-            </Frame.GestureRecognizers>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0" Text="{Binding Name}" 
-                       HorizontalOptions="Center" 
-                       VerticalOptions="CenterAndExpand" />
-                <Label Grid.Row="1" Text="{Binding Description}"/>
-            </Grid>
-        </Frame>
     </AbsoluteLayout>
 </ContentPage>

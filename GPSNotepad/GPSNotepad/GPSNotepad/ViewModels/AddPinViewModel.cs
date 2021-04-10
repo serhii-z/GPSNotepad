@@ -3,7 +3,7 @@ using GPSNotepad.Services.Authorization;
 using GPSNotepad.Services.Pin;
 using Prism.Navigation;
 using System;
-using System.ComponentModel;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
@@ -22,13 +22,20 @@ namespace GPSNotepad.ViewModels
         {
             _authorizationService = authorizationService;
             _pinService = pinService;
+            Pins = new ObservableCollection<Pin>();
         }
 
         #region --- Public Properties ---
 
         public ICommand SaveTappedCommand => new Command(OnSaveTap);
-
         public ICommand MapTappedCommand => new Command<Position>(OnMapTap);
+
+        private ObservableCollection<Pin> _pins;
+        public ObservableCollection<Pin> Pins
+        {
+            get => _pins;
+            set => SetProperty(ref _pins, value);
+        }
 
         private string _entryNameText;
         public string EntryNameText
@@ -68,6 +75,9 @@ namespace GPSNotepad.ViewModels
 
             EntryLatitudeText = position.Latitude.ToString();
             EntryLongitudeText = position.Longitude.ToString();
+
+            Pins.Clear();
+            Pins.Add(CreatePin());
         }
 
         private async void OnSaveTap(object obj)
@@ -87,7 +97,18 @@ namespace GPSNotepad.ViewModels
 
         #region --- Private Methods ---
 
-        private void CreatePin()
+        private Pin CreatePin()
+        {
+            var pin = new Pin
+            {
+                Position = new Position(double.Parse(EntryLatitudeText), double.Parse(EntryLongitudeText)),
+                Label = "NamePlace"
+            };
+
+            return pin;
+        }
+
+        private void CreatePinModel()
         {
             _pin = new PinModel
             {
@@ -103,7 +124,7 @@ namespace GPSNotepad.ViewModels
         {
             if (_pin == null)
             {
-                CreatePin();
+                CreatePinModel();
                 _pinService.AddPin(_pin);
             }
         }

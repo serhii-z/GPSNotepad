@@ -23,8 +23,6 @@ namespace GPSNotepad.Controls
 
         public static readonly BindableProperty AnimatedProperty = BindableProperty.Create(nameof(Animated), typeof(bool), typeof(CustomMap), true);
 
-        public bool Animated => (bool)GetValue(AnimatedProperty);
-
         public CustomMap()
         {
             PinsSource = Pins as ObservableCollection<Pin>;
@@ -44,10 +42,13 @@ namespace GPSNotepad.Controls
         public new MapSpan Region
         {
             get => (MapSpan)GetValue(RegionProperty);
-            set
-            {
-                SetValue(RegionProperty, value);
-            }
+            set => SetValue(RegionProperty, value);
+        }
+
+        public bool Animated
+        {
+            get => (bool)GetValue(AnimatedProperty);
+            set => SetValue(AnimatedProperty, value);
         }
 
         public ICommand CommandMapTap
@@ -64,7 +65,7 @@ namespace GPSNotepad.Controls
 
         #endregion
 
-        #region --- Overrides ---
+        #region --- Private Helpers ---
 
         private void CustomMap_MapClicked(object sender, MapClickedEventArgs e)
         {
@@ -76,8 +77,6 @@ namespace GPSNotepad.Controls
             CommandPinTap?.Execute(e.Pin);
         }
 
-        #endregion
-
         private static void OnRegionChanged(BindableObject bindable, object oldValue, object newValue)
         {
             if (newValue == null) return;
@@ -85,6 +84,8 @@ namespace GPSNotepad.Controls
             var behavior = (CustomMap)bindable;
             behavior.MoveToRegion((MapSpan)newValue, behavior.Animated);
         }
+
+        #endregion
     }
 }
 

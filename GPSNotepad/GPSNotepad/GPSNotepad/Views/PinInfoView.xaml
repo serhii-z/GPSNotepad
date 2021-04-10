@@ -8,7 +8,8 @@
         <AbsoluteLayout.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding GoBackTapCommand}"/>
         </AbsoluteLayout.GestureRecognizers>
-        <Frame AbsoluteLayout.LayoutFlags="All"
+        <Frame 
+            AbsoluteLayout.LayoutFlags="All"
             AbsoluteLayout.LayoutBounds="0.5,0.9,0.6,0.2"
             IsVisible="{Binding HasVisible}">
             <Grid>
@@ -16,10 +17,14 @@
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Text="{Binding Name}" 
-                       HorizontalOptions="Center" 
-                       VerticalOptions="CenterAndExpand" />
-                <Label Grid.Row="1" Text="{Binding Description}"/>
+                <Label 
+                    Grid.Row="0" Text="{Binding Name}" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="CenterAndExpand"
+                    FontAttributes="Bold"/>
+                <Label 
+                    Grid.Row="1" 
+                    Text="{Binding Description}"/>
             </Grid>
         </Frame>
     </AbsoluteLayout>

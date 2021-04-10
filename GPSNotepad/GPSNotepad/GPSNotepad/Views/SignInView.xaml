@@ -20,29 +20,33 @@
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
-        <Entry Grid.Row="1"
-               Grid.Column="1"
-               Placeholder="Email"
-               Text="{Binding EntryEmailText}"/>
-        <Entry Grid.Row="2"
-               Grid.Column="1"
-               Placeholder="Password"
-               Text="{Binding EntryPasswordText}"
-               IsPassword="True"/>
-        <Button Grid.Row="4"
-                Grid.Column="1"
-                Text="SignIn"
-                BackgroundColor="Chocolate"
-                TextColor="Black"
-                Command="{Binding LogInTapCommand}"
-                IsEnabled="{Binding EnabledButton}"/>
-        <Label Grid.Row="5"
-               Grid.Column="1"
-               Text="SignUp"
-               TextColor="Blue"
-               TextDecorations="Underline"
-               HorizontalOptions="Center"
-               VerticalOptions="Center">
+        <Entry 
+            Grid.Row="1"
+            Grid.Column="1"
+            Placeholder="Email"
+            Text="{Binding EntryEmailText}"/>
+        <Entry 
+            Grid.Row="2"
+            Grid.Column="1"
+            Placeholder="Password"
+            Text="{Binding EntryPasswordText}"
+            IsPassword="True"/>
+        <Button 
+            Grid.Row="4"
+            Grid.Column="1"
+            Text="SignIn"
+            BackgroundColor="Chocolate"
+            TextColor="Black"
+            Command="{Binding LogInTapCommand}"
+            IsEnabled="{Binding EnabledButton}"/>
+        <Label 
+            Grid.Row="5"
+            Grid.Column="1"
+            Text="SignUp"
+            TextColor="Blue"
+            TextDecorations="Underline"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
             <Label.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SignUpTapCommand}"/>
             </Label.GestureRecognizers>

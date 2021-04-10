@@ -2,17 +2,17 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:local="clr-namespace:GPSNotepad.Controls" 
-             xmlns:prism="http://prismlibrary.com"
              x:Class="GPSNotepad.Views.AddPinView"
              Title="Add Pin">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Name="MenuItem2" 
-                     Order="Primary" 
-                     Icon="save.png" 
-                     Priority="0" 
-                     Command="{Binding SaveTappedCommand}" 
-                     CommandParameter = "1"/>
+        <ToolbarItem 
+            Name="MenuItem2" 
+            Order="Primary" 
+            Icon="save.png" 
+            Priority="0" 
+            Command="{Binding SaveTappedCommand}" 
+            CommandParameter = "1"/>
     </ContentPage.ToolbarItems>
 
     <Grid >
@@ -34,19 +34,23 @@
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
-            <Entry Grid.Column="1" 
-               Grid.Row="1"
-               Placeholder="Name"
-               Text="{Binding EntryNameText}"/>
-            <Entry Grid.Column="1" 
-               Grid.Row="2"
-               Placeholder="Latitude"
-               Text="{Binding EntryLatitudeText, Mode=TwoWay}"/>
-            <Entry Grid.Column="1" 
-               Grid.Row="3" 
-               Placeholder="Longitude"
-               Text="{Binding EntryLongitudeText, Mode=TwoWay}"/>
-            <Editor Grid.Column="1"
+            <Entry 
+                Grid.Column="1" 
+                Grid.Row="1"
+                Placeholder="Name"
+                Text="{Binding EntryNameText}"/>
+            <Entry 
+                Grid.Column="1" 
+                Grid.Row="2"
+                Placeholder="Latitude"
+                Text="{Binding EntryLatitudeText, Mode=TwoWay}"/>
+            <Entry 
+                Grid.Column="1" 
+                Grid.Row="3" 
+                Placeholder="Longitude"
+                Text="{Binding EntryLongitudeText, Mode=TwoWay}"/>
+            <Editor 
+                Grid.Column="1"
                 Grid.Row="4"
                 Placeholder="Description" 
                 Text="{Binding EditorText}"
@@ -55,7 +59,9 @@
                 MaxLength="100"/>
         </Grid>
         <Grid Grid.Row="1">
-            <local:CustomMap CommandMapTap="{Binding MapTappedCommand}" />
+            <local:CustomMap 
+                CommandMapTap="{Binding MapTappedCommand}"
+                PinsSource="{Binding Pins}"/>
         </Grid>
     </Grid>
 

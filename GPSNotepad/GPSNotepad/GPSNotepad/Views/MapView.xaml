@@ -1,24 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:GPSNotepad.Controls"
+             xmlns:local="clr-namespace:GPSNotepad.Controls" 
              x:Class="GPSNotepad.Views.MapView"
              Title="Map">
 
     <AbsoluteLayout>
-        <SearchBar Placeholder="Search pin" 
-                   AbsoluteLayout.LayoutFlags="All" 
-                   AbsoluteLayout.LayoutBounds="0,0,1,0.08"></SearchBar>
-        <ListView  AbsoluteLayout.LayoutFlags="All" 
-                   AbsoluteLayout.LayoutBounds="0,0.36,1,0.74"
-                  ItemsSource="{Binding SearchResults}" />
         <local:CustomMap
             AbsoluteLayout.LayoutFlags="All"
             AbsoluteLayout.LayoutBounds="0,1,1,0.91"
             PinsSource="{Binding Pins}"
             CommandPinTap="{Binding PinTappedCommand}"
+            CommandMapTap="{Binding MapTappedCommand}"
             Region="{Binding Region}"
-            Animated="{Binding Animated}">
-        </local:CustomMap>
+            Animated="{Binding Anim}" />
+        <SearchBar 
+            Placeholder="Search pins..."
+            PlaceholderColor="Orange"
+            TextColor="Orange"
+            FontSize="Medium"
+            AbsoluteLayout.LayoutFlags="All" 
+            AbsoluteLayout.LayoutBounds="0,0,1,0.08"
+            Text="{Binding SearchText}"
+            SearchCommand="{Binding PinSearchCommand}">
+            <SearchBar.GestureRecognizers>
+                <TapGestureRecognizer
+                    Command="{Binding SearchBarTappedCommand}" >
+                </TapGestureRecognizer>
+            </SearchBar.GestureRecognizers>
+        </SearchBar>
+        <ListView
+            ItemsSource="{Binding PinCollection, Mode=TwoWay}"
+            SelectedItem="{Binding PinSelectedItem, Mode=TwoWay}"
+            BackgroundColor="White"
+            AbsoluteLayout.LayoutFlags="All"
+            AbsoluteLayout.LayoutBounds="{Binding TopBorder}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <StackLayout VerticalOptions="End">
+                                <Label Text="{Binding Name}"  
+                                        FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </AbsoluteLayout>
+    
 </ContentPage>

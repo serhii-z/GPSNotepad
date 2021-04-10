@@ -21,31 +21,36 @@
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
-        <Entry Grid.Row="1"
-               Grid.Column="1"
-               Placeholder="Name"
-               Text="{Binding EntryNameText}"/>
-        <Entry Grid.Row="2"
-               Grid.Column="1"
-               Placeholder="Email"
-               Text="{Binding EntryEmailText}"/>
-        <Entry Grid.Row="3"
-               Grid.Column="1"
-               Placeholder="Password"
-               Text="{Binding EntryPasswordText}"
-               IsPassword="True"/>
-        <Entry Grid.Row="4"
-               Grid.Column="1"
-               Placeholder="ConfirmPassword"
-               Text="{Binding EntryConfirmPasswordText}"
-               IsPassword="True"/>
-        <Button Grid.Row="6"
-                Grid.Column="1"
-                Text="SignUp"
-                BackgroundColor="Chocolate"
-                TextColor="Black"
-                Command="{Binding SignUpTapCommand}"
-                IsEnabled="{Binding EnabledButton}"/>
+        <Entry 
+            Grid.Row="1"
+            Grid.Column="1"
+            Placeholder="Name"
+            Text="{Binding EntryNameText}"/>
+        <Entry 
+            Grid.Row="2"
+            Grid.Column="1"
+            Placeholder="Email"
+            Text="{Binding EntryEmailText}"/>
+        <Entry 
+            Grid.Row="3"
+            Grid.Column="1"
+            Placeholder="Password"
+            Text="{Binding EntryPasswordText}"
+            IsPassword="True"/>
+        <Entry 
+            Grid.Row="4"
+            Grid.Column="1"
+            Placeholder="ConfirmPassword"
+            Text="{Binding EntryConfirmPasswordText}"
+            IsPassword="True"/>
+        <Button 
+            Grid.Row="6"
+            Grid.Column="1"
+            Text="SignUp"
+            BackgroundColor="Chocolate"
+            TextColor="Black"
+            Command="{Binding SignUpTapCommand}"
+            IsEnabled="{Binding EnabledButton}"/>
     </Grid>
     
 </ContentPage>

@@ -45,6 +45,7 @@ namespace GPSNotepad
             containerRegistry.RegisterForNavigation<PinListView, PinListViewModel>();
             containerRegistry.RegisterForNavigation<AddPinView, AddPinViewModel>();
             containerRegistry.RegisterForNavigation<PinInfoView, PinInfoViewModel>();
+            //containerRegistry.RegisterForNavigation<DropView, DropViewModel>();
 
             //Packages
 

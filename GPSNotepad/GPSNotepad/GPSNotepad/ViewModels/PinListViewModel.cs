@@ -6,6 +6,7 @@ using Prism.Navigation;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -17,18 +18,19 @@ namespace GPSNotepad.ViewModels
             IAuthorizationService authorizationService, 
             IPinService pinService) : base(navigationService, authorizationService, pinService)
         {
-            PinViewModels = new ObservableCollection<PinViewModel>();
+            PinCollection = new ObservableCollection<PinViewModel>();
         }
 
         #region --- Public Properties ---
 
         public ICommand AddTapCommand => new Command(OnAddTap);
+        public ICommand SearchCommand => new Command(OnSearchPins);
 
-        private ObservableCollection<PinViewModel> _pinViewModels;
-        public ObservableCollection<PinViewModel> PinViewModels
+        private ObservableCollection<PinViewModel> _pinCollection;
+        public ObservableCollection<PinViewModel> PinCollection
         {
-            get { return _pinViewModels; }
-            set => SetProperty(ref _pinViewModels, value);
+            get { return _pinCollection; }
+            set => SetProperty(ref _pinCollection, value);
         }
 
         private bool _isNoPins;
@@ -45,6 +47,13 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _selectedItem, value);
         }
 
+        private string _searchText = string.Empty;
+        public string SearchText
+        {
+            get => _searchText;
+            set => SetProperty(ref _searchText, value);
+        }
+
         #endregion
 
         #region --- Private Helpers ---
@@ -58,9 +67,18 @@ namespace GPSNotepad.ViewModels
         {
             var item = _selectedItem as PinViewModel;
             var parameters = new NavigationParameters();
+
             parameters.Add("pinViewModel", item);
 
             await navigationService.NavigateAsync($"{nameof(MainView)}", parameters);
+        }
+
+        private void OnSearchPins()
+        {
+            var pins = GetPins();
+            var resultSearch = SearchPins(pins);
+
+            InitCollection(resultSearch);
         }
 
         #endregion
@@ -69,50 +87,55 @@ namespace GPSNotepad.ViewModels
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
-            base.OnPropertyChanged(args);
-
             if (args.PropertyName == nameof(SelectedItem))
             {
                 OnSelectedItemTap();
+            }
+
+            if (args.PropertyName == nameof(SearchText))
+            {
+                if (SearchCommand.CanExecute(null))
+                {
+                    SearchCommand.Execute(null);
+                }
             }
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            base.OnNavigatedTo(parameters);
-
             var pinList = GetPins();
-            ShowPins(pinList);
+
+            InitCollection(pinList);
         }
 
         #endregion
 
         #region --- Private Methods ---
 
-        private void ShowPins(List<PinViewModel> pinList)
-        {
-            if (pinList.Count > 0)
-            {
-                PinViewModels.Clear();
-
-                foreach (var item in pinList)
-                {
-                    PinViewModels.Add(item);
-                }
-
-                IsNoPins = false;
-            }
-            else
-            {
-                IsNoPins = true;
-            }
-        }
-
         private List<PinViewModel> GetPins()
         {
             var pinList = GetAllPins(authorizationService.UserId);
 
             return pinList;
+        }
+
+        private List<PinViewModel> SearchPins(List<PinViewModel> pins)
+        {
+            var resultName = pins.Where(x => x.Name.ToLower().Substring(0, _searchText.Length) == _searchText.ToLower());
+            var resultDescription = pins.Where(x => x.Description.ToLower().Substring(0, _searchText.Length) == _searchText.ToLower());
+            var pinList = resultName.Union(resultDescription).Distinct().ToList();
+
+            return pinList;
+        }
+
+        private void InitCollection(List<PinViewModel> pinList)
+        {
+            PinCollection.Clear();
+
+            foreach (var item in pinList)
+            {
+                PinCollection.Add(item);
+            }
         }
 
         #endregion

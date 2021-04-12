@@ -8,6 +8,8 @@ using GPSNotepad.Services.Repositiry;
 using GPSNotepad.Services.Authentication;
 using GPSNotepad.Services.Authorization;
 using GPSNotepad.Services.Pin;
+using Plugin.Settings.Abstractions;
+using Plugin.Settings;
 
 namespace GPSNotepad
 {
@@ -40,14 +42,14 @@ namespace GPSNotepad
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<SignInView, SignInViewModel>();
             containerRegistry.RegisterForNavigation<SignUpView, SignUpViewModel>();
-            containerRegistry.RegisterForNavigation<MainView>();
-            containerRegistry.RegisterForNavigation<MapView, MapViewModel>();
-            containerRegistry.RegisterForNavigation<PinListView, PinListViewModel>();
+            containerRegistry.RegisterForNavigation<MainTabbedView>();
+            containerRegistry.RegisterForNavigation<MapTabView, MapTabViewModel>();
+            containerRegistry.RegisterForNavigation<PinListTabView, PinListTabViewModel>();
             containerRegistry.RegisterForNavigation<AddPinView, AddPinViewModel>();
             containerRegistry.RegisterForNavigation<PinInfoView, PinInfoViewModel>();
-            //containerRegistry.RegisterForNavigation<DropView, DropViewModel>();
 
             //Packages
+            containerRegistry.RegisterInstance<ISettings>(CrossSettings.Current);
 
             //Services
             containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
@@ -63,10 +65,11 @@ namespace GPSNotepad
 
         private async void GoToView()
         {
-            var userId = Container.Resolve<AuthorizationService>().UserId;
+            //var userId = Container.Resolve<AuthorizationService>().UserId;
+            var userId = 1;
 
             if(userId > 0)
-                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainView)}");
+                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainTabbedView)}");
             else
                 await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignInView)}");
         }

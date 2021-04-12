@@ -13,9 +13,9 @@ using Xamarin.Forms.GoogleMaps;
 
 namespace GPSNotepad.ViewModels
 {
-    public class MapViewModel : BaseTabViewModel
+    public class MapTabViewModel : BaseTabViewModel
     {
-        public MapViewModel(INavigationService navigationService,
+        public MapTabViewModel(INavigationService navigationService,
             IPinService pinService,
             IAuthorizationService authorizationService) : base(navigationService, authorizationService, pinService)
         {

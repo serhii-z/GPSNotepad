@@ -12,9 +12,9 @@ using Xamarin.Forms;
 
 namespace GPSNotepad.ViewModels
 {
-    public class PinListViewModel : BaseTabViewModel
+    public class PinListTabViewModel : BaseTabViewModel
     {
-        public PinListViewModel(INavigationService navigationService, 
+        public PinListTabViewModel(INavigationService navigationService, 
             IAuthorizationService authorizationService, 
             IPinService pinService) : base(navigationService, authorizationService, pinService)
         {
@@ -70,7 +70,7 @@ namespace GPSNotepad.ViewModels
 
             parameters.Add("pinViewModel", item);
 
-            await navigationService.NavigateAsync($"{nameof(MainView)}", parameters);
+            await navigationService.NavigateAsync($"{nameof(MainTabbedView)}", parameters);
         }
 
         private void OnSearchPins()

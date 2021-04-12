@@ -133,7 +133,7 @@ namespace GPSNotepad.ViewModels
         {
             if (IsAuthorization())
             {
-                await navigationService.NavigateAsync($"{nameof(MainView)}");
+                await navigationService.NavigateAsync($"{nameof(MainTabbedView)}");
             }
         }
 

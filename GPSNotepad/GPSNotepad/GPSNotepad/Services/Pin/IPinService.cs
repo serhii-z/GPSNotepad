@@ -1,13 +1,14 @@
 ﻿using GPSNotepad.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GPSNotepad.Services.Pin
 {
     public interface IPinService
     {
-        int AddPin(PinModel profile);
-        int UpdatePin(PinModel profile);
-        int DeletePin(PinModel profile);
-        List<PinModel> GetAllPinModels(int userId);
+        Task<int> AddPinAsync(PinModel pinModel);
+        Task<int> UpdatePinAsync(PinModel pinModel);
+        Task<int> DeletePinAsync(PinModel pinModel);
+        Task<List<PinModel>> GetAllPinModelsAsync();
     }
 }

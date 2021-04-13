@@ -1,9 +1,11 @@
-﻿using GPSNotepad.Services.Authentication;
+﻿using GPSNotepad.Properties;
+using GPSNotepad.Services.Authentication;
 using GPSNotepad.Services.Authorization;
 using GPSNotepad.Views;
 using Prism.Navigation;
 using Prism.Services;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -25,8 +27,8 @@ namespace GPSNotepad.ViewModels
         }
 
         #region --- Public Properties ---
-        public ICommand LogInTapCommand => new Command(OnLogInTap);
-        public ICommand SignUpTapCommand => new Command(OnSignUpTap);
+        public ICommand LogInTapCommand => new Command(OnLogInTapAsync);
+        public ICommand SignUpTapCommand => new Command(OnSignUpTapAsync);
 
         private string _entryEmailText;
         public string EntryEmailText
@@ -78,68 +80,61 @@ namespace GPSNotepad.ViewModels
 
         #endregion
 
+        #region --- Private Helpers ---
+
+        private async void OnLogInTapAsync()
+        {
+            var isSuccess = await TryToAuthorizateAsync();
+
+            if (isSuccess)
+            {
+                await navigationService.NavigateAsync($"{nameof(MainTabbedView)}");
+            }
+        }
+
+        private async void OnSignUpTapAsync()
+        {
+            await navigationService.NavigateAsync($"{nameof(SignUpView)}");
+        }
+
+        #endregion
+
         #region --- Private Methods ---
 
         private void CheckTextInput(string elementText)
         {
             if (string.IsNullOrEmpty(elementText))
             {
-                DeactivateButton();
+                EnabledButton = false;
+            }
+            else if(!string.IsNullOrEmpty(_entryEmailText) &&
+                    !string.IsNullOrEmpty(_entryPasswordText))
+            {
+                EnabledButton = true;
+            }
+        }
+        
+        private async Task<bool> TryToAuthorizateAsync()
+        {
+            var isSuccess = await _authenticationService.SignInAsync(_entryEmailText, _entryPasswordText);
+
+            if (isSuccess)
+            {
+                await _authorizationService.AuthorizeUserAsync(_entryEmailText);
             }
             else
             {
-                ActivateButton();
-            }
-        }
-
-        private void ActivateButton()
-        {
-            if (!string.IsNullOrEmpty(_entryEmailText) &&
-                !string.IsNullOrEmpty(_entryPasswordText))
-                EnabledButton = true;
-        }
-
-        private void DeactivateButton()
-        {
-            EnabledButton = false;
-        }
-
-        private bool IsAuthorization()
-        {
-            var userId = _authenticationService.VerifyUser(_entryEmailText, _entryPasswordText);
-
-            if (userId > 0)
-            {
-                _authorizationService.UserId = userId;
-                return true;
+                ShowAlertAsync(Resources.SignInInvalidLoginPassword);
+                EntryEmailText = string.Empty;
+                EntryPasswordText = string.Empty;
             }
 
-            ShowAlert("Invalid login or password!");
-            EntryEmailText = string.Empty;
-            EntryPasswordText = string.Empty;
-
-            return false;
+            return isSuccess;
         }
 
-        private async void ShowAlert(string message)
+        private async void ShowAlertAsync(string message)
         {
-            await _pageDialog.DisplayAlertAsync("Message", message, "OK");
-        }
-
-        #endregion
-
-        #region --- Private Helpers ---
-        private async void OnLogInTap()
-        {
-            if (IsAuthorization())
-            {
-                await navigationService.NavigateAsync($"{nameof(MainTabbedView)}");
-            }
-        }
-
-        private async void OnSignUpTap()
-        {
-            await navigationService.NavigateAsync($"{nameof(SignUpView)}");
+            await _pageDialog.DisplayAlertAsync(Resources.AlertTitle, message, Resources.AlertOK);
         }
 
         #endregion

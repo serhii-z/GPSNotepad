@@ -2,7 +2,7 @@
 {
     public interface ISettingsManager
     {
-        void AddOrUpdateUserId(int id);
+        void AddUserId(int id);
         int GetUserId();
     }
 }

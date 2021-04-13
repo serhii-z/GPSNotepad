@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace GPSNotepad.Services.Repositiry
 {
-    public class Repository : IRepository
+    public class RepositoryService : IRepositoryService
     {
         private Lazy<SQLiteAsyncConnection> _database;
-        public Repository()
+        public RepositoryService()
         {
             _database = new Lazy<SQLiteAsyncConnection>(() =>
             {
-                var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "pinbook.db");
+                var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Constants.DatabaseName);
                 var database = new SQLiteAsyncConnection(path);
 
                 database.CreateTableAsync<UserModel>().Wait();
@@ -23,6 +23,8 @@ namespace GPSNotepad.Services.Repositiry
                 return database;
             });
         }
+
+        #region -- IRepositoryService implement --
 
         public Task<int> InsertAsync<T>(T item) where T : IEntityBase, new()
         {
@@ -43,5 +45,7 @@ namespace GPSNotepad.Services.Repositiry
         {
             return _database.Value.Table<T>().ToListAsync();
         }
+
+        #endregion
     }
 }

@@ -10,6 +10,10 @@ using GPSNotepad.Services.Authorization;
 using GPSNotepad.Services.Pin;
 using Plugin.Settings.Abstractions;
 using Plugin.Settings;
+using GPSNotepad.Services.SettingsService;
+using System.Threading.Tasks;
+using GPSNotepad.Services.Permissions;
+using GPSNotepad.Services.GeoLocations;
 
 namespace GPSNotepad
 {
@@ -52,26 +56,32 @@ namespace GPSNotepad
             containerRegistry.RegisterInstance<ISettings>(CrossSettings.Current);
 
             //Services
-            containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
+            containerRegistry.RegisterInstance<IRepositoryService>(Container.Resolve<RepositoryService>());
+            containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
             containerRegistry.RegisterInstance<IAuthenticationService>(Container.Resolve<AuthenticationService>());
             containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
             containerRegistry.RegisterInstance<IPinService>(Container.Resolve<PinService>());
+            containerRegistry.RegisterInstance<IPermissionService>(Container.Resolve<PermissionService>());
+            containerRegistry.RegisterInstance<IGeoLocationService>(Container.Resolve<GeoLocationService>());
         }
 
-        protected override void OnInitialized()
+        protected async override void OnInitialized()
         {
-            GoToView();
+            await GoToViewAsync();
         }
 
-        private async void GoToView()
+        private async Task GoToViewAsync()
         {
-            //var userId = Container.Resolve<AuthorizationService>().UserId;
-            var userId = 1;
+            var isAuthorized = Container.Resolve<AuthorizationService>().IsAuthorized;
 
-            if(userId > 0)
+            if (isAuthorized)
+            {
                 await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainTabbedView)}");
+            }             
             else
+            {
                 await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignInView)}");
+            }         
         }
     }
 }

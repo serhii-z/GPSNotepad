@@ -4,64 +4,39 @@ namespace GPSNotepad.Validators
 {
     public static class StringValidator
     {
-        public static bool IsValidName(string name)
+        public static bool CheckName(string name)
         {
             var hasSequence = new Regex(@"[A-Z][a-z]+\s[A-Z][a-z]+");
 
-            if (hasSequence.IsMatch(name))
-            {
-                return true;
-            }
-
-            return false;
+            return hasSequence.IsMatch(name);
         }
-        public static bool IsValidEmail(string email)
+        public static bool CheckLogin(string email)
         {
             var hasSequence = new Regex(@"[a-z0-9._%+-]+@[a-z]+.[a-z]{2,4}");
 
-            if (hasSequence.IsMatch(email))
-            {
-                return true;
-            }
-
-            return false;
+            return hasSequence.IsMatch(email);
         }
 
-        public static bool IsPasswordsEqual(string password, string confirm)
+        public static bool CheckPasswordEquality(string password, string confirm)
         {
-            if (password.Equals(confirm))
-            {
-                return true;
-            }
-
-            return false;
+            return password.Equals(confirm);
         }
 
-        public static bool IsQuantityCorrect(string item, int minLength)
+        public static bool CheckQuantity(string item, int minLength)
         {
             var pattern = @"^.{" + $"{minLength}" + ",16}$";
             var hasSequence = new Regex(pattern);
 
-            if (hasSequence.IsMatch(item))
-            {
-                return true;
-            }
-
-            return false;
+            return hasSequence.IsMatch(item);
         }
 
-        public static bool IsAvailability(string item)
+        public static bool CheckPresence(string item)
         {
             var hasNumber = new Regex(@"[0-9]+");
             var hasUpperChar = new Regex(@"[A-Z]+");
             var hasLowerChar = new Regex(@"[a-z]+");
 
-            if (hasNumber.IsMatch(item) && hasUpperChar.IsMatch(item) && hasLowerChar.IsMatch(item))
-            {
-                return true;
-            }
-
-            return false;
+            return hasNumber.IsMatch(item) && hasUpperChar.IsMatch(item) && hasLowerChar.IsMatch(item);
         }
     }
 }

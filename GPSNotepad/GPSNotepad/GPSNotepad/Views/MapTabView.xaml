@@ -6,48 +6,67 @@
              Title="Map">
 
     <AbsoluteLayout>
-        <local:CustomMap
-            AbsoluteLayout.LayoutFlags="All"
-            AbsoluteLayout.LayoutBounds="0,1,1,0.91"
-            PinsSource="{Binding Pins}"
-            CommandPinTap="{Binding PinTappedCommand}"
-            CommandMapTap="{Binding MapTappedCommand}"
-            Region="{Binding Region}"
-            Animated="{Binding Anim}" />
-        <SearchBar 
-            Placeholder="Search pins..."
-            PlaceholderColor="Orange"
-            TextColor="Orange"
-            FontSize="Medium"
-            AbsoluteLayout.LayoutFlags="All" 
-            AbsoluteLayout.LayoutBounds="0,0,1,0.08"
-            Text="{Binding SearchText}"
-            SearchCommand="{Binding PinSearchCommand}">
+        <local:CustomMap AbsoluteLayout.LayoutFlags="All"
+                         AbsoluteLayout.LayoutBounds="0,1,1,0.91"
+                         PinsSource="{Binding Pins}"
+                         CommandPinTap="{Binding PinTapCommand}"
+                         CommandMapTap="{Binding MapTapCommand}"
+                         Region="{Binding Region}"
+                         Animated="{Binding Anim}" />
+        
+        <SearchBar Placeholder="Search pins..."
+                   PlaceholderColor="Orange"
+                   TextColor="Orange"
+                   FontSize="Medium"
+                   AbsoluteLayout.LayoutFlags="All" 
+                   AbsoluteLayout.LayoutBounds="0,0,1,0.08"
+                   Text="{Binding SearchText}"
+                   SearchCommand="{Binding PinSearchCommand}">
+            
             <SearchBar.GestureRecognizers>
-                <TapGestureRecognizer
-                    Command="{Binding SearchBarTappedCommand}" >
-                </TapGestureRecognizer>
+                <TapGestureRecognizer Command="{Binding SearchBarTappedCommand}"/>
             </SearchBar.GestureRecognizers>
+            
         </SearchBar>
-        <ListView
-            ItemsSource="{Binding PinCollection, Mode=TwoWay}"
-            SelectedItem="{Binding PinSelectedItem, Mode=TwoWay}"
-            BackgroundColor="White"
-            AbsoluteLayout.LayoutFlags="All"
-            AbsoluteLayout.LayoutBounds="{Binding TopBorder}">
+        <ListView ItemsSource="{Binding Pins, Mode=TwoWay}"
+                  SelectedItem="{Binding PinSelectedItem, Mode=TwoWay}"
+                  BackgroundColor="White"
+                  AbsoluteLayout.LayoutFlags="All"
+                  AbsoluteLayout.LayoutBounds="{Binding TopBorder}">
+            
             <ListView.ItemTemplate>
+                
                 <DataTemplate>
+                    
                     <ViewCell>
+                        
                         <ViewCell.View>
+                            
                             <StackLayout VerticalOptions="End">
-                                <Label Text="{Binding Name}"  
+                                <Label  Text="{Binding Label}" 
                                         FontAttributes="Bold"/>
                             </StackLayout>
+                            
                         </ViewCell.View>
+                        
                     </ViewCell>
+                    
                 </DataTemplate>
+                
             </ListView.ItemTemplate>
+            
         </ListView>
+
+        <ImageButton Source="locbutton.png"
+                     WidthRequest="36" 
+                     HeightRequest="36"
+                     BackgroundColor="Transparent"
+                     AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0.1,0.95,0.1,0.1"
+                     IsEnabled="{Binding IsEnabledButton}"
+                     Command="{Binding LocationButtonTapCommand}" />
+
+
     </AbsoluteLayout>
     
 </ContentPage>

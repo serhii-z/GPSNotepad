@@ -11,9 +11,15 @@ namespace GPSNotepad.ViewModels
             this.navigationService = navigationService;
         }
 
+        #region -- IInitialize implementation --
+
         public virtual void Initialize(INavigationParameters parameters)
         {           
         }
+
+        #endregion
+
+        #region -- INavigatedAware implementation --
 
         public virtual void OnNavigatedFrom(INavigationParameters parameters)
         {         
@@ -22,5 +28,7 @@ namespace GPSNotepad.ViewModels
         public virtual void OnNavigatedTo(INavigationParameters parameters)
         {           
         }
+
+        #endregion
     }
 }

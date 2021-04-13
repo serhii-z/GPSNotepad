@@ -1,9 +1,9 @@
 ﻿using GPSNotepad.Models;
-using GPSNotepad.Services.Authorization;
 using GPSNotepad.Services.Pin;
+using GPSNotepad.Extensions;
 using Prism.Navigation;
-using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
@@ -12,23 +12,19 @@ namespace GPSNotepad.ViewModels
 {
     public class AddPinViewModel : BaseViewModel
     {
-        private PinModel _pin;
-        private IAuthorizationService _authorizationService;
         private IPinService _pinService;
 
-        public AddPinViewModel(INavigationService navigationService, 
-            IAuthorizationService authorizationService, 
-            IPinService pinService) : base(navigationService)
+        public AddPinViewModel(INavigationService navigationService, IPinService pinService) : base(navigationService)
         {
-            _authorizationService = authorizationService;
             _pinService = pinService;
+
             Pins = new ObservableCollection<Pin>();
         }
 
-        #region --- Public Properties ---
+        #region -- Public properties --
 
-        public ICommand SaveTappedCommand => new Command(OnSaveTap);
-        public ICommand MapTappedCommand => new Command<Position>(OnMapTap);
+        public ICommand SaveButtonTapCommand => new Command(OnSaveButtonTapAsync);
+        public ICommand MapTapCommand => new Command<Position>(OnMapTap);
 
         private ObservableCollection<Pin> _pins;
         public ObservableCollection<Pin> Pins
@@ -37,96 +33,99 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _pins, value);
         }
 
-        private string _entryNameText;
-        public string EntryNameText
+        private string _nameText;
+        public string NameText
         {
-            get => _entryNameText;
-            set => SetProperty(ref _entryNameText, value);
+            get => _nameText;
+            set => SetProperty(ref _nameText, value);
         }
 
-        private string _entryLatitudeText;
-        public string EntryLatitudeText
+        private string _latitudeText;
+        public string LatitudeText
         {
-            get => _entryLatitudeText;
-            set => SetProperty(ref _entryLatitudeText, value);
+            get => _latitudeText;
+            set => SetProperty(ref _latitudeText, value);
         }
 
-        private string _entryLongitudeText;
-        public string EntryLongitudeText
+        private string _longitudeText;
+        public string LongitudeText
         {
-            get => _entryLongitudeText;
-            set => SetProperty(ref _entryLongitudeText, value);
+            get => _longitudeText;
+            set => SetProperty(ref _longitudeText, value);
         }
 
-        private string _editorText;
-        public string EditorText
+        private string _descriptionText;
+        public string DescriptionText
         {
-            get => _editorText;
-            set => SetProperty(ref _editorText, value);
+            get => _descriptionText;
+            set => SetProperty(ref _descriptionText, value);
         }
 
         #endregion
 
-        #region --- Private Helpers ---
+        #region -- Private helpers --
 
         private void OnMapTap(Position obj)
         {
             var position = obj;
 
-            EntryLatitudeText = position.Latitude.ToString();
-            EntryLongitudeText = position.Longitude.ToString();
+            LatitudeText = position.Latitude.ToString();
+            LongitudeText = position.Longitude.ToString();
 
             Pins.Clear();
             Pins.Add(CreatePin());
         }
 
-        private async void OnSaveTap(object obj)
+        private async void OnSaveButtonTapAsync()
         {
-            if (!string.IsNullOrEmpty(_entryNameText) && 
-                !string.IsNullOrEmpty(_entryLatitudeText) && 
-                !string.IsNullOrEmpty(_entryLongitudeText) && 
-                !string.IsNullOrEmpty(_editorText))
+            if (!string.IsNullOrEmpty(_nameText) && 
+                !string.IsNullOrEmpty(_latitudeText) && 
+                !string.IsNullOrEmpty(_longitudeText) && 
+                !string.IsNullOrEmpty(_descriptionText))
             {
-                AddPin();
+                var pinViewmodel = await AddPinAsync();
+                var parameters = new NavigationParameters();
+                parameters.Add(Constants.KeyPinViewModel, pinViewmodel);
 
-                await navigationService.GoBackAsync();
+                await navigationService.GoBackAsync(parameters);
             }
         }
 
         #endregion
 
-        #region --- Private Methods ---
+        #region -- Private methods --
 
         private Pin CreatePin()
         {
             var pin = new Pin
             {
-                Position = new Position(double.Parse(EntryLatitudeText), double.Parse(EntryLongitudeText)),
-                Label = "NamePlace"
+                Position = new Position(double.Parse(LatitudeText), double.Parse(LongitudeText)),
+                Label = "PinName"
             };
 
             return pin;
         }
 
-        private void CreatePinModel()
+        private PinViewModel CreatePinViewmodel()
         {
-            _pin = new PinModel
+            var pinViewModel = new PinViewModel
             {
-                Name = _entryNameText,
-                Latitude = Convert.ToDouble(_entryLatitudeText),
-                Longitude = Convert.ToDouble(_entryLongitudeText),
-                Description = _editorText,
-                UserId = _authorizationService.UserId
+                Name = _nameText,
+                Latitude = double.Parse(_latitudeText),
+                Longitude = double.Parse(_longitudeText),
+                Description = _descriptionText
             };
+
+            return pinViewModel;
         }
 
-        private void AddPin()
+        private async Task<PinViewModel> AddPinAsync()
         {
-            if (_pin == null)
-            {
-                CreatePinModel();
-                _pinService.AddPin(_pin);
-            }
+            var pinViewModel = CreatePinViewmodel();
+
+            await _pinService.AddPinAsync(pinViewModel.ToPinModel());
+
+            return pinViewModel;
         }
 
         #endregion

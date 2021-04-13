@@ -1,46 +1,56 @@
 ﻿using GPSNotepad.Models;
 using GPSNotepad.Services.Repositiry;
+using GPSNotepad.Services.SettingsService;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GPSNotepad.Services.Pin
 {
     public class PinService : IPinService
     {
-        private IRepository _repository;
+        private IRepositoryService _repository;
+        private ISettingsManager _settingsManager;
 
-        public PinService(IRepository repository)
+        public PinService(IRepositoryService repository, ISettingsManager settingsManager)
         {
             _repository = repository;
+            _settingsManager = settingsManager;
         }
 
-        public int AddPin(PinModel profile)
+        #region -- IPinService implementation --
+
+        public async Task<int> AddPinAsync(PinModel pinModel)
         {
-            var result = _repository.InsertAsync(profile).Result;
+            pinModel.UserId = _settingsManager.GetUserId();
+            var result = await _repository.InsertAsync(pinModel);
+
+            return result;
+        }
+        
+        public async Task<int> UpdatePinAsync(PinModel pinModel)
+        {
+            var result = await _repository.UpdateAsync(pinModel);
 
             return result;
         }
 
-        public int UpdatePin(PinModel profile)
+        public async Task<int> DeletePinAsync(PinModel pinModel)
         {
-            var result = _repository.UpdateAsync(profile).Result;
+            var result = await _repository.DeleteAsync(pinModel);
 
             return result;
         }
 
-        public int DeletePin(PinModel profile)
+        public async Task<List<PinModel>> GetAllPinModelsAsync()
         {
-            var result = _repository.DeleteAsync(profile).Result;
-
-            return result;
-        }
-
-        public List<PinModel> GetAllPinModels(int userId)
-        {
-            var pinModels = _repository.GetAllAsync<PinModel>().Result;
+            var pinModels = await _repository.GetAllAsync<PinModel>();
+            var userId = _settingsManager.GetUserId();
             pinModels = pinModels.Where(x => x.UserId == userId).ToList();
 
             return pinModels;
         }
+
+        #endregion
     }
 }

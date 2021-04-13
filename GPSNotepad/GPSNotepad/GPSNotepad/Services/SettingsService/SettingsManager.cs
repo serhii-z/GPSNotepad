@@ -1,7 +1,4 @@
 ﻿using Plugin.Settings.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GPSNotepad.Services.SettingsService
 {
@@ -14,9 +11,9 @@ namespace GPSNotepad.Services.SettingsService
             _settings = settings;
         }
 
-        #region --- Implement Interface --- 
+        #region -- ISettingsManager implementation -- 
 
-        public void AddOrUpdateUserId(int id)
+        public void AddUserId(int id)
         {
             _settings.AddOrUpdateValue("id", id);
         }

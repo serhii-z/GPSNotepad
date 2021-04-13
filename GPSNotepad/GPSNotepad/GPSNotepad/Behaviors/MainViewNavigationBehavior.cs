@@ -7,9 +7,27 @@ using Xamarin.Forms;
 
 namespace GPSNotepad.Behaviors
 {
-    public class MainViewNavigationBehaviors : BehaviorBase<MainTabbedView>
+    public class MainViewNavigationBehavior : BehaviorBase<MainTabbedView>
     {
         private Page _currentPage;
+
+        #region -- Overrides --
+
+        protected override void OnAttachedTo(MainTabbedView bindable)
+        {
+            bindable.CurrentPageChanged += this.OnCurrentPageChanged;
+            base.OnAttachedTo(bindable);
+        }
+
+        protected override void OnDetachingFrom(MainTabbedView bindable)
+        {
+            bindable.CurrentPageChanged -= this.OnCurrentPageChanged;
+            base.OnDetachingFrom(bindable);
+        }
+
+        #endregion
+
+        #region -- Pivate helpers --
 
         private void OnCurrentPageChanged(object sender, EventArgs e)
         {
@@ -25,16 +43,6 @@ namespace GPSNotepad.Behaviors
             this._currentPage = newPage;
         }
 
-        protected override void OnAttachedTo(MainTabbedView bindable)
-        {
-            bindable.CurrentPageChanged += this.OnCurrentPageChanged;
-            base.OnAttachedTo(bindable);
-        }
-
-        protected override void OnDetachingFrom(MainTabbedView bindable)
-        {
-            bindable.CurrentPageChanged -= this.OnCurrentPageChanged;
-            base.OnDetachingFrom(bindable);
-        }
+        #endregion
     }
 }

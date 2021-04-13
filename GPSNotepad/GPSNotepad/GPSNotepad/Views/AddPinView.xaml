@@ -6,13 +6,12 @@
              Title="Add Pin">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem 
-            Name="MenuItem2" 
-            Order="Primary" 
-            Icon="save.png" 
-            Priority="0" 
-            Command="{Binding SaveTappedCommand}" 
-            CommandParameter = "1"/>
+        <ToolbarItem Name="MenuItem2" 
+                     Order="Primary" 
+                     Icon="save.png" 
+                     Priority="0" 
+                     Command="{Binding SaveButtonTapCommand}" 
+                     CommandParameter = "1"/>
     </ContentPage.ToolbarItems>
 
     <Grid >
@@ -34,34 +33,29 @@
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
-            <Entry 
-                Grid.Column="1" 
-                Grid.Row="1"
-                Placeholder="Name"
-                Text="{Binding EntryNameText}"/>
-            <Entry 
-                Grid.Column="1" 
-                Grid.Row="2"
-                Placeholder="Latitude"
-                Text="{Binding EntryLatitudeText, Mode=TwoWay}"/>
-            <Entry 
-                Grid.Column="1" 
-                Grid.Row="3" 
-                Placeholder="Longitude"
-                Text="{Binding EntryLongitudeText, Mode=TwoWay}"/>
-            <Editor 
-                Grid.Column="1"
-                Grid.Row="4"
-                Placeholder="Description" 
-                Text="{Binding EditorText}"
-                FlexLayout.Basis="100%"
-                BackgroundColor="LightGray"
-                MaxLength="100"/>
+            <Entry Grid.Column="1" 
+                   Grid.Row="1"
+                   Placeholder="Name"
+                   Text="{Binding NameText}"/>
+            <Entry Grid.Column="1" 
+                   Grid.Row="2"
+                   Placeholder="Latitude"
+                   Text="{Binding LatitudeText, Mode=TwoWay}"/>
+            <Entry Grid.Column="1" 
+                   Grid.Row="3" 
+                   Placeholder="Longitude"
+                   Text="{Binding LongitudeText, Mode=TwoWay}"/>
+            <Editor Grid.Column="1"
+                    Grid.Row="4"
+                    Placeholder="Description" 
+                    Text="{Binding DescriptionText}"
+                    FlexLayout.Basis="100%"
+                    BackgroundColor="LightGray"
+                    MaxLength="100"/>
         </Grid>
         <Grid Grid.Row="1">
-            <local:CustomMap 
-                CommandMapTap="{Binding MapTappedCommand}"
-                PinsSource="{Binding Pins}"/>
+            <local:CustomMap CommandMapTap="{Binding MapTapCommand}"
+                             PinsSource="{Binding Pins}"/>
         </Grid>
     </Grid>
 

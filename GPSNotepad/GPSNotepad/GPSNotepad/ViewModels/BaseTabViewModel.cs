@@ -1,42 +1,37 @@
-﻿using GPSNotepad.Models;
-using GPSNotepad.Services.Authorization;
+﻿using GPSNotepad.Extensions;
+using GPSNotepad.Models;
 using GPSNotepad.Services.Pin;
+using GPSNotepad.Services.SettingsService;
 using Prism.Navigation;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GPSNotepad.ViewModels
 {
     public class BaseTabViewModel : BaseViewModel
     {
-        protected IAuthorizationService authorizationService;
         protected IPinService pinService;
-        public BaseTabViewModel(INavigationService navigationService, IAuthorizationService authorizationService,
-            IPinService pinService) : base(navigationService)
+        protected ISettingsManager settingsManager;
+        public BaseTabViewModel(INavigationService navigationService,
+            IPinService pinService, ISettingsManager settingsManager) : base(navigationService)
         {
-            this.authorizationService = authorizationService;
             this.pinService = pinService;
+            this.settingsManager = settingsManager;
         }
 
         #region --- Protected Methods ---
 
-        protected List<PinViewModel> GetAllPins(int userId)
+        protected async Task<List<PinViewModel>> GetAllPinViewModelsAsync()
         {
+            var pinModels = await pinService.GetAllPinModelsAsync();
             var pinViewModels = new List<PinViewModel>();
 
-            foreach (var item in pinService.GetAllPinModels(userId))
+            foreach (var item in pinModels)
             {
-                pinViewModels.Add(CreatePinViewModel(item));
+                pinViewModels.Add(item.ToViewModel());
             }
 
             return pinViewModels;
-        }
-
-        protected PinViewModel CreatePinViewModel(PinModel pinModel)
-        {
-            var pinViewModel = new PinViewModel();
-            PinViewModelExtension.InitInstance(pinViewModel, pinModel);
-
-            return pinViewModel;
         }
 
         #endregion

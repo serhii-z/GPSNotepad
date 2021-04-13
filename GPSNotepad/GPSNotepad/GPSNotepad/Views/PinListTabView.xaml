@@ -16,7 +16,7 @@
             SearchCommand="{Binding SearchCommand}"/>
         <ListView 
             CachingStrategy="RecycleElement"
-            ItemsSource="{Binding PinCollection, Mode=TwoWay}"
+            ItemsSource="{Binding PinViewModels, Mode=TwoWay}"
             SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
             AbsoluteLayout.LayoutFlags="All"
             AbsoluteLayout.LayoutBounds="0,1,1,0.91"

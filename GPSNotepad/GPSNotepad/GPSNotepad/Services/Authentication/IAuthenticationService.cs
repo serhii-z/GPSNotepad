@@ -1,11 +1,12 @@
 ﻿using GPSNotepad.Models;
+using System.Threading.Tasks;
 
 namespace GPSNotepad.Services.Authentication
 {
     public interface IAuthenticationService
     {
-        int VerifyUser(string login, string password);
-        bool IsLogin(string login);
-        int AddUser(UserModel user);
+        Task<bool> SignInAsync(string login, string password);
+
+        Task<bool> SignUpAsync(UserModel newUser);
     }
 }

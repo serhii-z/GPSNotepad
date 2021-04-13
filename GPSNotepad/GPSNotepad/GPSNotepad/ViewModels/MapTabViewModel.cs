@@ -1,7 +1,8 @@
 ﻿using GPSNotepad.Models;
-using GPSNotepad.Services.Authorization;
 using GPSNotepad.Services.Pin;
+using GPSNotepad.Services.SettingsService;
 using GPSNotepad.Views;
+using GPSNotepad.Extensions;
 using Prism.Navigation;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,27 +11,48 @@ using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
+using System.Threading.Tasks;
+using GPSNotepad.Services.Permissions;
+using GPSNotepad.Services.GeoLocations;
 
 namespace GPSNotepad.ViewModels
 {
     public class MapTabViewModel : BaseTabViewModel
     {
+        private IPermissionService _permissionService;
+        private IGeoLocationService _geoLocationService;
         public MapTabViewModel(INavigationService navigationService,
-            IPinService pinService,
-            IAuthorizationService authorizationService) : base(navigationService, authorizationService, pinService)
+            IPinService pinService, ISettingsManager settingsManager, 
+            PermissionService permissionService, IGeoLocationService geoLocationService) : 
+            base(navigationService, pinService, settingsManager)
         {
+            _permissionService = permissionService;
+            _geoLocationService = geoLocationService;
             Pins = new ObservableCollection<Pin>();
-            PinCollection = new ObservableCollection<PinViewModel>();
             TopBorder = new Rectangle(0.0, 0.12, 1, 0.0);
         }
 
         #region --- Public Properties ---
 
         public ICommand SearchBarTappedCommand => new Command(OnSearchBarTap);
-
-        public ICommand PinTappedCommand => new Command<Pin>(OnPinTap);
+        public ICommand PinTapCommand => new Command<Pin>(OnPinTap);
         public ICommand PinSearchCommand => new Command(OnSearchPins);
-        public ICommand MapTappedCommand => new Command(OnMapTap);
+        public ICommand MapTapCommand => new Command(OnMapTap);
+        public ICommand LocationButtonTapCommand => new Command(OnLocationButtonTapAsync);
+
+        private Position _userPosition;
+        public Position UserPosition
+        {
+            get => _userPosition;
+            set => SetProperty(ref _userPosition, value);
+        }
+
+        private async void OnLocationButtonTapAsync()
+        {
+            var position = await _geoLocationService.GetPositionAsync();
+
+            Region = MapSpan.FromCenterAndRadius(position, Distance.FromKilometers(2));
+        }
 
         private ObservableCollection<Pin> _pins;
         public ObservableCollection<Pin> Pins
@@ -39,15 +61,8 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _pins, value);
         }
 
-        private ObservableCollection<PinViewModel> _pinCollection;
-        public ObservableCollection<PinViewModel> PinCollection
-        {
-            get { return _pinCollection; }
-            set => SetProperty(ref _pinCollection, value);
-        }
-
-        private object _pinSelectedItem;
-        public object PinSelectedItem
+        private Pin _pinSelectedItem;
+        public Pin PinSelectedItem
         {
             get => _pinSelectedItem;
             set => SetProperty(ref _pinSelectedItem, value);
@@ -60,7 +75,7 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _region, value);
         }
 
-        private bool _animated = true;
+        private bool _animated = false;
         public bool Animated
         {
             get => _animated;
@@ -79,6 +94,13 @@ namespace GPSNotepad.ViewModels
         {
             get => _topBorder;
             set => SetProperty(ref _topBorder, value);
+        }
+
+        private bool _isEnabledButton = true;
+        public bool IsEnabledButton
+        {
+            get => _isEnabledButton;
+            set => SetProperty(ref _isEnabledButton, value);
         }
 
         #endregion
@@ -106,20 +128,26 @@ namespace GPSNotepad.ViewModels
         {
             base.OnNavigatedTo(parameters);
 
-            if (parameters.TryGetValue("pinViewModel", out PinViewModel value))
+            if (parameters.TryGetValue(Constants.KeyPinViewModel, out PinViewModel value))
             {
                 MakePinFocus(value);
             }
         }
 
-        public override void Initialize(INavigationParameters parameters)
+        public async override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
 
-            var pinViewModels = GetAllPins(authorizationService.UserId);
+            var isStatus = await _permissionService.CheckStatusAsync();
+
+            if (!isStatus)
+            {
+                IsEnabledButton = false;
+            }
+
+            var pinViewModels = await GetAllPinViewModelsAsync();
 
             InitPins(pinViewModels);
-            InitPinsTitle(pinViewModels);
         }
 
         #endregion
@@ -128,28 +156,29 @@ namespace GPSNotepad.ViewModels
 
         private async void OnPinTap(Pin pin)
         {
-            var pinViewModel = FindPin(pin);
+            var pinViewModel = pin.ToPinViewModel();
             var parameters = new NavigationParameters();
 
-            parameters.Add("pinViewModel", pinViewModel);
+            parameters.Add(Constants.KeyPinViewModel, pinViewModel);
 
-            await navigationService.NavigateAsync($"{nameof(PinInfoView)}", parameters, useModalNavigation: true);
+            await navigationService.NavigateAsync(nameof(PinInfoView), parameters, useModalNavigation: true);
         }
 
-        private void OnSearchPins()
+        private async void OnSearchPins()
         {
-            var resultSearch = SearchPins();
+            var resultSearch = await SearchPins();
 
-            InitPinsTitle(resultSearch);
+            InitPins(resultSearch);
             OnSearchBarTap();
         }
 
         private void OnSelectedItemTap()
         {
-            var pin = _pinSelectedItem as PinViewModel;
+            var pin = _pinSelectedItem;
+            var pinViewmodel = pin.ToPinViewModel();
 
             OnMapTap();
-            MakePinFocus(pin);
+            MakePinFocus(pinViewmodel);
         }
 
         private void OnSearchBarTap()
@@ -166,29 +195,9 @@ namespace GPSNotepad.ViewModels
 
         #region --- Private Methods ---
 
-        private PinViewModel FindPin(Pin pin)
+        private async Task<List<PinViewModel>> SearchPins()
         {
-            var pinViewModels = GetAllPins(authorizationService.UserId);
-            var pinViewModel = pinViewModels.Where(x => x.PinId == pin.ZIndex).FirstOrDefault();
-
-            return pinViewModel;
-        }
-
-        private Pin CreatePin(PinViewModel pinViewModel)
-        {
-            var pin = new Pin
-            {
-                Position = new Position(pinViewModel.Latitude, pinViewModel.Longitude),
-                Label = pinViewModel.Name,
-                ZIndex = pinViewModel.PinId
-            };
-
-            return pin;
-        }
-
-        private List<PinViewModel> SearchPins()
-        {
-            var pinViewModels = GetAllPins(authorizationService.UserId);
+            var pinViewModels = await GetAllPinViewModelsAsync();
             var pinList = pinViewModels.Where(x => x.Name.ToLower().Substring(0, _searchText.Length) == _searchText.ToLower()).ToList();
 
             return pinList;
@@ -200,23 +209,13 @@ namespace GPSNotepad.ViewModels
 
             foreach (var item in pins)
             {
-                Pins.Add(CreatePin(item));
-            }
-        }
-
-        private void InitPinsTitle(List<PinViewModel> pins)
-        {
-            PinCollection.Clear();
-
-            foreach (var item in pins)
-            {
-                PinCollection.Add(item);
+                Pins.Add(item.ToPin());
             }
         }
 
         private void MakePinFocus(PinViewModel pinViewModel)
         {
-            var pin = CreatePin(pinViewModel);
+            var pin = pinViewModel.ToPin();
 
             Region = MapSpan.FromCenterAndRadius(pin.Position, Distance.FromKilometers(2));
         }

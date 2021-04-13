@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace GPSNotepad.Services.Repositiry
 {
-    public interface IRepository
+    public interface IRepositoryService
     {
         Task<int> InsertAsync<T>(T item) where T : IEntityBase, new();
         Task<int> UpdateAsync<T>(T item) where T : IEntityBase, new();

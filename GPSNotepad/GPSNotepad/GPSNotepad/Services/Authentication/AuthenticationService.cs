@@ -1,55 +1,51 @@
 ﻿using GPSNotepad.Models;
 using GPSNotepad.Services.Repositiry;
-using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GPSNotepad.Services.Authentication
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private IRepository _repository;
+        private IRepositoryService _repository;
 
-        public AuthenticationService(IRepository repository)
+        public AuthenticationService(IRepositoryService repository)
         {
             _repository = repository;
         }
 
-        public int VerifyUser(string login, string password)
-        {
-            var user = GetAllUsers().Where(x => x.Email == login && x.Password == password).ToList();
+        #region -- Interface IAuthenticationService implementation --
 
-            if (user == null)
+        public async Task<bool> SignInAsync(string login, string password)
+        {
+            var users = await _repository.GetAllAsync<UserModel>();
+            var user = users.Where(x => x.Email == login && x.Password == password).ToList();
+            var isMatch = false;
+
+            if (user.Count > 0)
             {
-                return 0;
+                isMatch = true;
             }
 
-            return user[0].Id;
+            return isMatch;
         }
 
-        public bool IsLogin(string login)
+        public async Task<bool> SignUpAsync(UserModel newUser)
         {
-            var user = GetAllUsers().Where(x => x.Email == login).ToList();
+            var isSignUp = false;
+            var users = await _repository.GetAllAsync<UserModel>();
+            var user = users.Where(x => x.Email == newUser.Email).ToList();
 
-            if (user.Count == 1)
+            if (user.Count == 0)
             {
-                return true;
+                var result = await _repository.InsertAsync(newUser);
+                isSignUp = true;
             }
 
-            return false;
+            return isSignUp;
         }
 
-        public int AddUser(UserModel user)
-        {
-            var result = _repository.InsertAsync(user).Result;
-
-            return result;
-        }
-
-        private List<UserModel> GetAllUsers()
-        {
-            var users = _repository.GetAllAsync<UserModel>().Result;
-
-            return users;
-        }
+        #endregion
     }
 }
+

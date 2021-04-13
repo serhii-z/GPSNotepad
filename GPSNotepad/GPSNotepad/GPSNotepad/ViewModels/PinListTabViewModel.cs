@@ -1,6 +1,6 @@
 ﻿using GPSNotepad.Models;
-using GPSNotepad.Services.Authorization;
 using GPSNotepad.Services.Pin;
+using GPSNotepad.Services.SettingsService;
 using GPSNotepad.Views;
 using Prism.Navigation;
 using System.Collections.Generic;
@@ -14,34 +14,27 @@ namespace GPSNotepad.ViewModels
 {
     public class PinListTabViewModel : BaseTabViewModel
     {
-        public PinListTabViewModel(INavigationService navigationService, 
-            IAuthorizationService authorizationService, 
-            IPinService pinService) : base(navigationService, authorizationService, pinService)
+        public PinListTabViewModel(INavigationService navigationService,  
+            IPinService pinService, ISettingsManager settingsManager) : 
+            base(navigationService, pinService, settingsManager)
         {
-            PinCollection = new ObservableCollection<PinViewModel>();
+            PinViewModels = new ObservableCollection<PinViewModel>();
         }
 
         #region --- Public Properties ---
 
-        public ICommand AddTapCommand => new Command(OnAddTap);
-        public ICommand SearchCommand => new Command(OnSearchPins);
+        public ICommand AddTapCommand => new Command(OnAddTapAsync);
+        public ICommand SearchCommand => new Command(OnSearchPinsAsync);
 
-        private ObservableCollection<PinViewModel> _pinCollection;
-        public ObservableCollection<PinViewModel> PinCollection
+        private ObservableCollection<PinViewModel> _pinViewModels;
+        public ObservableCollection<PinViewModel> PinViewModels
         {
-            get { return _pinCollection; }
-            set => SetProperty(ref _pinCollection, value);
+            get { return _pinViewModels; }
+            set => SetProperty(ref _pinViewModels, value);
         }
 
-        private bool _isNoPins;
-        public bool IsNoPins
-        {
-            get => _isNoPins;
-            set => SetProperty(ref _isNoPins, value);
-        }
-
-        private object _selectedItem;
-        public object SelectedItem
+        private PinViewModel _selectedItem;
+        public PinViewModel SelectedItem
         {
             get => _selectedItem;
             set => SetProperty(ref _selectedItem, value);
@@ -56,26 +49,62 @@ namespace GPSNotepad.ViewModels
 
         #endregion
 
-        #region --- Private Helpers ---
+        #region --- Overrides ---
 
-        private async void OnAddTap(object obj)
+        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
-            await navigationService.NavigateAsync($"{nameof(AddPinView)}");
+            if (args.PropertyName == nameof(SelectedItem))
+            {
+                OnSelectedItemTapAsync();
+            }
+
+            if (args.PropertyName == nameof(SearchText) &&
+                SearchCommand.CanExecute(null))
+            {
+                SearchCommand.Execute(null);
+            }
         }
 
-        private async void OnSelectedItemTap()
-        {
-            var item = _selectedItem as PinViewModel;
-            var parameters = new NavigationParameters();
 
-            parameters.Add("pinViewModel", item);
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+
+            if (parameters.TryGetValue(Constants.KeyPinViewModel, out PinViewModel value))
+            {
+                PinViewModels.Add(value);
+            }
+        }
+
+        public async override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+
+            var pinList = await GetAllPinViewModelsAsync();
+
+            InitCollection(pinList);
+        }
+
+        #endregion
+
+        #region --- Private Helpers ---
+
+        private async void OnAddTapAsync(object obj)
+        {
+            await navigationService.NavigateAsync(nameof(AddPinView));
+        }
+
+        private async void OnSelectedItemTapAsync()
+        {
+            var parameters = new NavigationParameters();
+            parameters.Add(Constants.KeyPinViewModel, _selectedItem);
 
             await navigationService.NavigateAsync($"{nameof(MainTabbedView)}", parameters);
         }
 
-        private void OnSearchPins()
+        private async void OnSearchPinsAsync()
         {
-            var pins = GetPins();
+            var pins = await GetAllPinViewModelsAsync();
             var resultSearch = SearchPins(pins);
 
             InitCollection(resultSearch);
@@ -83,41 +112,7 @@ namespace GPSNotepad.ViewModels
 
         #endregion
 
-        #region --- Overrides ---
-
-        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
-        {
-            if (args.PropertyName == nameof(SelectedItem))
-            {
-                OnSelectedItemTap();
-            }
-
-            if (args.PropertyName == nameof(SearchText))
-            {
-                if (SearchCommand.CanExecute(null))
-                {
-                    SearchCommand.Execute(null);
-                }
-            }
-        }
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            var pinList = GetPins();
-
-            InitCollection(pinList);
-        }
-
-        #endregion
-
         #region --- Private Methods ---
-
-        private List<PinViewModel> GetPins()
-        {
-            var pinList = GetAllPins(authorizationService.UserId);
-
-            return pinList;
-        }
 
         private List<PinViewModel> SearchPins(List<PinViewModel> pins)
         {
@@ -130,11 +125,11 @@ namespace GPSNotepad.ViewModels
 
         private void InitCollection(List<PinViewModel> pinList)
         {
-            PinCollection.Clear();
+            PinViewModels.Clear();
 
             foreach (var item in pinList)
             {
-                PinCollection.Add(item);
+                PinViewModels.Add(item);
             }
         }
 

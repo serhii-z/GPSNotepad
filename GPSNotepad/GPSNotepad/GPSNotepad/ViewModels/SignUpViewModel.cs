@@ -6,6 +6,8 @@ using Prism.Services;
 using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
+using GPSNotepad.Properties;
+using System.Threading.Tasks;
 
 namespace GPSNotepad.ViewModels
 {
@@ -13,7 +15,8 @@ namespace GPSNotepad.ViewModels
     {
         private IAuthenticationService _authenticationService;
         private IPageDialogService _pageDialog;
-        public SignUpViewModel(INavigationService navigationService, 
+
+        public SignUpViewModel(INavigationService navigationService,
             IAuthenticationService authenticationService,
             IPageDialogService pageDialogService) : base(navigationService)
         {
@@ -22,7 +25,7 @@ namespace GPSNotepad.ViewModels
         }
 
         #region --- Public Properties ---
-        public ICommand SignUpTapCommand => new Command(OnSignUpTap);
+        public ICommand SignUpTapCommand => new Command(OnSignUpTapAsync);
 
         private string _entryNameText;
         public string EntryNameText
@@ -61,23 +64,6 @@ namespace GPSNotepad.ViewModels
 
         #endregion   
 
-        #region ---- Private Helpers ---
-
-        private async void OnSignUpTap()
-        {
-            var user = AddUser();
-
-            if (user != null)
-            {
-                var parameters = new NavigationParameters();
-                parameters.Add("login", user.Email);
-
-                await navigationService.GoBackAsync(parameters);
-            }
-        }
-
-        #endregion
-
         #region --- Overrides ---
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
@@ -102,6 +88,23 @@ namespace GPSNotepad.ViewModels
             if (args.PropertyName == nameof(EntryConfirmPasswordText))
             {
                 CheckTextInput(_entryConfitmPasswordText);
+            }
+        }
+
+        #endregion
+
+        #region ---- Private Helpers ---
+
+        private async void OnSignUpTapAsync()
+        {
+            var user = await AddUserAsync();
+
+            if (user != null)
+            {
+                var parameters = new NavigationParameters();
+                parameters.Add(Constants.KeyLogin, user.Email);
+
+                await navigationService.GoBackAsync(parameters);
             }
         }
 
@@ -135,32 +138,25 @@ namespace GPSNotepad.ViewModels
             EnabledButton = false;
         }
 
-        private UserModel AddUser()
+        private async Task<UserModel> AddUserAsync()
         {
             UserModel user = null;
+            var isSuccess = CheckValidation();
 
-            if (IsPassValidation())
+            if (isSuccess)
             {
-                if (IsLogin())
+                user = CreateUser();
+                isSuccess = await _authenticationService.SignUpAsync(user);
+
+                if (!isSuccess)
                 {
-                    ShowAlert("This login is already token!");
+                    ShowAlert(Resources.SignUpLoginBusy);
                     ClearEntries();
-                }
-                else
-                {
-                    user = CreateUser();
-                    _authenticationService.AddUser(user);
+                    user = null;
                 }
             }
 
             return user;
-        }
-
-        private bool IsLogin()
-        {
-            var isBusy = _authenticationService.IsLogin(_entryEmailText);
-
-            return isBusy;
         }
 
         private UserModel CreateUser()
@@ -185,43 +181,42 @@ namespace GPSNotepad.ViewModels
 
         private async void ShowAlert(string message)
         {
-            await _pageDialog.DisplayAlertAsync("Message", message, "OK");
+            await _pageDialog.DisplayAlertAsync(Resources.AlertTitle, message, Resources.AlertOK);
         }
 
-        private bool IsPassValidation()
+        private bool CheckValidation()
         {
-            if (!StringValidator.IsValidName(_entryNameText))
+            var isSuccess = true;
+
+            if (!StringValidator.CheckName(_entryNameText))
             {
-                ShowAlert("Invalid name!");
-                ClearEntries();
-                return false;
+                ShowAlert(Resources.SignUpInvalidName);
+                isSuccess = false;
             }
-            if (!StringValidator.IsValidEmail(_entryEmailText))
+            if (!StringValidator.CheckLogin(_entryEmailText) && isSuccess)
             {
-                ShowAlert("Invalid email!");
-                ClearEntries();
-                return false;
+                ShowAlert(Resources.SignUpInvalidEmail);
+                isSuccess = false;
             }
-            if (!StringValidator.IsQuantityCorrect(_entryPasswordText, 8))
+            if (!StringValidator.CheckQuantity(_entryPasswordText, 8) && isSuccess)
             {
-                ShowAlert("Invalid number of characters!");
-                ClearEntries();
-                return false;
+                ShowAlert(Resources.SignUpInvalidNumber);
+                isSuccess = false;
             }
-            if (!StringValidator.IsAvailability(_entryPasswordText))
+            if (!StringValidator.CheckPresence(_entryPasswordText) && isSuccess)
             {
-                ShowAlert("Invalid availability!");
-                ClearEntries();
-                return false;
+                ShowAlert(Resources.SignUpInvalidPresence);
+                isSuccess = false;
             }
-            if (!StringValidator.IsPasswordsEqual(_entryPasswordText, _entryConfitmPasswordText))
+            if (!StringValidator.CheckPasswordEquality(_entryPasswordText, _entryConfitmPasswordText) && isSuccess)
             {
-                ShowAlert("Password and confirm password are not equal!");
-                ClearEntries();
-                return false;
+                ShowAlert(Resources.SignUpNotEqual);
+                isSuccess = false;
             }
 
-            return true;
+            ClearEntries();
+
+            return isSuccess;
         }
 
         #endregion

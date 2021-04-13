@@ -160,4 +160,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\pin.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\locbutton.jpg" />
+  </ItemGroup>
 </Project>

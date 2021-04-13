@@ -8,8 +8,9 @@
             NavigationPage.HasBackButton="False">
     
     <TabbedPage.Behaviors>
-        <behaviors:MainViewNavigationBehaviors />
+        <behaviors:MainViewNavigationBehavior />
     </TabbedPage.Behaviors>
+    
     <TabbedPage.Children >
         <local:MapTabView />
         <local:PinListTabView />

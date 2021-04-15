@@ -14,6 +14,7 @@ using Xamarin.Forms.GoogleMaps;
 using System.Threading.Tasks;
 using GPSNotepad.Services.Permissions;
 using GPSNotepad.Services.GeoLocations;
+using GPSNotepad.Services.Authorization;
 
 namespace GPSNotepad.ViewModels
 {
@@ -21,13 +22,15 @@ namespace GPSNotepad.ViewModels
     {
         private IPermissionService _permissionService;
         private IGeoLocationService _geoLocationService;
-        public MapTabViewModel(INavigationService navigationService,
-            IPinService pinService, ISettingsManager settingsManager, 
-            PermissionService permissionService, IGeoLocationService geoLocationService) : 
+        private IAuthorizationService _authorizationService;
+        public MapTabViewModel(INavigationService navigationService, IPinService pinService, 
+            ISettingsManager settingsManager, PermissionService permissionService, 
+            IGeoLocationService geoLocationService, IAuthorizationService authorizationService) : 
             base(navigationService, pinService, settingsManager)
         {
             _permissionService = permissionService;
             _geoLocationService = geoLocationService;
+            _authorizationService = authorizationService;
             Pins = new ObservableCollection<Pin>();
             TopBorder = new Rectangle(0.0, 0.12, 1, 0.0);
         }
@@ -39,6 +42,7 @@ namespace GPSNotepad.ViewModels
         public ICommand PinSearchCommand => new Command(OnSearchPins);
         public ICommand MapTapCommand => new Command(OnMapTap);
         public ICommand LocationButtonTapCommand => new Command(OnLocationButtonTapAsync);
+        public ICommand LogOutButtonTapCommand => new Command(OnLogOutButtonTapAsync);
 
         private Position _userPosition;
         public Position UserPosition
@@ -49,7 +53,7 @@ namespace GPSNotepad.ViewModels
 
         private async void OnLocationButtonTapAsync()
         {
-            var position = await _geoLocationService.GetPositionAsync();
+            var position = await _geoLocationService.GetUserPositionAsync();
 
             Region = MapSpan.FromCenterAndRadius(position, Distance.FromKilometers(2));
         }
@@ -96,13 +100,6 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _topBorder, value);
         }
 
-        private bool _isEnabledButton = true;
-        public bool IsEnabledButton
-        {
-            get => _isEnabledButton;
-            set => SetProperty(ref _isEnabledButton, value);
-        }
-
         #endregion
 
         #region --- Overrides ---
@@ -128,7 +125,7 @@ namespace GPSNotepad.ViewModels
         {
             base.OnNavigatedTo(parameters);
 
-            if (parameters.TryGetValue(Constants.KeyPinViewModel, out PinViewModel value))
+            if (parameters.TryGetValue(Constants.PinViewModelKey, out PinViewModel value))
             {
                 MakePinFocus(value);
             }
@@ -139,11 +136,6 @@ namespace GPSNotepad.ViewModels
             base.Initialize(parameters);
 
             var isStatus = await _permissionService.CheckStatusAsync();
-
-            if (!isStatus)
-            {
-                IsEnabledButton = false;
-            }
 
             var pinViewModels = await GetAllPinViewModelsAsync();
 
@@ -159,7 +151,7 @@ namespace GPSNotepad.ViewModels
             var pinViewModel = pin.ToPinViewModel();
             var parameters = new NavigationParameters();
 
-            parameters.Add(Constants.KeyPinViewModel, pinViewModel);
+            parameters.Add(Constants.PinViewModelKey, pinViewModel);
 
             await navigationService.NavigateAsync(nameof(PinInfoView), parameters, useModalNavigation: true);
         }
@@ -189,6 +181,13 @@ namespace GPSNotepad.ViewModels
         private void OnMapTap()
         {
             TopBorder = new Rectangle(0.0, 0.12, 1, 0.0);
+        }
+
+        private async void OnLogOutButtonTapAsync()
+        {
+            _authorizationService.LogOut();
+
+            await navigationService.NavigateAsync($"{nameof(SignInView)}");
         }
 
         #endregion

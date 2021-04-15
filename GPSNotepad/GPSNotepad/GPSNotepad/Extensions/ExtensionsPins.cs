@@ -5,7 +5,6 @@ namespace GPSNotepad.Extensions
 {
     public static class ExtensionsPins
     {
-        //ToPinViewModel from PinModel
         public static PinViewModel ToViewModel(this PinModel pinModel)
         {
             PinViewModel pinViewModel = new PinViewModel()
@@ -20,7 +19,6 @@ namespace GPSNotepad.Extensions
             return pinViewModel;
         }
 
-        //ToPinModel from PinViewModel
         public static PinModel ToPinModel(this PinViewModel pinViewModel)
         {
             PinModel pinModel = new PinModel()
@@ -34,8 +32,6 @@ namespace GPSNotepad.Extensions
             return pinModel;
         }
 
-
-        //ToPinViewModel from Pin
         public static PinViewModel ToPinViewModel(this Pin pin)
         {
             PinViewModel pinViewModel = new PinViewModel()
@@ -49,8 +45,6 @@ namespace GPSNotepad.Extensions
 
             return pinViewModel;
         }
-
-        //ToPin from PinViewModel
         public static Pin ToPin(this PinViewModel pinViewModel)
         {
             var pin = new Pin

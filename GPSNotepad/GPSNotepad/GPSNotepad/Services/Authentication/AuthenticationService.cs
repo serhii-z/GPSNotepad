@@ -1,5 +1,6 @@
 ﻿using GPSNotepad.Models;
 using GPSNotepad.Services.Repositiry;
+using GPSNotepad.Services.SettingsService;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,41 +9,57 @@ namespace GPSNotepad.Services.Authentication
     public class AuthenticationService : IAuthenticationService
     {
         private IRepositoryService _repository;
+        private ISettingsManager _settingsManager;
 
-        public AuthenticationService(IRepositoryService repository)
+        public AuthenticationService(IRepositoryService repository, ISettingsManager settingsManager)
         {
             _repository = repository;
+            _settingsManager = settingsManager;
         }
 
-        #region -- Interface IAuthenticationService implementation --
+        #region -- IAuthenticationService implementation --
 
         public async Task<bool> SignInAsync(string login, string password)
         {
             var users = await _repository.GetAllAsync<UserModel>();
-            var user = users.Where(x => x.Email == login && x.Password == password).ToList();
-            var isMatch = false;
+            users = users.Where(x => x.Email == login && x.Password == password).ToList();
 
-            if (user.Count > 0)
+            if (users.Count > 0)
             {
-                isMatch = true;
+                _settingsManager.SaveUserId(users[0].Id);
             }
 
-            return isMatch;
+            return users.Count > 0;
         }
 
-        public async Task<bool> SignUpAsync(UserModel newUser)
+        public async Task<bool> SignUpAsync(string name, string email, string password)
         {
-            var isSignUp = false;
             var users = await _repository.GetAllAsync<UserModel>();
-            var user = users.Where(x => x.Email == newUser.Email).ToList();
+            users = users.Where(x => x.Email == email).ToList();
 
-            if (user.Count == 0)
+            if (users.Count == 0)
             {
-                var result = await _repository.InsertAsync(newUser);
-                isSignUp = true;
+                var user = CreateUser(name, email, password);
+                var result = await _repository.InsertAsync(user);
             }
 
-            return isSignUp;
+            return users.Count == 0;
+        }
+
+        #endregion
+
+        #region -- Private methods --
+
+        private UserModel CreateUser(string name, string email, string password)
+        {
+            var user = new UserModel()
+            {
+                Name = name,
+                Email = email,
+                Password = password
+            };
+
+            return user;
         }
 
         #endregion

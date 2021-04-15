@@ -14,6 +14,7 @@ using GPSNotepad.Services.SettingsService;
 using System.Threading.Tasks;
 using GPSNotepad.Services.Permissions;
 using GPSNotepad.Services.GeoLocations;
+using GPSNotepad.Services.Weather;
 
 namespace GPSNotepad
 {
@@ -63,6 +64,7 @@ namespace GPSNotepad
             containerRegistry.RegisterInstance<IPinService>(Container.Resolve<PinService>());
             containerRegistry.RegisterInstance<IPermissionService>(Container.Resolve<PermissionService>());
             containerRegistry.RegisterInstance<IGeoLocationService>(Container.Resolve<GeoLocationService>());
+            containerRegistry.RegisterInstance<IWeatherService>(Container.Resolve<WeatherService>());
         }
 
         protected async override void OnInitialized()

@@ -27,7 +27,7 @@ namespace GPSNotepad.ViewModels
         }
 
         #region --- Public Properties ---
-        public ICommand LogInTapCommand => new Command(OnLogInTapAsync);
+        public ICommand SignInButtonTapCommand => new Command(OnSignInButtonTapAsync);
         public ICommand SignUpTapCommand => new Command(OnSignUpTapAsync);
 
         private string _entryEmailText;
@@ -82,9 +82,9 @@ namespace GPSNotepad.ViewModels
 
         #region --- Private Helpers ---
 
-        private async void OnLogInTapAsync()
+        private async void OnSignInButtonTapAsync()
         {
-            var isSuccess = await TryToAuthorizateAsync();
+            var isSuccess = await TryToSignInAsync();
 
             if (isSuccess)
             {
@@ -114,15 +114,11 @@ namespace GPSNotepad.ViewModels
             }
         }
         
-        private async Task<bool> TryToAuthorizateAsync()
+        private async Task<bool> TryToSignInAsync()
         {
             var isSuccess = await _authenticationService.SignInAsync(_entryEmailText, _entryPasswordText);
 
-            if (isSuccess)
-            {
-                await _authorizationService.AuthorizeUserAsync(_entryEmailText);
-            }
-            else
+            if (!isSuccess)
             {
                 ShowAlertAsync(Resources.SignInInvalidLoginPassword);
                 EntryEmailText = string.Empty;

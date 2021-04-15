@@ -70,7 +70,7 @@ namespace GPSNotepad.ViewModels
         {
             base.OnNavigatedTo(parameters);
 
-            if (parameters.TryGetValue(Constants.KeyPinViewModel, out PinViewModel value))
+            if (parameters.TryGetValue(Constants.PinViewModelKey, out PinViewModel value))
             {
                 PinViewModels.Add(value);
             }
@@ -97,7 +97,7 @@ namespace GPSNotepad.ViewModels
         private async void OnSelectedItemTapAsync()
         {
             var parameters = new NavigationParameters();
-            parameters.Add(Constants.KeyPinViewModel, _selectedItem);
+            parameters.Add(Constants.PinViewModelKey, _selectedItem);
 
             await navigationService.NavigateAsync($"{nameof(MainTabbedView)}", parameters);
         }

@@ -6,45 +6,61 @@
              Title="Add Pin">
 
     <ContentPage.ToolbarItems>
+        
         <ToolbarItem Name="MenuItem2" 
                      Order="Primary" 
                      Icon="save.png" 
                      Priority="0" 
                      Command="{Binding SaveButtonTapCommand}" 
                      CommandParameter = "1"/>
+        
     </ContentPage.ToolbarItems>
 
     <Grid >
+
         <Grid.RowDefinitions>
+            
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            
         </Grid.RowDefinitions>
+
         <Grid Grid.Row="0">
+
             <Grid.RowDefinitions>
+                
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="1*"/>
+                
             </Grid.RowDefinitions>
+
             <Grid.ColumnDefinitions>
+                
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="0.5*"/>
+                
             </Grid.ColumnDefinitions>
+            
             <Entry Grid.Column="1" 
                    Grid.Row="1"
                    Placeholder="Name"
                    Text="{Binding NameText}"/>
+            
             <Entry Grid.Column="1" 
                    Grid.Row="2"
                    Placeholder="Latitude"
                    Text="{Binding LatitudeText, Mode=TwoWay}"/>
+            
             <Entry Grid.Column="1" 
                    Grid.Row="3" 
                    Placeholder="Longitude"
                    Text="{Binding LongitudeText, Mode=TwoWay}"/>
+            
             <Editor Grid.Column="1"
                     Grid.Row="4"
                     Placeholder="Description" 
@@ -52,11 +68,15 @@
                     FlexLayout.Basis="100%"
                     BackgroundColor="LightGray"
                     MaxLength="100"/>
+            
         </Grid>
+        
         <Grid Grid.Row="1">
+            
             <local:CustomMap CommandMapTap="{Binding MapTapCommand}"
                              PinsSource="{Binding Pins}"/>
         </Grid>
+        
     </Grid>
 
 </ContentPage>

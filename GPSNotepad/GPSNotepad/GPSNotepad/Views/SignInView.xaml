@@ -6,7 +6,9 @@
              NavigationPage.HasBackButton="False">
     
     <Grid BackgroundColor="White">
+        
         <Grid.RowDefinitions>
+            
             <RowDefinition Height="3*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
@@ -14,31 +16,39 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            
         </Grid.RowDefinitions>
+        
         <Grid.ColumnDefinitions>
+            
             <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="0.5*"/>
+            
         </Grid.ColumnDefinitions>
+        
         <Entry 
             Grid.Row="1"
             Grid.Column="1"
             Placeholder="Email"
             Text="{Binding EntryEmailText}"/>
+        
         <Entry 
             Grid.Row="2"
             Grid.Column="1"
             Placeholder="Password"
             Text="{Binding EntryPasswordText}"
             IsPassword="True"/>
+        
         <Button 
             Grid.Row="4"
             Grid.Column="1"
             Text="SignIn"
             BackgroundColor="Chocolate"
             TextColor="Black"
-            Command="{Binding LogInTapCommand}"
+            Command="{Binding SignInButtonTapCommand}"
             IsEnabled="{Binding EnabledButton}"/>
+        
         <Label 
             Grid.Row="5"
             Grid.Column="1"
@@ -47,10 +57,15 @@
             TextDecorations="Underline"
             HorizontalOptions="Center"
             VerticalOptions="Center">
+            
             <Label.GestureRecognizers>
+                
                 <TapGestureRecognizer Command="{Binding SignUpTapCommand}"/>
+                
             </Label.GestureRecognizers>
+            
         </Label>
+        
     </Grid>
     
 </ContentPage>

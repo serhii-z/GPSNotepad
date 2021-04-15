@@ -97,12 +97,12 @@ namespace GPSNotepad.ViewModels
 
         private async void OnSignUpTapAsync()
         {
-            var user = await AddUserAsync();
+            var isSuccess = await TrySignUpUserAsync();
 
-            if (user != null)
+            if (isSuccess)
             {
                 var parameters = new NavigationParameters();
-                parameters.Add(Constants.KeyLogin, user.Email);
+                parameters.Add(Constants.LoginKey, _entryEmailText);
 
                 await navigationService.GoBackAsync(parameters);
             }
@@ -116,59 +116,33 @@ namespace GPSNotepad.ViewModels
         {
             if (string.IsNullOrEmpty(elementText))
             {
-                DeactivateButton();
+                EnabledButton = false;
             }
-            else
-            {
-                ActivateButton();
-            }
-        }
-
-        private void ActivateButton()
-        {
-            if (!string.IsNullOrEmpty(_entryNameText) &&
+            else if (!string.IsNullOrEmpty(_entryNameText) &&
                 !string.IsNullOrEmpty(_entryEmailText) &&
                 !string.IsNullOrEmpty(_entryPasswordText) &&
                 !string.IsNullOrEmpty(_entryConfitmPasswordText))
+            {
                 EnabledButton = true;
+            }
         }
 
-        private void DeactivateButton()
+        private async Task<bool> TrySignUpUserAsync()
         {
-            EnabledButton = false;
-        }
-
-        private async Task<UserModel> AddUserAsync()
-        {
-            UserModel user = null;
             var isSuccess = CheckValidation();
 
             if (isSuccess)
             {
-                user = CreateUser();
-                isSuccess = await _authenticationService.SignUpAsync(user);
+                isSuccess = await _authenticationService.SignUpAsync(_entryNameText, _entryEmailText, _entryPasswordText);
 
                 if (!isSuccess)
                 {
                     ShowAlert(Resources.SignUpLoginBusy);
                     ClearEntries();
-                    user = null;
                 }
             }
 
-            return user;
-        }
-
-        private UserModel CreateUser()
-        {
-            var user = new UserModel()
-            {
-                Name = _entryNameText,
-                Email = _entryEmailText,
-                Password = _entryPasswordText
-            };
-
-            return user;
+            return isSuccess;
         }
 
         private void ClearEntries()

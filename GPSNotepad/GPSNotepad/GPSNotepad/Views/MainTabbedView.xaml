@@ -6,14 +6,18 @@
             x:Class="GPSNotepad.Views.MainTabbedView"
             Title="MainView"
             NavigationPage.HasBackButton="False">
-    
+
     <TabbedPage.Behaviors>
+        
         <behaviors:MainViewNavigationBehavior />
+        
     </TabbedPage.Behaviors>
     
     <TabbedPage.Children >
+        
         <local:MapTabView />
         <local:PinListTabView />
+        
     </TabbedPage.Children>
     
 </TabbedPage>

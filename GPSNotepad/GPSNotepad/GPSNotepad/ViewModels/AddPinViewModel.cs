@@ -85,7 +85,7 @@ namespace GPSNotepad.ViewModels
             {
                 var pinViewmodel = await AddPinAsync();
                 var parameters = new NavigationParameters();
-                parameters.Add(Constants.KeyPinViewModel, pinViewmodel);
+                parameters.Add(Constants.PinViewModelKey, pinViewmodel);
 
                 await navigationService.GoBackAsync(parameters);
             }

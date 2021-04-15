@@ -5,7 +5,17 @@
              x:Class="GPSNotepad.Views.MapTabView"
              Title="Map">
 
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Name="MenuItem1" 
+                     Order="Primary" 
+                     Icon="exit.png" 
+                     Command="{Binding LogOutButtonTapCommand}" />
+
+    </ContentPage.ToolbarItems>
+
     <AbsoluteLayout>
+        
         <local:CustomMap AbsoluteLayout.LayoutFlags="All"
                          AbsoluteLayout.LayoutBounds="0,1,1,0.91"
                          PinsSource="{Binding Pins}"
@@ -24,10 +34,13 @@
                    SearchCommand="{Binding PinSearchCommand}">
             
             <SearchBar.GestureRecognizers>
+                
                 <TapGestureRecognizer Command="{Binding SearchBarTappedCommand}"/>
+                
             </SearchBar.GestureRecognizers>
             
         </SearchBar>
+        
         <ListView ItemsSource="{Binding Pins, Mode=TwoWay}"
                   SelectedItem="{Binding PinSelectedItem, Mode=TwoWay}"
                   BackgroundColor="White"
@@ -63,9 +76,7 @@
                      BackgroundColor="Transparent"
                      AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0.1,0.95,0.1,0.1"
-                     IsEnabled="{Binding IsEnabledButton}"
                      Command="{Binding LocationButtonTapCommand}" />
-
 
     </AbsoluteLayout>
     

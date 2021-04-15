@@ -13,7 +13,7 @@ namespace GPSNotepad.Services.SettingsService
 
         #region -- ISettingsManager implementation -- 
 
-        public void AddUserId(int id)
+        public void SaveUserId(int id)
         {
             _settings.AddOrUpdateValue("id", id);
         }

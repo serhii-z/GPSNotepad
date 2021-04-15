@@ -5,6 +5,6 @@ namespace GPSNotepad.Services.GeoLocations
 {
     public interface IGeoLocationService
     {
-        Task<Position> GetPositionAsync();
+        Task<Position> GetUserPositionAsync();
     }
 }

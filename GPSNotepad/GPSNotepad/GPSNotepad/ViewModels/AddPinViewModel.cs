@@ -26,6 +26,7 @@ namespace GPSNotepad.ViewModels
         public ICommand SaveButtonTapCommand => new Command(OnSaveButtonTapAsync);
         public ICommand MapTapCommand => new Command<Position>(OnMapTap);
 
+
         private ObservableCollection<Pin> _pins;
         public ObservableCollection<Pin> Pins
         {
@@ -73,7 +74,11 @@ namespace GPSNotepad.ViewModels
             LongitudeText = position.Longitude.ToString();
 
             Pins.Clear();
-            Pins.Add(CreatePin());
+
+            var pinViewModel = _pinService.CreatePinModel("Pin Name", LatitudeText, LongitudeText, "Pin Description").ToViewModel();
+            var pin = pinViewModel.ToPin();
+
+            Pins.Add(pin);
         }
 
         private async void OnSaveButtonTapAsync()
@@ -95,33 +100,9 @@ namespace GPSNotepad.ViewModels
 
         #region -- Private methods --
 
-        private Pin CreatePin()
-        {
-            var pin = new Pin
-            {
-                Position = new Position(double.Parse(LatitudeText), double.Parse(LongitudeText)),
-                Label = "PinName"
-            };
-
-            return pin;
-        }
-
-        private PinViewModel CreatePinViewmodel()
-        {
-            var pinViewModel = new PinViewModel
-            {
-                Name = _nameText,
-                Latitude = double.Parse(_latitudeText),
-                Longitude = double.Parse(_longitudeText),
-                Description = _descriptionText
-            };
-
-            return pinViewModel;
-        }
-
         private async Task<PinViewModel> AddPinAsync()
         {
-            var pinViewModel = CreatePinViewmodel();
+            var pinViewModel = _pinService.CreatePinModel(NameText, LatitudeText, LongitudeText, DescriptionText).ToViewModel();
 
             await _pinService.AddPinAsync(pinViewModel.ToPinModel());
 

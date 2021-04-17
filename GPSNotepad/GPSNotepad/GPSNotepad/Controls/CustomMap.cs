@@ -10,13 +10,21 @@ namespace GPSNotepad.Controls
         public CustomMap()
         {
             PinsSource = Pins as ObservableCollection<Pin>;
-            MyLocationEnabled = true;
 
             MapClicked += CustomMap_MapClicked;
-            PinClicked += CustomMap_PinClicked;    
+            PinClicked += CustomMap_PinClicked;
         }
 
         #region -- Pablic properties --
+
+        public static readonly BindableProperty PinsSourceProperty = BindableProperty.Create(nameof(PinsSource), typeof(ObservableCollection<Pin>),
+            typeof(CustomMap), default(ObservableCollection<Pin>), BindingMode.OneWayToSource);
+
+        public ObservableCollection<Pin> PinsSource
+        {
+            get => (ObservableCollection<Pin>)GetValue(PinsSourceProperty);
+            set => SetValue(PinsSourceProperty, value);
+        }
 
         public static readonly BindableProperty CommandMapTapProperty = BindableProperty.Create(nameof(CommandMapTap), typeof(Command),
             typeof(CustomMap), default(Command));
@@ -34,17 +42,6 @@ namespace GPSNotepad.Controls
         {
             get => (ICommand)GetValue(CommandPinTapProperty);
             set => SetValue(CommandPinTapProperty, value);
-        }
-
-        private static readonly BindablePropertyKey PinsSourcePropertyKey = BindableProperty.CreateReadOnly(nameof(PinsSource),
-            typeof(ObservableCollection<Pin>), typeof(CustomMap), default(ObservableCollection<Pin>));
-
-        public static readonly BindableProperty PinsSourceProperty = PinsSourcePropertyKey.BindableProperty;
-
-        public ObservableCollection<Pin> PinsSource
-        {
-            get => (ObservableCollection<Pin>)GetValue(PinsSourceProperty);
-            private set => SetValue(PinsSourcePropertyKey, value);
         }
 
         public static readonly BindableProperty RegionProperty = BindableProperty.Create(nameof(Region), typeof(MapSpan),

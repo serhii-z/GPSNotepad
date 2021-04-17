@@ -51,6 +51,19 @@ namespace GPSNotepad.Services.Pin
             return pinModels;
         }
 
+        public PinModel CreatePinModel(string name, string latitude, string longitude, string description)
+        {
+            var pinModel = new PinModel
+            {
+                Name = name,
+                Latitude = double.Parse(latitude),
+                Longitude = double.Parse(longitude),
+                Description = description
+            };
+
+            return pinModel;
+        }
+
         #endregion
     }
 }

@@ -60,7 +60,8 @@
                 <Button Grid.Row="2"
                         Text="Time"
                         BackgroundColor="CadetBlue"
-                        TextColor="White"/>
+                        TextColor="White"
+                        Command="{Binding TimeButtonTapCommand}"/>
 
             </Grid>
             

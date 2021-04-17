@@ -72,7 +72,7 @@ namespace GPSNotepad.ViewModels
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            if (parameters.TryGetValue("login", out string login))
+            if (parameters.TryGetValue(Constants.LoginKey, out string login))
             {
                 EntryEmailText = login;
             }

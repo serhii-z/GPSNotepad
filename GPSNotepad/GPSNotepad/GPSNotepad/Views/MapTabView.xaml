@@ -22,7 +22,8 @@
                          CommandPinTap="{Binding PinTapCommand}"
                          CommandMapTap="{Binding MapTapCommand}"
                          Region="{Binding Region}"
-                         Animated="{Binding Anim}" />
+                         Animated="{Binding Anim}"
+                         MyLocationEnabled="{Binding IsUserPosition}"/>
         
         <SearchBar Placeholder="Search pins..."
                    PlaceholderColor="Orange"

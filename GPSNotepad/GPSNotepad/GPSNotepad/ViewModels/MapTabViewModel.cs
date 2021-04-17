@@ -31,8 +31,8 @@ namespace GPSNotepad.ViewModels
             _permissionService = permissionService;
             _geoLocationService = geoLocationService;
             _authorizationService = authorizationService;
-            Pins = new ObservableCollection<Pin>();
-            TopBorder = new Rectangle(0.0, 0.12, 1, 0.0);
+
+            Pins = new ObservableCollection<Pin>();   
         }
 
         #region --- Public Properties ---
@@ -44,18 +44,11 @@ namespace GPSNotepad.ViewModels
         public ICommand LocationButtonTapCommand => new Command(OnLocationButtonTapAsync);
         public ICommand LogOutButtonTapCommand => new Command(OnLogOutButtonTapAsync);
 
-        private Position _userPosition;
-        public Position UserPosition
+        private bool _isUserPosition = true;
+        public bool IsUserPosition
         {
-            get => _userPosition;
-            set => SetProperty(ref _userPosition, value);
-        }
-
-        private async void OnLocationButtonTapAsync()
-        {
-            var position = await _geoLocationService.GetUserPositionAsync();
-
-            Region = MapSpan.FromCenterAndRadius(position, Distance.FromKilometers(2));
+            get => _isUserPosition;
+            set => SetProperty(ref _isUserPosition, value);
         }
 
         private ObservableCollection<Pin> _pins;
@@ -135,8 +128,9 @@ namespace GPSNotepad.ViewModels
         {
             base.Initialize(parameters);
 
-            var isStatus = await _permissionService.CheckStatusAsync();
+            TopBorder = new Rectangle(0.0, 0.12, 1, 0.0);
 
+            var isStatus = await _permissionService.CheckStatusAsync();
             var pinViewModels = await GetAllPinViewModelsAsync();
 
             InitPins(pinViewModels);
@@ -150,7 +144,6 @@ namespace GPSNotepad.ViewModels
         {
             var pinViewModel = pin.ToPinViewModel();
             var parameters = new NavigationParameters();
-
             parameters.Add(Constants.PinViewModelKey, pinViewModel);
 
             await navigationService.NavigateAsync(nameof(PinInfoView), parameters, useModalNavigation: true);
@@ -183,6 +176,14 @@ namespace GPSNotepad.ViewModels
             TopBorder = new Rectangle(0.0, 0.12, 1, 0.0);
         }
 
+        private async void OnLocationButtonTapAsync()
+        {
+            var position = await _geoLocationService.GetUserPositionAsync();
+
+            Animated = true;
+            Region = MapSpan.FromCenterAndRadius(position, Distance.FromKilometers(2));
+        }
+
         private async void OnLogOutButtonTapAsync()
         {
             _authorizationService.LogOut();
@@ -202,11 +203,11 @@ namespace GPSNotepad.ViewModels
             return pinList;
         }
 
-        private void InitPins(List<PinViewModel> pins)
+        private void InitPins(List<PinViewModel> pinViewModel)
         {
             Pins.Clear();
 
-            foreach (var item in pins)
+            foreach (var item in pinViewModel)
             {
                 Pins.Add(item.ToPin());
             }

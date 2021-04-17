@@ -1,12 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:GPSNotepad.Controls" 
              x:Class="GPSNotepad.Views.ClockView">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+
+    <ContentPage.Padding>
+
+        <OnPlatform x:TypeArguments="Thickness">
+
+            <On Platform="iOS" Value="0, 20, 0, 0" />
+
+        </OnPlatform>
+
+    </ContentPage.Padding>
+
+    <Grid>
+
+        <Grid.GestureRecognizers>
+
+            <TapGestureRecognizer Command="{Binding GoBackTapCommand}"/>
+
+        </Grid.GestureRecognizers>
+
+        <Grid.RowDefinitions>
+            
+            <RowDefinition Height="2.5*"/>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="0.5*" />
+            
+        </Grid.RowDefinitions>
+
+        <local:CustomAbsoluteLayout Grid.Row="0"
+                    WidthRequest="{Binding Width, Mode=TwoWay}"
+                    HeightRequest="{Binding Height, Mode=TwoWay}" 
+                    TimeCorrection="{Binding TimeCorrection}" />
+
+        <Label Grid.Row="1" 
+                   Text="{Binding Time}" 
+                   FontSize="Large"
+                   Scale="2"
+                   TextColor="Orange"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+
+        <Label Grid.Row="2" 
+                   Text="{Binding GMTInfo}" 
+                   FontSize="Small"
+                   Scale="2"
+                   TextColor="Violet"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Start"/>
+
+    </Grid>
+
 </ContentPage>

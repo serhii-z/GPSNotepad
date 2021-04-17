@@ -18,7 +18,7 @@ namespace GPSNotepad.ViewModels
             IPinService pinService, ISettingsManager settingsManager) : 
             base(navigationService, pinService, settingsManager)
         {
-            PinViewModels = new ObservableCollection<PinViewModel>();
+            Pins = new ObservableCollection<PinViewModel>();
         }
 
         #region --- Public Properties ---
@@ -26,11 +26,11 @@ namespace GPSNotepad.ViewModels
         public ICommand AddTapCommand => new Command(OnAddTapAsync);
         public ICommand SearchCommand => new Command(OnSearchPinsAsync);
 
-        private ObservableCollection<PinViewModel> _pinViewModels;
-        public ObservableCollection<PinViewModel> PinViewModels
+        private ObservableCollection<PinViewModel> _pins;
+        public ObservableCollection<PinViewModel> Pins
         {
-            get { return _pinViewModels; }
-            set => SetProperty(ref _pinViewModels, value);
+            get { return _pins; }
+            set => SetProperty(ref _pins, value);
         }
 
         private PinViewModel _selectedItem;
@@ -72,7 +72,7 @@ namespace GPSNotepad.ViewModels
 
             if (parameters.TryGetValue(Constants.PinViewModelKey, out PinViewModel value))
             {
-                PinViewModels.Add(value);
+                Pins.Add(value);
             }
         }
 
@@ -82,7 +82,7 @@ namespace GPSNotepad.ViewModels
 
             var pinList = await GetAllPinViewModelsAsync();
 
-            InitCollection(pinList);
+            InitPins(pinList);
         }
 
         #endregion
@@ -107,7 +107,7 @@ namespace GPSNotepad.ViewModels
             var pins = await GetAllPinViewModelsAsync();
             var resultSearch = SearchPins(pins);
 
-            InitCollection(resultSearch);
+            InitPins(resultSearch);
         }
 
         #endregion
@@ -123,13 +123,13 @@ namespace GPSNotepad.ViewModels
             return pinList;
         }
 
-        private void InitCollection(List<PinViewModel> pinList)
+        private void InitPins(List<PinViewModel> pinList)
         {
-            PinViewModels.Clear();
+            Pins.Clear();
 
             foreach (var item in pinList)
             {
-                PinViewModels.Add(item);
+                Pins.Add(item);
             }
         }
 

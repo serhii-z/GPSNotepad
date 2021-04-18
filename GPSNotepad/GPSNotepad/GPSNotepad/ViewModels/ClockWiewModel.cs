@@ -10,6 +10,7 @@ namespace GPSNotepad.ViewModels
     public class ClockWiewModel : BaseViewModel
     {
         private ITimeService _timeService;
+
         public ClockWiewModel(INavigationService navigationService, ITimeService timeService) : base(navigationService)
         {
             _timeService = timeService;

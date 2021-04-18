@@ -127,6 +127,7 @@ namespace GPSNotepad.ViewModels
         public async override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
+            //Pins = new ObservableCollection<PinViewModel>();
 
             TopBorder = new Rectangle(0.0, 0.12, 1, 0.0);
 
@@ -210,6 +211,7 @@ namespace GPSNotepad.ViewModels
             foreach (var item in pinViewModel)
             {
                 Pins.Add(item.ToPin());
+                //Pins.Add(item);
             }
         }
 

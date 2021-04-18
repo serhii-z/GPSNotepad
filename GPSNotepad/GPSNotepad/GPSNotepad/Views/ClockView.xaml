@@ -23,17 +23,15 @@
         </Grid.GestureRecognizers>
 
         <Grid.RowDefinitions>
-            
+
             <RowDefinition Height="2.5*"/>
             <RowDefinition Height="1*" />
             <RowDefinition Height="0.5*" />
-            
+
         </Grid.RowDefinitions>
 
-        <local:CustomAbsoluteLayout Grid.Row="0"
-                    WidthRequest="{Binding Width, Mode=TwoWay}"
-                    HeightRequest="{Binding Height, Mode=TwoWay}" 
-                    TimeCorrection="{Binding TimeCorrection}" />
+        <local:CustomSKCanvasView Grid.Row="0" 
+                                  TimeCorrection="{Binding TimeCorrection}" />
 
         <Label Grid.Row="1" 
                    Text="{Binding Time}" 

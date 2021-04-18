@@ -26,7 +26,6 @@ namespace GPSNotepad.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             Xamarin.FormsGoogleMaps.Init("AIzaSyABxw6Sj4evWkZU3dpNj_wIoIxbgru8Tuc");
-            //Xamarin.FormsGoogleMapsBindings.Init();
             LoadApplication(new App(new IOSInitializer()));   
             return base.FinishedLaunching(app, options);
         }

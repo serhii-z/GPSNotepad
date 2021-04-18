@@ -21,7 +21,6 @@ namespace GPSNotepad.ViewModels
         #region -- Public Properties --
 
         public ICommand GoBackTapCommand => new Command(OnGoBackTapAsync);
-
         public ICommand TimeButtonTapCommand => new Command(OnTimeButtonTapAsync);
 
         private string _name;
@@ -120,9 +119,10 @@ namespace GPSNotepad.ViewModels
         private async Task ShowWeatherAsync()
         {
             var weatherResponse = await _weatherService.GetWeatherResponseAsync(_latitude, _longitude, Constants.OpenWeatherUnits);
-            Temperature = string.Format("{0}: {1}°C", "temperature", weatherResponse.Main.Temp.ToString());
-            WindSpeed = string.Format("{0}: {1}km/h", "vind speed", weatherResponse.Wind.Speed.ToString());
             var icon = weatherResponse.Weather.Select(x => x).First().Icon;
+
+            Temperature = string.Format("{0}: {1}°C", "temperature", weatherResponse.Main.Temp.ToString());
+            WindSpeed = string.Format("{0}: {1}km/h", "vind speed", weatherResponse.Wind.Speed.ToString());       
             IconPath = string.Format(Constants.OpenWeatherIconPath, icon);
         }
 

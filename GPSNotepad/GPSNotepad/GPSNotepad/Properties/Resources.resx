@@ -117,20 +117,80 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddPinViewTitle" xml:space="preserve">
+    <value>Add Pin</value>
+  </data>
   <data name="AlertOK" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="AlertTitle" xml:space="preserve">
     <value>Message</value>
   </data>
+  <data name="ButtonCreateAccount" xml:space="preserve">
+    <value>Create account</value>
+  </data>
+  <data name="ButtonLogIn" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="ButtonNext" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="EntryPasswordPlaceholder" xml:space="preserve">
+    <value>Enter password</value>
+  </data>
+  <data name="EntryPlaseholderEmail" xml:space="preserve">
+    <value>Enter email</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>Incorrect input</value>
+  </data>
+  <data name="LabelEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="LabelEmailError" xml:space="preserve">
+    <value>Wrong email</value>
+  </data>
+  <data name="LabelName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="LabelNameApplication" xml:space="preserve">
+    <value>MapNotepad</value>
+  </data>
+  <data name="LabelNamePlaceholder" xml:space="preserve">
+    <value>Enter your name</value>
+  </data>
+  <data name="LabelPassword" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="LabelPasswordError" xml:space="preserve">
+    <value>The password is incorrect</value>
+  </data>
+  <data name="MainTabbedViewTitle" xml:space="preserve">
+    <value>Main Page</value>
+  </data>
+  <data name="MapTabViewTitle" xml:space="preserve">
+    <value>Map</value>
+  </data>
+  <data name="NavBarTitleLogIn" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="NavBarTitleRegister" xml:space="preserve">
+    <value>Create an account</value>
+  </data>
+  <data name="PinListTabViewTitle" xml:space="preserve">
+    <value>Pins</value>
+  </data>
+  <data name="SearchBarPlaseholder" xml:space="preserve">
+    <value>Search</value>
+  </data>
   <data name="SignInInvalidLoginPassword" xml:space="preserve">
     <value>Invalid login or password!</value>
   </data>
+  <data name="SignInTitle" xml:space="preserve">
+    <value>Users Signin</value>
+  </data>
   <data name="SignUpInvalidEmail" xml:space="preserve">
     <value>Invalid email!</value>
-  </data>
-  <data name="SignUpInvalidName" xml:space="preserve">
-    <value>Invalid name!</value>
   </data>
   <data name="SignUpInvalidNumber" xml:space="preserve">
     <value>Invalid number of characters!</value>
@@ -143,5 +203,8 @@
   </data>
   <data name="SignUpNotEqual" xml:space="preserve">
     <value>Password and confirm password are not equal!</value>
+  </data>
+  <data name="SignUpTitle" xml:space="preserve">
+    <value>Users Signup</value>
   </data>
 </root>

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:GPSNotepad.Controls"
+             xmlns:resource="clr-namespace:GPSNotepad.Properties"
+             x:Class="GPSNotepad.Views.StartSignUpView"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
+
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="0.2*"/>
+
+        </Grid.ColumnDefinitions>
+
+        <controls:CustomNavigationBar Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                                      Title="{Binding NavBarTitle}"
+                                      ImageLeftTapCommand="{Binding ImageLeftTapCommand}"/>
+
+        <controls:CustomEntry Grid.Row="1"
+                              Grid.Column="1"
+                              LabelText="{Binding LabelName}"
+                              EntryText="{Binding EntryName}"
+                              Placeholder="{Binding EntryNamePlaceholder}"
+                              ImageSource="{Binding ClearSourceName}"
+                              ImageTapCommand="{Binding ImageNameClearTapCommand}"
+                              LabelErrorText="{Binding LabelNameError}"
+                              BorderColor="{Binding BorderColor}"
+                              IsVisibleError="{Binding IsVisibleNameError}"
+                              IsVisibleImage="{Binding IsVisibleImageName}"/>
+
+        <controls:CustomEntry Grid.Row="2"
+                              Grid.Column="1"
+                              LabelText="{Binding LabelEmail}"
+                              EntryText="{Binding EntryEmail}"
+                              Placeholder="{Binding EntryEmailPlaceholder}"
+                              ImageSource="{Binding ClearSourceEmail}"
+                              ImageTapCommand="{Binding ImageEmailClearTapCommand}"
+                              LabelErrorText="{Binding LabelEmailError}"
+                              BorderColor="{Binding BorderColor}"
+                              IsVisibleError="{Binding IsVisibleEmailError}"
+                              IsVisibleImage="{Binding IsVisibleImageEmail}"/>
+
+        <Button Grid.Row="3"
+                Grid.Column="1"
+                Text="{x:Static resource:Resources.ButtonNext}"
+                TextColor="White"
+                BackgroundColor="RoyalBlue"
+                Command="{Binding NextButtonTapCommand}"
+                IsEnabled="{Binding IsEnabledButton}"/>
+
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GPSNotepad.Controls.CustomNavigationBar"
+             x:Name="customNavigationBar">
+
+    <Grid.RowDefinitions>
+
+        <RowDefinition Height="1*"/>
+        <RowDefinition Height="8*"/>
+        <RowDefinition Height="1*"/>
+
+    </Grid.RowDefinitions>
+
+    <Grid.ColumnDefinitions>
+
+        <ColumnDefinition Width="1*"/>
+        <ColumnDefinition Width="8*"/>
+        <ColumnDefinition Width="1*"/>
+        
+    </Grid.ColumnDefinitions>
+
+    <Image Grid.Column="0" 
+           Grid.Row="1"
+           Source="ic_left_blue">
+
+        <Image.GestureRecognizers>
+
+            <TapGestureRecognizer Command="{Binding ImageLeftTapCommand, Source={x:Reference customNavigationBar}}"/>
+
+        </Image.GestureRecognizers>
+        
+    </Image>
+
+    <Label Grid.Column="1" 
+           Grid.Row="1"
+           Text="{Binding Title, Source={x:Reference customNavigationBar}}"
+           FontSize="Medium"
+           FontAttributes="Bold"
+           VerticalOptions="Center"
+           HorizontalOptions="CenterAndExpand"/>
+
+</Grid>

@@ -1,63 +1,70 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:GPSNotepad.Controls"
              x:Class="GPSNotepad.Views.PinListTabView"
-             Title="Pins">
+             xmlns:resource="clr-namespace:GPSNotepad.Properties"
+             Title="{x:Static resource:Resources.PinListTabViewTitle}">
 
-    <AbsoluteLayout>
-        
-        <SearchBar Placeholder="Search pins..."
-                   PlaceholderColor="Orange"
-                   TextColor="Orange"
-                   FontSize="Medium"
-                   AbsoluteLayout.LayoutFlags="All" 
-                   AbsoluteLayout.LayoutBounds="0,0,1,0.08"
-                   Text="{Binding SearchText}"
-                   SearchCommand="{Binding SearchCommand}"/>
-        
-        <ListView CachingStrategy="RecycleElement"
+    <Grid>
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="9*"/>
+
+        </Grid.RowDefinitions>
+
+        <local:CustomTabbedNavigationBar Grid.Row="0"
+                                         ImageSettingsTapCommand="{Binding SettingsTapCommand}"
+                                         PinSearchCommand="{Binding SearchCommand}"
+                                         ImageExitTapCommand="{Binding ExitTapCommand}"/>
+
+        <AbsoluteLayout Grid.Row="1">
+
+            <ListView CachingStrategy="RecycleElement"
                   ItemsSource="{Binding Pins, Mode=TwoWay}"
                   SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                   AbsoluteLayout.LayoutFlags="All"
-                  AbsoluteLayout.LayoutBounds="0,1,1,0.91"
+                  AbsoluteLayout.LayoutBounds="0,0,1,1"
                   HasUnevenRows="True"
                   VerticalOptions="FillAndExpand"
                   BackgroundColor="Beige">
-            
-            <ListView.ItemTemplate>
-                
-                <DataTemplate>
-                    
-                    <ViewCell>
-                        
-                        <ViewCell.View>
-                            
-                            <StackLayout>
-                                
-                                <Label 
+
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <ViewCell>
+
+                            <ViewCell.View>
+
+                                <StackLayout>
+
+                                    <Label 
                                     Text="{Binding Name}" 
                                     FontSize="18" 
                                     FontAttributes="Bold"/>
-                                
-                                <Label Text="{Binding Description}" />
-                                
-                                <Label Text="{Binding Latitude}" />
-                                
-                                <Label Text="{Binding Longitude}" />
-                                
-                            </StackLayout>
-                            
-                        </ViewCell.View>
-                        
-                    </ViewCell>
-                    
-                </DataTemplate>
-                
-            </ListView.ItemTemplate>
-            
-        </ListView>
-        
-        <ImageButton Source="add.png"
+
+                                    <Label Text="{Binding Description}" />
+
+                                    <Label Text="{Binding Latitude}" />
+
+                                    <Label Text="{Binding Longitude}" />
+
+                                </StackLayout>
+
+                            </ViewCell.View>
+
+                        </ViewCell>
+
+                    </DataTemplate>
+
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+            <ImageButton Source="add.png"
                      WidthRequest="96" 
                      HeightRequest="96"
                      HorizontalOptions="End" 
@@ -67,9 +74,11 @@
                      AbsoluteLayout.LayoutBounds="1.0,1.0,-1,-1"
                      Margin="0,0,20,40"
                      Command="{Binding AddTapCommand}">
-            
-        </ImageButton>
-        
-    </AbsoluteLayout>
-    
+
+            </ImageButton>
+
+        </AbsoluteLayout>
+
+    </Grid>
+
 </ContentPage>

@@ -6,7 +6,7 @@ namespace GPSNotepad.Services.Permissions
 {
     public class PermissionService : IPermissionService
     {
-        #region --- Public Methods ---
+        #region --- IPermissionService implement ---
 
         public async Task<bool> CheckStatusAsync()
         {
@@ -25,10 +25,10 @@ namespace GPSNotepad.Services.Permissions
 
         #region --- Private Methods ---
 
-        private async Task<PermissionStatus> CheckAndRequestPermissionAsync<T>(T permission)
-                    where T : BasePermission
+        private async Task<PermissionStatus> CheckAndRequestPermissionAsync<T>(T permission) where T : BasePermission
         {
             var status = await permission.CheckStatusAsync();
+
             if (status != PermissionStatus.Granted)
             {
                 status = await permission.RequestAsync();

@@ -23,6 +23,15 @@ namespace GPSNotepad.Controls
             set => SetValue(TimeCorrectionProperty, value);
         }
 
+        public static readonly BindableProperty GMTInfoProperty = BindableProperty.Create(nameof(GMTInfo), typeof(string),
+            typeof(CustomSKCanvasView), default(string));
+
+        public string GMTInfo
+        {
+            get => (string)GetValue(GMTInfoProperty);
+            set => SetValue(GMTInfoProperty, value);
+        }
+
         #endregion
 
         #region -- Overrides --

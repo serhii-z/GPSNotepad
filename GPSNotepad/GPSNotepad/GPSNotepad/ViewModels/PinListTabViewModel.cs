@@ -1,4 +1,5 @@
 ﻿using GPSNotepad.Models;
+using GPSNotepad.Services.Authorization;
 using GPSNotepad.Services.Pin;
 using GPSNotepad.Services.SettingsService;
 using GPSNotepad.Views;
@@ -14,17 +15,28 @@ namespace GPSNotepad.ViewModels
 {
     public class PinListTabViewModel : BaseTabViewModel
     {
+        private IAuthorizationService _authorizationService;
+
         public PinListTabViewModel(INavigationService navigationService,  
-            IPinService pinService, ISettingsManager settingsManager) : 
+            IPinService pinService, ISettingsManager settingsManager, IAuthorizationService authorizationService) : 
             base(navigationService, pinService, settingsManager)
         {
+            _authorizationService = authorizationService;
+
             Pins = new ObservableCollection<PinViewModel>();
         }
 
         #region --- Public Properties ---
 
+        public ICommand SettingsTapCommandCommand => new Command(OnSettingsTap);
+
+        private void OnSettingsTap(object obj)
+        {
+            //go to search page
+        }
         public ICommand AddTapCommand => new Command(OnAddTapAsync);
         public ICommand SearchCommand => new Command(OnSearchPinsAsync);
+        public ICommand ExitTapCommand => new Command(OnExitTapAsync);
 
         private ObservableCollection<PinViewModel> _pins;
         public ObservableCollection<PinViewModel> Pins
@@ -108,6 +120,13 @@ namespace GPSNotepad.ViewModels
             var resultSearch = SearchPins(pins);
 
             InitPins(resultSearch);
+        }
+
+        private async void OnExitTapAsync()
+        {
+            _authorizationService.LogOut();
+
+            await navigationService.NavigateAsync($"{nameof(SignInView)}");
         }
 
         #endregion

@@ -27,28 +27,137 @@ namespace GPSNotepad.ViewModels
         }
 
         #region --- Public Properties ---
-        public ICommand SignInButtonTapCommand => new Command(OnSignInButtonTapAsync);
-        public ICommand SignUpTapCommand => new Command(OnSignUpTapAsync);
 
-        private string _entryEmailText;
-        public string EntryEmailText
+        public ICommand ImageLeftTapCommand => new Command(OnImageLeftTapCommandAsync);
+        public ICommand LogInButtonTapCommand => new Command(OnLogInButtonTapAsync);    
+        public ICommand ImageEntryClearTapCommand => new Command(OnImageEntryClearTapCommandAsync);
+        public ICommand ImageEntryEyeTapCommand => new Command(OnImageEntryEyeTapCommand);
+
+
+        private bool _isHidePassword;
+        public bool IsHidePassword
         {
-            get => _entryEmailText;
-            set => SetProperty(ref _entryEmailText, value);
+            get => _isHidePassword;
+            set => SetProperty(ref _isHidePassword, value);
         }
 
-        private string _entryPasswordText;
-        public string EntryPasswordText
+        private string _navBarTitle;
+        public string NavBarTitle
         {
-            get => _entryPasswordText;
-            set => SetProperty(ref _entryPasswordText, value);
+            get => _navBarTitle;
+            set => SetProperty(ref _navBarTitle, value);
         }
 
-        private bool _enabledButton = false;
-        public bool EnabledButton
+        private ImageSource _clearSource;
+        public ImageSource ClearSource
         {
-            get => _enabledButton;
-            set => SetProperty(ref _enabledButton, value);
+            get => _clearSource;
+            set => SetProperty(ref _clearSource, value);
+        }
+
+        private ImageSource _eyeSource;
+        public ImageSource EyeSource
+        {
+            get => _eyeSource;
+            set => SetProperty(ref _eyeSource, value);
+        }
+
+        private string _labelEmail;
+        public string LabelEmail
+        {
+            get => _labelEmail;
+            set => SetProperty(ref _labelEmail, value);
+        }
+
+        private string _entryEmail;
+        public string EntryEmail
+        {
+            get => _entryEmail;
+            set => SetProperty(ref _entryEmail, value);
+        }
+
+        private string _entryEmailPlaceholder;
+        public string EntryEmailPlaceholder
+        {
+            get => _entryEmailPlaceholder;
+            set => SetProperty(ref _entryEmailPlaceholder, value);
+        }
+
+        private string _labelEmailError;
+        public string LabelEmailError
+        {
+            get => _labelEmailError;
+            set => SetProperty(ref _labelEmailError, value);
+        }
+
+        private string _labelPassword;
+        public string LabelPassword
+        {
+            get => _labelPassword;
+            set => SetProperty(ref _labelPassword, value);
+        }
+
+        private string _entryPassword;
+        public string EntryPassword
+        {
+            get => _entryPassword;
+            set => SetProperty(ref _entryPassword, value);
+        }
+
+        private string _entryPasswordPlaceholder;
+        public string EntryPasswordPlaceholder
+        {
+            get => _entryPasswordPlaceholder;
+            set => SetProperty(ref _entryPasswordPlaceholder, value);
+        }
+
+        private string _labelPasswordError;
+        public string LabelPasswordError
+        {
+            get => _labelPasswordError;
+            set => SetProperty(ref _labelPasswordError, value);
+        }
+
+        private bool _isEnabledButton;
+        public bool IsEnabledButton
+        {
+            get => _isEnabledButton;
+            set => SetProperty(ref _isEnabledButton, value);
+        }
+
+        private Color _borderColor;
+        public Color BorderColor
+        {
+            get => _borderColor;
+            set => SetProperty(ref _borderColor, value);
+        }
+
+        private bool _isVisibleEmailError;
+        public bool IsVisibleEmailError
+        {
+            get => _isVisibleEmailError;
+            set => SetProperty(ref _isVisibleEmailError, value);
+        }
+
+        private bool _isVisiblePasswordError;
+        public bool IsVisiblePasswordError
+        {
+            get => _isVisiblePasswordError;
+            set => SetProperty(ref _isVisiblePasswordError, value);
+        }
+
+        private bool _isVisibleImageEmail;
+        public bool IsVisibleImageEmail
+        {
+            get => _isVisibleImageEmail;
+            set => SetProperty(ref _isVisibleImageEmail, value);
+        }
+
+        private bool _isVisibleImagePassword;
+        public bool IsVisibleImagePassword
+        {
+            get => _isVisibleImagePassword;
+            set => SetProperty(ref _isVisibleImagePassword, value);
         }
 
         #endregion
@@ -59,14 +168,18 @@ namespace GPSNotepad.ViewModels
         {
             base.OnPropertyChanged(args);
 
-            if (args.PropertyName == nameof(EntryEmailText))
+            if (args.PropertyName == nameof(EntryEmail))
             {
-                CheckTextInput(_entryEmailText);
+                CheckTextInput(_entryEmail);
+                ShowHideImageEmail(_entryEmail);
             }
 
-            if (args.PropertyName == nameof(EntryPasswordText))
+            if (args.PropertyName == nameof(EntryPassword))
             {
-                CheckTextInput(_entryPasswordText);
+                IsHidePassword = true;
+
+                CheckTextInput(_entryPassword);
+                ShowHideImagePassword(_entryPassword);
             }
         }
 
@@ -74,15 +187,41 @@ namespace GPSNotepad.ViewModels
         {
             if (parameters.TryGetValue(Constants.LoginKey, out string login))
             {
-                EntryEmailText = login;
+                EntryEmail = login;
             }
+
+            IsHidePassword = false;
+        }
+
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+
+            NavBarTitle = Resources.NavBarTitleLogIn;
+            LabelEmail = Resources.LabelEmail;
+            EntryEmailPlaceholder = Resources.EntryPlaseholderEmail;
+            LabelEmailError = Resources.LabelEmailError;
+            LabelPassword = Resources.LabelPassword;
+            EntryPasswordPlaceholder = Resources.EntryPasswordPlaceholder;
+            LabelPasswordError = Resources.LabelPasswordError;
+            BorderColor = Color.Gray;
+            IsVisibleEmailError = false;
+            IsVisiblePasswordError = false;
+            IsHidePassword = true;
+            ClearSource = "ic_clear";
+            EyeSource = "ic_eye_off";
         }
 
         #endregion
 
         #region --- Private Helpers ---
 
-        private async void OnSignInButtonTapAsync()
+        private async void OnImageLeftTapCommandAsync()
+        {
+            await navigationService.GoBackAsync();
+        }
+
+        private async void OnLogInButtonTapAsync()
         {
             var isSuccess = await TryToSignInAsync();
 
@@ -90,11 +229,6 @@ namespace GPSNotepad.ViewModels
             {
                 await navigationService.NavigateAsync($"{nameof(MainTabbedView)}");
             }
-        }
-
-        private async void OnSignUpTapAsync()
-        {
-            await navigationService.NavigateAsync($"{nameof(SignUpView)}");
         }
 
         #endregion
@@ -105,32 +239,71 @@ namespace GPSNotepad.ViewModels
         {
             if (string.IsNullOrEmpty(elementText))
             {
-                EnabledButton = false;
+                IsEnabledButton = false;
             }
-            else if(!string.IsNullOrEmpty(_entryEmailText) &&
-                    !string.IsNullOrEmpty(_entryPasswordText))
+            else if(!string.IsNullOrEmpty(_entryEmail) &&
+                    !string.IsNullOrEmpty(_entryPassword))
             {
-                EnabledButton = true;
+                IsEnabledButton = true;
             }
         }
-        
+
+        private void ShowHideImageEmail(string elementText)
+        {
+            if (string.IsNullOrEmpty(elementText))
+            {
+                IsVisibleImageEmail = false;
+            }
+            else
+            {
+                IsVisibleImageEmail = true;
+            }   
+        }
+
+        private void ShowHideImagePassword(string elementText)
+        {
+            if (string.IsNullOrEmpty(elementText))
+            {
+                IsVisibleImagePassword = false;
+            }
+            else
+            {
+                IsVisibleImagePassword = true;
+            }
+        }
+
         private async Task<bool> TryToSignInAsync()
         {
-            var isSuccess = await _authenticationService.SignInAsync(_entryEmailText, _entryPasswordText);
+            var isSuccess = await _authenticationService.SignInAsync(_entryEmail, _entryPassword);
 
             if (!isSuccess)
             {
-                ShowAlertAsync(Resources.SignInInvalidLoginPassword);
-                EntryEmailText = string.Empty;
-                EntryPasswordText = string.Empty;
+                IsVisibleEmailError = true;
+                IsVisiblePasswordError = true;
+                EntryEmail = string.Empty;
+                EntryPassword = string.Empty;
             }
 
             return isSuccess;
         }
 
-        private async void ShowAlertAsync(string message)
+        private void OnImageEntryEyeTapCommand()
         {
-            await _pageDialog.DisplayAlertAsync(Resources.AlertTitle, message, Resources.AlertOK);
+            if (IsHidePassword)
+            {
+                EyeSource = "ic_eye";
+                IsHidePassword = false;
+            }
+            else
+            {
+                EyeSource = "ic_eye_off";
+                IsHidePassword = true;
+            }
+        }
+
+        private void OnImageEntryClearTapCommandAsync()
+        {
+            EntryEmail = string.Empty;
         }
 
         #endregion

@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:local="clr-namespace:GPSNotepad.Controls" 
              x:Class="GPSNotepad.Views.AddPinView"
-             Title="Add Pin">
+             xmlns:resource="clr-namespace:GPSNotepad.Properties"
+             Title="{x:Static resource:Resources.AddPinViewTitle}">
 
     <ContentPage.ToolbarItems>
         

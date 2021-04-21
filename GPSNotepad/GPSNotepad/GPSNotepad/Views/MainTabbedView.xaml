@@ -4,20 +4,19 @@
             xmlns:local="clr-namespace:GPSNotepad.Views"
             xmlns:behaviors="clr-namespace:GPSNotepad.Behaviors"
             x:Class="GPSNotepad.Views.MainTabbedView"
-            Title="MainView"
-            NavigationPage.HasBackButton="False">
+            NavigationPage.HasNavigationBar="False">
 
     <TabbedPage.Behaviors>
         
         <behaviors:MainViewNavigationBehavior />
         
     </TabbedPage.Behaviors>
-    
+
     <TabbedPage.Children >
-        
+
         <local:MapTabView />
         <local:PinListTabView />
-        
+
     </TabbedPage.Children>
-    
+
 </TabbedPage>

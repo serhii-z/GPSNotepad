@@ -1,84 +1,135 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:GPSNotepad.Controls" 
+             xmlns:local="clr-namespace:GPSNotepad.Controls"
              x:Class="GPSNotepad.Views.MapTabView"
-             Title="Map">
+             xmlns:resource="clr-namespace:GPSNotepad.Properties"
+             Title="{x:Static resource:Resources.MapTabViewTitle}">
 
-    <ContentPage.ToolbarItems>
+    <Grid>
 
-        <ToolbarItem Name="MenuItem1" 
-                     Order="Primary" 
-                     Icon="exit.png" 
-                     Command="{Binding LogOutButtonTapCommand}" />
+        <Grid.RowDefinitions>
 
-    </ContentPage.ToolbarItems>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="9*"/>
 
-    <AbsoluteLayout>
+        </Grid.RowDefinitions>
         
-        <local:CustomMap AbsoluteLayout.LayoutFlags="All"
-                         AbsoluteLayout.LayoutBounds="0,1,1,0.91"
+        <local:CustomTabbedNavigationBar Grid.Row="0"
+                                         ImageSettingsTapCommand="{Binding SettingsTapCommand}"
+                                         PinSearchCommand="{Binding PinSearchCommand}"
+                                         SearchBarTapCommand="{Binding SearchBarTapCommand}"
+                                         ImageExitTapCommand="{Binding ExitTapCommand}"/>
+
+        <AbsoluteLayout Grid.Row="1">
+
+            <local:CustomMap AbsoluteLayout.LayoutFlags="All"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1"
                          PinsSource="{Binding Pins}"
                          CommandPinTap="{Binding PinTapCommand}"
                          CommandMapTap="{Binding MapTapCommand}"
                          Region="{Binding Region}"
                          Animated="{Binding Anim}"
                          MyLocationEnabled="{Binding IsUserPosition}"/>
-        
-        <SearchBar Placeholder="Search pins..."
-                   PlaceholderColor="Orange"
-                   TextColor="Orange"
-                   FontSize="Medium"
-                   AbsoluteLayout.LayoutFlags="All" 
-                   AbsoluteLayout.LayoutBounds="0,0,1,0.08"
-                   Text="{Binding SearchText}"
-                   SearchCommand="{Binding PinSearchCommand}">
-            
-            <SearchBar.GestureRecognizers>
-                
-                <TapGestureRecognizer Command="{Binding SearchBarTappedCommand}"/>
-                
-            </SearchBar.GestureRecognizers>
-            
-        </SearchBar>
-        
-        <ListView ItemsSource="{Binding Pins, Mode=TwoWay}"
+
+
+            <ListView ItemsSource="{Binding Pins, Mode=TwoWay}"
                   SelectedItem="{Binding PinSelectedItem, Mode=TwoWay}"
                   BackgroundColor="White"
                   AbsoluteLayout.LayoutFlags="All"
                   AbsoluteLayout.LayoutBounds="{Binding TopBorder}">
-            
-            <ListView.ItemTemplate>
-                
-                <DataTemplate>
-                    
-                    <ViewCell>
-                        
-                        <ViewCell.View>
-                            
-                            <StackLayout VerticalOptions="End">
-                                <Label  Text="{Binding Label}" 
-                                        FontAttributes="Bold"/>
-                            </StackLayout>
-                            
-                        </ViewCell.View>
-                        
-                    </ViewCell>
-                    
-                </DataTemplate>
-                
-            </ListView.ItemTemplate>
-            
-        </ListView>
 
-        <ImageButton Source="locbutton.png"
-                     WidthRequest="36" 
-                     HeightRequest="36"
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <ViewCell>
+
+                            <ViewCell.View>
+
+                                <StackLayout VerticalOptions="End">
+                                    <Label  Text="{Binding Label}" 
+                                        FontAttributes="Bold"/>
+                                </StackLayout>
+
+                            </ViewCell.View>
+
+                        </ViewCell>
+
+                    </DataTemplate>
+
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+            <ImageButton Source="ic_location"
+                     CornerRadius="35"
                      BackgroundColor="Transparent"
                      AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0.1,0.95,0.1,0.1"
+                     AbsoluteLayout.LayoutBounds="0.9,0.95,0.1,0.06"
                      Command="{Binding LocationButtonTapCommand}" />
 
-    </AbsoluteLayout>
-    
+            <Frame AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="{Binding BottomBorder}"
+               IsVisible="{Binding HasVisible}">
+
+                <Frame.GestureRecognizers>
+
+                    <TapGestureRecognizer Command="{Binding PinInfoTapCommand}"/>
+
+                </Frame.GestureRecognizers>
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+
+                    </Grid.RowDefinitions>
+
+                    <StackLayout Grid.Row="0">
+
+                        <Label Text="{Binding Name}" 
+                           HorizontalOptions="Center" 
+                           FontAttributes="Bold"/>
+
+                        <Label Text="{Binding Position}"/>
+
+                        <Label Text="{Binding Description}"/>
+
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="1" Orientation="Horizontal">
+
+                        <Image VerticalOptions="End"
+                           HorizontalOptions="Start"
+                           Source="{Binding IconPath}">
+                        </Image>
+
+                        <StackLayout Orientation="Vertical">
+
+                            <Label Text="{Binding Temperature}" />
+
+                            <Label Text="{Binding WindSpeed}"/>
+
+                        </StackLayout>
+
+                    </StackLayout>
+
+                    <Button Grid.Row="2"
+                        Text="Time"
+                        BackgroundColor="Blue"
+                        TextColor="White"
+                        Command="{Binding TimeButtonTapCommand}"/>
+
+                </Grid>
+
+            </Frame>
+
+        </AbsoluteLayout>
+
+    </Grid>
+  
 </ContentPage>

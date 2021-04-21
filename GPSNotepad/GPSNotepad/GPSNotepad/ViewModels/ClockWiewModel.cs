@@ -41,6 +41,13 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _time, value);
         }
 
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set => SetProperty(ref _name, value);
+        }
+
         #endregion
 
         #region -- Override --
@@ -73,6 +80,7 @@ namespace GPSNotepad.ViewModels
             var hours = _timeService.GetTimeCorrection(pinViewmodel);
             var gmt = hours + 3;
 
+            Name = pinViewmodel.Name;
             GMTInfo = gmt >= 0  ? string.Format("GMT+{0}:00",  gmt) : string.Format("GMT {0}:00", gmt);
 
             if (hours == 0)

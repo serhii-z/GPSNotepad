@@ -1,71 +1,71 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:GPSNotepad.Controls"
+             xmlns:resource="clr-namespace:GPSNotepad.Properties"
              x:Class="GPSNotepad.Views.SignInView"
-             Title="Users Signin"
-             NavigationPage.HasBackButton="False">
-    
-    <Grid BackgroundColor="White">
-        
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid>
+
         <Grid.RowDefinitions>
             
-            <RowDefinition Height="3*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="4*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            
+
         </Grid.RowDefinitions>
         
         <Grid.ColumnDefinitions>
             
-            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="0.2*"/>
             <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="0.2*"/>
             
         </Grid.ColumnDefinitions>
-        
-        <Entry 
-            Grid.Row="1"
-            Grid.Column="1"
-            Placeholder="Email"
-            Text="{Binding EntryEmailText}"/>
-        
-        <Entry 
-            Grid.Row="2"
-            Grid.Column="1"
-            Placeholder="Password"
-            Text="{Binding EntryPasswordText}"
-            IsPassword="True"/>
-        
-        <Button 
-            Grid.Row="4"
-            Grid.Column="1"
-            Text="SignIn"
-            BackgroundColor="Chocolate"
-            TextColor="Black"
-            Command="{Binding SignInButtonTapCommand}"
-            IsEnabled="{Binding EnabledButton}"/>
-        
-        <Label 
-            Grid.Row="5"
-            Grid.Column="1"
-            Text="SignUp"
-            TextColor="Blue"
-            TextDecorations="Underline"
-            HorizontalOptions="Center"
-            VerticalOptions="Center">
-            
-            <Label.GestureRecognizers>
-                
-                <TapGestureRecognizer Command="{Binding SignUpTapCommand}"/>
-                
-            </Label.GestureRecognizers>
-            
-        </Label>
-        
+
+        <controls:CustomNavigationBar Grid.Row="0" 
+                                      Grid.Column="0" 
+                                      Grid.ColumnSpan="3"
+                                      Title="{Binding NavBarTitle}"
+                                      ImageLeftTapCommand="{Binding ImageLeftTapCommand}"/>
+
+        <controls:CustomEntry Grid.Row="1"
+                              Grid.Column="1"
+                              LabelText="{Binding LabelEmail}"
+                              EntryText="{Binding EntryEmail}"
+                              Placeholder="{Binding EntryEmailPlaceholder}"
+                              ImageSource="{Binding ClearSource}"
+                              ImageTapCommand="{Binding ImageEntryClearTapCommand}"
+                              LabelErrorText="{Binding LabelEmailError}"
+                              BorderColor="{Binding BorderColor}"
+                              IsVisibleError="{Binding IsVisibleEmailError}"
+                              IsVisibleImage="{Binding IsVisibleImageEmail}"/>
+
+
+        <controls:CustomEntry Grid.Row="2"
+                              Grid.Column="1"
+                              LabelText="{Binding LabelPassword}"
+                              EntryText="{Binding EntryPassword}"
+                              Placeholder="{Binding EntryPasswordPlaceholder}"
+                              ImageSource="{Binding EyeSource}"
+                              IsHidePassword="{Binding IsHidePassword}"
+                              ImageTapCommand="{Binding ImageEntryEyeTapCommand}"
+                              LabelErrorText="{Binding LabelPasswordError}"
+                              BorderColor="{Binding BorderColor}"
+                              IsVisibleError="{Binding IsVisiblePasswordError}"
+                              IsVisibleImage="{Binding IsVisibleImagePassword}"/>
+
+        <Button Grid.Row="3"
+                Grid.Column="1"
+                Text="{x:Static resource:Resources.ButtonLogIn}"
+                TextColor="White"
+                BackgroundColor="RoyalBlue"
+                Command="{Binding LogInButtonTapCommand}"
+                IsEnabled="{Binding IsEnabledButton}"/>
+
     </Grid>
     
 </ContentPage>

@@ -14,8 +14,8 @@ namespace GPSNotepad.Controls
     {
         public CustomMap()
         {
-            //PinsSource = Pins as ObservableCollection<Pin>;
             PinsSource = new ObservableCollection<Pin>();
+            UiSettings.ZoomControlsEnabled = false;
 
             PinsSource.CollectionChanged += PinsSource_CollectionChanged;
             MapClicked += CustomMap_MapClicked;

@@ -9,6 +9,7 @@ using Android.OS;
 using Prism;
 using Prism.Ioc;
 using Android;
+using Xamarin.Forms.GoogleMaps.Android;
 
 namespace GPSNotepad.Droid
 {
@@ -31,7 +32,13 @@ namespace GPSNotepad.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
+
+            var platformConfig = new PlatformConfig
+            {
+                BitmapDescriptorFactory = new BitmapConfig()
+            };
+
+            Xamarin.FormsGoogleMaps.Init(this, savedInstanceState, platformConfig);
             LoadApplication(new App(new AndroidInitializer()));
         }
 

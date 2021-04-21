@@ -46,7 +46,9 @@ namespace GPSNotepad
         {
             //Navigation
             containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<StartView, StartViewModel>();
             containerRegistry.RegisterForNavigation<SignInView, SignInViewModel>();
+            containerRegistry.RegisterForNavigation<StartSignUpView, StartSignUpViewModel>();
             containerRegistry.RegisterForNavigation<SignUpView, SignUpViewModel>();
             containerRegistry.RegisterForNavigation<MainTabbedView>();
             containerRegistry.RegisterForNavigation<MapTabView, MapTabViewModel>();
@@ -85,7 +87,7 @@ namespace GPSNotepad
             }             
             else
             {
-                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignInView)}");
+                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(StartView)}");
             }         
         }
     }

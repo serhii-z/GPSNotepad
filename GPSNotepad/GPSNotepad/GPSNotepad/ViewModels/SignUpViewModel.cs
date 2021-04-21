@@ -164,7 +164,7 @@ namespace GPSNotepad.ViewModels
 
             if (!StringValidator.CheckName(_entryNameText))
             {
-                ShowAlert(Resources.SignUpInvalidName);
+                //ShowAlert(Resources.w);
                 isSuccess = false;
             }
             if (!StringValidator.CheckLogin(_entryEmailText) && isSuccess)

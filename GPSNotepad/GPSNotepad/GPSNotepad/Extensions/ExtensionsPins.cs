@@ -52,7 +52,8 @@ namespace GPSNotepad.Extensions
                 Position = new Position(pinViewModel.Latitude, pinViewModel.Longitude),
                 Label = pinViewModel.Name,
                 ZIndex = pinViewModel.PinId,
-                Address = pinViewModel.Description
+                Address = pinViewModel.Description,
+                Icon =  BitmapDescriptorFactory.FromBundle("ic_placeholder")
             };
 
             return pin;

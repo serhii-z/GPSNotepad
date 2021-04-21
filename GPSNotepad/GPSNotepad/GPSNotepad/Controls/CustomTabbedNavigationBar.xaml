@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resource="clr-namespace:GPSNotepad.Properties"
+             x:Class="GPSNotepad.Controls.CustomTabbedNavigationBar"
+      x:Name="navigationBar">
+
+    <Grid.RowDefinitions>
+
+        <RowDefinition Height="1*"/>
+        <RowDefinition Height="8*"/>
+        <RowDefinition Height="1*"/>
+
+    </Grid.RowDefinitions>
+
+    <Grid.ColumnDefinitions>
+
+        <ColumnDefinition Width="1*"/>
+        <ColumnDefinition Width="8*"/>
+        <ColumnDefinition Width="1*"/>
+
+    </Grid.ColumnDefinitions>
+
+    <Image Grid.Column="0" Grid.Row="1"
+           Source="ic_settings">
+
+        <Image.GestureRecognizers>
+
+            <TapGestureRecognizer Command="{Binding ImageSettingsTapCommand, Source={x:Reference navigationBar}}"/>
+
+        </Image.GestureRecognizers>
+
+    </Image>
+
+    <SearchBar Grid.Column="1" 
+               Grid.Row="1" 
+               BackgroundColor="LightBlue"
+               Text="{Binding SearchText}"
+               SearchCommand="{Binding PinSearchCommand}"
+               Placeholder="{x:Static resource:Resources.SearchBarPlaseholder}">
+
+        <SearchBar.GestureRecognizers>
+
+            <TapGestureRecognizer Command="{Binding SearchBarTapCommand, Source={x:Reference navigationBar}}"/>
+
+        </SearchBar.GestureRecognizers>
+
+    </SearchBar>
+
+    <Image Grid.Column="2" Grid.Row="1"
+           Source="ic_exid">
+
+        <Image.GestureRecognizers>
+
+            <TapGestureRecognizer Command="{Binding ImageExitTapCommand, Source={x:Reference navigationBar}}"/>
+
+        </Image.GestureRecognizers>
+
+    </Image>
+
+</Grid>

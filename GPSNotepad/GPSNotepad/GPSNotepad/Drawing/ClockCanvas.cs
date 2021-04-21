@@ -10,24 +10,18 @@ namespace GPSNotepad.Drawing
     {
         private SKCanvasView _canvasView;
         private double _timeCorrection;
-
-        private SKPath _hourHandPath = SKPath.ParseSvgPathData(
-            "M 0 -60 C   0 -45 0 -40  5 -20 L  5   0" +
-                    "C   5 7.5 -5 7.5 -5    0 L -5 -20" +
-                    "C 0 -40  0 -45  0 -60 Z");
-
-        private SKPath _minuteHandPath = SKPath.ParseSvgPathData(
-            "M 0 -80 C   0 -75  0 -70  2.5 -60 L  2.5   0" +
-                    "C   2.5 5 -2.5 5 -2.5   0 L -2.5 -60" +
-                    "C 0 -70  0 -75  0 -80 Z");
-   
-        private SKPath _secondHandPath = SKPath.ParseSvgPathData(
-            "M 0 10 L 0 -80");
+        private SKPath _hourHandPath = SKPath.ParseSvgPathData("M 0 -3.5 L 0 -40");
+        private SKPath _minuteHandPath = SKPath.ParseSvgPathData("M 0 -3.5 L 0 -60");  
+        private SKPath _secondHandPath = SKPath.ParseSvgPathData("M 0 -3 L 0 -80");
+        private SKPath _twelvePath = SKPath.ParseSvgPathData("M 0 -90 L 0 -80");
+        private SKPath _threePath = SKPath.ParseSvgPathData("M 0 90 L 0 80");
+        private SKPath _sixPath = SKPath.ParseSvgPathData("M 90 0 L 80 0");
+        private SKPath _ninePath = SKPath.ParseSvgPathData("M -90 0 L -80 0");
 
         private SKPaint _handStrokePaint = new SKPaint
         {
             Style = SKPaintStyle.Stroke,
-            Color = SKColors.Brown,
+            Color = SKColors.Blue,
             StrokeWidth = 2,
             StrokeCap = SKStrokeCap.Round
         };
@@ -40,59 +34,53 @@ namespace GPSNotepad.Drawing
             StrokeCap = SKStrokeCap.Round
         };
 
-        private SKPaint _handFillPaint = new SKPaint
+        private SKPaint _circleFillPaint = new SKPaint
         {
             Style = SKPaintStyle.Fill,
-            Color = SKColors.Violet
+            Color = SKColors.AliceBlue
         };
 
-        private SKPaint _minuteMarkPaint = new SKPaint
+        private SKPaint _textPaint = new SKPaint
         {
-            Style = SKPaintStyle.Stroke,
-            Color = SKColors.Orange,
-            StrokeWidth = 3,
-            StrokeCap = SKStrokeCap.Round,
-            PathEffect = SKPathEffect.CreateDash(new float[] { 0, 3 * 3.14159f }, 0)
-        };
-
-        private SKPaint _hourMarkPaint = new SKPaint
-        {
-            Style = SKPaintStyle.Stroke,
-            Color = SKColors.Orange,
-            StrokeWidth = 6,
-            StrokeCap = SKStrokeCap.Round,
-            PathEffect = SKPathEffect.CreateDash(new float[] { 0, 15 * 3.14159f }, 0)
+            Color = SKColors.Black
         };
 
         #region -- Public methods --
 
         public void PaintSurface(SKSurface surface, SKImageInfo info)
         {
-            SKImageInfo inf = info;
-            SKSurface surf = surface;
             SKCanvas canvas = surface.Canvas;
-
             canvas.Clear();
 
             canvas.Translate(info.Width / 2, info.Height / 2);
             canvas.Scale(Math.Min(info.Width / (info.Width / 3), info.Height / (info.Height / 3)));
 
-            SKRect rect = new SKRect(-90, -90, 90, 90);
-            canvas.DrawOval(rect, _minuteMarkPaint);
-            canvas.DrawOval(rect, _hourMarkPaint);
+            //SKRect rect = new SKRect(-90, -90, 90, 90);
+            canvas.DrawCircle(0, 0, 90, _circleFillPaint);
+            canvas.DrawCircle(0, 0, 90, _lightBlueStrokePaint);
+
+            canvas.DrawPath(_twelvePath, _lightBlueStrokePaint);
+            canvas.DrawPath(_threePath, _lightBlueStrokePaint);
+            canvas.DrawPath(_sixPath, _lightBlueStrokePaint);
+            canvas.DrawPath(_ninePath, _lightBlueStrokePaint);
+
+            canvas.DrawText("12", -7f, -68f, _textPaint);
+            canvas.DrawText("3", 71f, 4f, _textPaint);
+            canvas.DrawText("6", -4f, 76f, _textPaint);
+            canvas.DrawText("9", -78f, 4f, _textPaint);
+
+            canvas.DrawCircle(0, 0, 2, _lightBlueStrokePaint);
 
             DateTime dateTime = DateTime.Now.AddHours(_timeCorrection);
 
             canvas.Save();
             canvas.RotateDegrees(30 * dateTime.Hour + dateTime.Minute / 2f);
             canvas.DrawPath(_hourHandPath, _handStrokePaint);
-            canvas.DrawPath(_hourHandPath, _handFillPaint);
             canvas.Restore();
 
             canvas.Save();
             canvas.RotateDegrees(6 * dateTime.Minute + dateTime.Second / 10f);
             canvas.DrawPath(_minuteHandPath, _handStrokePaint);
-            canvas.DrawPath(_minuteHandPath, _handFillPaint);
             canvas.Restore();
 
             double t = dateTime.Millisecond / 1000.0;

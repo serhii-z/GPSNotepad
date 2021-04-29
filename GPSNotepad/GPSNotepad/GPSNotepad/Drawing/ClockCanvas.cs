@@ -18,18 +18,18 @@ namespace GPSNotepad.Drawing
         private SKPath _sixPath = SKPath.ParseSvgPathData("M 90 0 L 80 0");
         private SKPath _ninePath = SKPath.ParseSvgPathData("M -90 0 L -80 0");
 
+        private SKPaint _textPaint = new SKPaint();
+
         private SKPaint _handStrokePaint = new SKPaint
         {
             Style = SKPaintStyle.Stroke,
-            Color = SKColors.Blue,
             StrokeWidth = 2,
             StrokeCap = SKStrokeCap.Round
         };
 
-        private SKPaint _lightBlueStrokePaint = new SKPaint
+        private SKPaint _circleStrokePaint = new SKPaint
         {
             Style = SKPaintStyle.Stroke,
-            Color = SKColors.LightBlue,
             StrokeWidth = 2,
             StrokeCap = SKStrokeCap.Round
         };
@@ -37,12 +37,6 @@ namespace GPSNotepad.Drawing
         private SKPaint _circleFillPaint = new SKPaint
         {
             Style = SKPaintStyle.Fill,
-            Color = SKColors.AliceBlue
-        };
-
-        private SKPaint _textPaint = new SKPaint
-        {
-            Color = SKColors.Black
         };
 
         #region -- Public methods --
@@ -55,21 +49,20 @@ namespace GPSNotepad.Drawing
             canvas.Translate(info.Width / 2, info.Height / 2);
             canvas.Scale(Math.Min(info.Width / (info.Width / 3), info.Height / (info.Height / 3)));
 
-            //SKRect rect = new SKRect(-90, -90, 90, 90);
             canvas.DrawCircle(0, 0, 90, _circleFillPaint);
-            canvas.DrawCircle(0, 0, 90, _lightBlueStrokePaint);
+            canvas.DrawCircle(0, 0, 90, _circleStrokePaint);
 
-            canvas.DrawPath(_twelvePath, _lightBlueStrokePaint);
-            canvas.DrawPath(_threePath, _lightBlueStrokePaint);
-            canvas.DrawPath(_sixPath, _lightBlueStrokePaint);
-            canvas.DrawPath(_ninePath, _lightBlueStrokePaint);
+            canvas.DrawPath(_twelvePath, _circleStrokePaint);
+            canvas.DrawPath(_threePath, _circleStrokePaint);
+            canvas.DrawPath(_sixPath, _circleStrokePaint);
+            canvas.DrawPath(_ninePath, _circleStrokePaint);
 
             canvas.DrawText("12", -7f, -68f, _textPaint);
             canvas.DrawText("3", 71f, 4f, _textPaint);
             canvas.DrawText("6", -4f, 76f, _textPaint);
             canvas.DrawText("9", -78f, 4f, _textPaint);
 
-            canvas.DrawCircle(0, 0, 2, _lightBlueStrokePaint);
+            canvas.DrawCircle(0, 0, 2, _circleStrokePaint);
 
             DateTime dateTime = DateTime.Now.AddHours(_timeCorrection);
 
@@ -96,7 +89,7 @@ namespace GPSNotepad.Drawing
 
             canvas.Save();
             canvas.RotateDegrees(6 * (dateTime.Second + (float)t));
-            canvas.DrawPath(_secondHandPath, _lightBlueStrokePaint);
+            canvas.DrawPath(_secondHandPath, _circleStrokePaint);
             canvas.Restore();
         }
 
@@ -110,6 +103,31 @@ namespace GPSNotepad.Drawing
                 _canvasView.InvalidateSurface();
                 return true;
             });
+        }
+
+        public void ApplyColor(string color)
+        {
+            switch (color)
+            {
+                case Constants.ColorClockDefault:
+                    _circleFillPaint.Color = SKColors.AliceBlue;
+                    _circleStrokePaint.Color = SKColors.LightBlue;
+                    _handStrokePaint.Color = SKColors.Blue;
+                    _textPaint.Color = SKColors.Black;
+                    break;
+                case Constants.ColorClockRed:
+                    _circleFillPaint.Color = SKColors.AliceBlue;
+                    _circleStrokePaint.Color = SKColors.LightPink;
+                    _handStrokePaint.Color = SKColors.Red;
+                    _textPaint.Color = SKColors.Black;
+                    break;
+                case Constants.DarkTheme:
+                    _circleFillPaint.Color = SKColors.SlateGray;
+                    _circleStrokePaint.Color = SKColors.White;
+                    _handStrokePaint.Color = SKColors.Blue;
+                    _textPaint.Color = SKColors.White; ;
+                    break;
+            }
         }
 
         #endregion

@@ -4,80 +4,161 @@
              xmlns:local="clr-namespace:GPSNotepad.Controls" 
              x:Class="GPSNotepad.Views.AddPinView"
              xmlns:resource="clr-namespace:GPSNotepad.Properties"
-             Title="{x:Static resource:Resources.AddPinViewTitle}">
+             NavigationPage.HasNavigationBar="False">
 
-    <ContentPage.ToolbarItems>
-        
-        <ToolbarItem Name="MenuItem2" 
-                     Order="Primary" 
-                     Icon="save.png" 
-                     Priority="0" 
-                     Command="{Binding SaveButtonTapCommand}" 
-                     CommandParameter = "1"/>
-        
-    </ContentPage.ToolbarItems>
-
-    <Grid >
+    <Grid BackgroundColor="{DynamicResource viewBackground}">
 
         <Grid.RowDefinitions>
-            
+
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="4.5*"/>
+
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <Grid.ColumnDefinitions>
 
-            <Grid.RowDefinitions>
-                
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="1*"/>
-                
-            </Grid.RowDefinitions>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="0.2*"/>
+
+        </Grid.ColumnDefinitions>
+
+        <local:CustomNavigationBar Grid.Row="0" 
+                                   Grid.Column="0" 
+                                   Grid.ColumnSpan="3"
+                                   Title="{Binding NavBarTitle}"
+                                   ImageLeftTapCommand="{Binding GoBackTapCommand}">
+
+            <Image Source="ic_save" 
+                   Grid.Row="1" 
+                   Grid.Column="2"
+                   HorizontalOptions="Center">
+
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SaveTapCommand}"/>
+                </Image.GestureRecognizers>
+
+            </Image>
+
+            <BoxView Grid.Row="2"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     VerticalOptions="Start"
+                     HeightRequest="1"
+                     BackgroundColor="{DynamicResource boxView}"/>
+
+        </local:CustomNavigationBar>
+
+        <local:CustomEntry Grid.Row="1"
+                           Grid.Column="1"
+                           LabelText="{Binding LabelName}"
+                           EntryText="{Binding EntryName}"
+                           Placeholder="{Binding EntryPlaceholder}"
+                           ImageSource="{Binding ClearSourceName}"
+                           ImageTapCommand="{Binding ImageNameClearTapCommand}"
+                           BorderColor="{Binding BorderColorName}"/>
+
+        <local:CustomEntry Grid.Row="2"
+                           Grid.Column="1"
+                           LabelText="{Binding LabelDescription}"
+                           EntryText="{Binding EntryDescription}"
+                           Placeholder="{Binding EntryDescriptionPlaceholder}"
+                           ImageSource="{Binding ClearSourceDescription}"
+                           ImageTapCommand="{Binding ImageDescriptionClearTapCommand}"
+                           BorderColor="{Binding BorderColorDescription}"/>
+
+        <Grid Grid.Row="3" 
+              Grid.Column="1" >
 
             <Grid.ColumnDefinitions>
-                
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="4*"/>
-                <ColumnDefinition Width="0.5*"/>
-                
+
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+
             </Grid.ColumnDefinitions>
-            
-            <Entry Grid.Column="1" 
-                   Grid.Row="1"
-                   Placeholder="Name"
-                   Text="{Binding NameText}"/>
-            
-            <Entry Grid.Column="1" 
-                   Grid.Row="2"
-                   Placeholder="Latitude"
-                   Text="{Binding LatitudeText, Mode=TwoWay}"/>
-            
-            <Entry Grid.Column="1" 
-                   Grid.Row="3" 
-                   Placeholder="Longitude"
-                   Text="{Binding LongitudeText, Mode=TwoWay}"/>
-            
-            <Editor Grid.Column="1"
-                    Grid.Row="4"
-                    Placeholder="Description" 
-                    Text="{Binding DescriptionText}"
-                    FlexLayout.Basis="100%"
-                    BackgroundColor="LightGray"
-                    MaxLength="100"/>
-            
+
+            <Grid Grid.Column="0">
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="0.5*"/>
+
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0"     
+                       Text="{x:Static resource:Resource.LabelCoordinates}"
+                       TextColor="{DynamicResource labelText}"
+                       FontSize="Small"
+                       FontAttributes="Bold"/>
+
+                <Frame Grid.Row="1"
+                       BackgroundColor="{DynamicResource addViewFrameBackground}"
+                       BorderColor="{DynamicResource addViewFrameBorder}"/>
+
+                <Entry Grid.Row="1"
+                       HorizontalOptions="FillAndExpand"
+                       Margin="10,0,0,0"
+                       Placeholder="{x:Static resource:Resource.EntryLatitudePlaceholder}"
+                       PlaceholderColor="{DynamicResource entryPlaceholder}"         
+                       Text="{Binding EntryLatitude}"
+                       TextColor="{DynamicResource entryText}"
+                       FontSize="Small"/>
+
+            </Grid>
+
+            <Grid Grid.Column="1">
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="0.5*"/>
+
+                </Grid.RowDefinitions>
+
+                <Frame Grid.Row="1"
+                       BackgroundColor="{DynamicResource addViewFrameBackground}"
+                       BorderColor="{DynamicResource addViewFrameBorder}"/>
+
+                <Entry Grid.Row="1"
+                       HorizontalOptions="FillAndExpand"
+                       Margin="10,0,0,0"
+                       Placeholder="{x:Static resource:Resource.EntryLongitudePlaceholder}"
+                       PlaceholderColor="{DynamicResource entryPlaceholder}"
+                       Text="{Binding EntryLongitude}"
+                       TextColor="{DynamicResource entryText}"
+                       FontSize="Small"/>
+
+            </Grid>
+
         </Grid>
-        
-        <Grid Grid.Row="1">
-            
-            <local:CustomMap CommandMapTap="{Binding MapTapCommand}"
-                           PinsSource="{Binding Pins}" />
-        </Grid>
-        
+
+        <local:CustomMap Grid.Row="4"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="3"
+                         Region="{Binding Region}"
+                         Animated="{Binding Animated}"
+                         CommandMapTap="{Binding MapTapCommand}"
+                         PinsSource="{Binding Pins}" 
+                         MyLocationEnabled="{Binding IsUserPosition}"
+                         StyleMap="{Binding Style}"/>
+
+        <ImageButton Grid.Row="4"
+                     Grid.Column="1"
+                     Source="{DynamicResource buttonMyLocation}"
+                     WidthRequest="50" 
+                     HeightRequest="50"
+                     HorizontalOptions="End" 
+                     VerticalOptions="End"
+                     BackgroundColor="{DynamicResource imageButton}"
+                     Margin="0,0,5,20"
+                     Command="{Binding LocationButtonTapCommand}"/>
+
     </Grid>
 
 </ContentPage>

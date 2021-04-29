@@ -2,11 +2,10 @@
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
-using System.Collections.Specialized;
-using System;
-using System.Collections.Generic;
 using GPSNotepad.Models;
 using GPSNotepad.Extensions;
+using System.Runtime.CompilerServices;
+using System;
 
 namespace GPSNotepad.Controls
 {
@@ -14,10 +13,9 @@ namespace GPSNotepad.Controls
     {
         public CustomMap()
         {
-            PinsSource = new ObservableCollection<Pin>();
+            PinsSource = new ObservableCollection<PinViewModel>();
             UiSettings.ZoomControlsEnabled = false;
 
-            PinsSource.CollectionChanged += PinsSource_CollectionChanged;
             MapClicked += CustomMap_MapClicked;
             PinClicked += CustomMap_PinClicked;
         }
@@ -42,13 +40,12 @@ namespace GPSNotepad.Controls
             set => SetValue(CommandPinTapProperty, value);
         }
 
-        public static readonly BindableProperty PinsSourceProperty = BindableProperty.Create(nameof(PinsSource), typeof(ObservableCollection<Pin>),
-            typeof(CustomMap), default(ObservableCollection<Pin>), BindingMode.OneWayToSource, propertyChanged: PinsSourcePropertyChanged);
+        public static readonly BindableProperty PinsSourceProperty = BindableProperty.Create(nameof(PinsSource), typeof(ObservableCollection<PinViewModel>),
+            typeof(CustomMap));
 
-
-        public ObservableCollection<Pin> PinsSource
+        public ObservableCollection<PinViewModel> PinsSource
         {
-            get => (ObservableCollection<Pin>)GetValue(PinsSourceProperty);
+            get => (ObservableCollection<PinViewModel>)GetValue(PinsSourceProperty);
             set => SetValue(PinsSourceProperty, value);
         }
 
@@ -69,20 +66,18 @@ namespace GPSNotepad.Controls
             set => SetValue(AnimatedProperty, value);
         }
 
+        public static readonly BindableProperty StyleMapProperty = BindableProperty.Create(nameof(StyleMap), typeof(MapStyle),
+            typeof(CustomMap), propertyChanged: OnStyleMapPropertyChanged);
+
+        public MapStyle StyleMap
+        {
+            get => (MapStyle)GetValue(StyleMapProperty);
+            set => SetValue(StyleMapProperty, value);
+        }
+
         #endregion
 
         #region -- Private helpers --
-
-        private static void PinsSourcePropertyChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            var behavior = (CustomMap)bindable;
-            var newPinSource = newValue as ObservableCollection<Pin>;
-
-            if (behavior != null || newPinSource != null)
-            {
-                UpdatePinSource(behavior, newPinSource);
-            }
-        }
 
         private static void OnRegionChanged(BindableObject bindable, object oldValue, object newValue)
         {
@@ -103,22 +98,32 @@ namespace GPSNotepad.Controls
             CommandPinTap?.Execute(e.Pin);
         }
 
-        private void PinsSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private static void OnStyleMapPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            UpdatePinSource(this, sender as IEnumerable<Pin>);
+            var behavior = (CustomMap)bindable;
+            var style = newValue as MapStyle;
+            behavior.MapStyle = style;
         }
 
         #endregion
 
-        #region -- Private methods --
+        #region -- Overrides --
 
-        private static void UpdatePinSource(CustomMap behavior, IEnumerable<Pin> newPinSource)
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            behavior.Pins.Clear();
+            base.OnPropertyChanged(propertyName);
 
-            foreach (var item in newPinSource)
+            if (propertyName == nameof(PinsSource))
             {
-                behavior.Pins.Add(item);
+                Pins.Clear();
+
+                if (PinsSource != null)
+                {
+                    foreach (var item in PinsSource)
+                    {
+                        this.Pins.Add(item.ToPin());
+                    }
+                }
             }
         }
 

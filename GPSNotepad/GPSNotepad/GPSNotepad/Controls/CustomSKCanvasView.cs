@@ -32,6 +32,15 @@ namespace GPSNotepad.Controls
             set => SetValue(GMTInfoProperty, value);
         }
 
+        public static readonly BindableProperty ColorClockProperty = BindableProperty.Create(nameof(ColorClock), typeof(string),
+            typeof(CustomMap), propertyChanged: OnColorClock);
+
+        public string ColorClock
+        {
+            get => (string)GetValue(ColorClockProperty);
+            set => SetValue(ColorClockProperty, value);
+        }
+
         #endregion
 
         #region -- Overrides --
@@ -52,6 +61,14 @@ namespace GPSNotepad.Controls
             var behavior = bindable as CustomSKCanvasView;
 
             behavior._clockCanvas.StartClock(behavior, behavior.TimeCorrection);
+        }
+
+        private static void OnColorClock(BindableObject bindable, object oldValue, object newValue)
+        {
+            var behavior = bindable as CustomSKCanvasView;
+            var color = newValue as string;
+
+            behavior._clockCanvas.ApplyColor(color);
         }
 
         #endregion

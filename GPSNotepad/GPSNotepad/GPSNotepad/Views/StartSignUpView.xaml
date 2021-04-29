@@ -6,15 +6,16 @@
              x:Class="GPSNotepad.Views.StartSignUpView"
              NavigationPage.HasNavigationBar="False">
 
-    <Grid>
+    <Grid BackgroundColor="{DynamicResource viewBackground}">
 
         <Grid.RowDefinitions>
 
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="4*"/>
+            <RowDefinition Height="1.9*"/>
+            <RowDefinition Height="1.9*"/>
+            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="3.7*"/>
 
         </Grid.RowDefinitions>
 
@@ -38,9 +39,7 @@
                               ImageSource="{Binding ClearSourceName}"
                               ImageTapCommand="{Binding ImageNameClearTapCommand}"
                               LabelErrorText="{Binding LabelNameError}"
-                              BorderColor="{Binding BorderColor}"
-                              IsVisibleError="{Binding IsVisibleNameError}"
-                              IsVisibleImage="{Binding IsVisibleImageName}"/>
+                              BorderColor="{Binding BorderColorName}"/>
 
         <controls:CustomEntry Grid.Row="2"
                               Grid.Column="1"
@@ -50,17 +49,34 @@
                               ImageSource="{Binding ClearSourceEmail}"
                               ImageTapCommand="{Binding ImageEmailClearTapCommand}"
                               LabelErrorText="{Binding LabelEmailError}"
-                              BorderColor="{Binding BorderColor}"
-                              IsVisibleError="{Binding IsVisibleEmailError}"
-                              IsVisibleImage="{Binding IsVisibleImageEmail}"/>
+                              BorderColor="{Binding BorderColorEmail}"/>
 
         <Button Grid.Row="3"
                 Grid.Column="1"
-                Text="{x:Static resource:Resources.ButtonNext}"
-                TextColor="White"
-                BackgroundColor="RoyalBlue"
+                Text="{x:Static resource:Resource.ButtonNext}"
+                TextColor="{DynamicResource buttonText}"
+                BackgroundColor="{DynamicResource buttonBackground}"
                 Command="{Binding NextButtonTapCommand}"
                 IsEnabled="{Binding IsEnabledButton}"/>
+
+        <StackLayout Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+
+            <BoxView HorizontalOptions="FillAndExpand"
+                 VerticalOptions="Center"
+                 HeightRequest="1"
+                 BackgroundColor="{DynamicResource boxView}"/>
+
+            <Label Text="or" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center"
+                   TextColor="{DynamicResource boxView}"/>
+
+            <BoxView HorizontalOptions="FillAndExpand"
+                 VerticalOptions="Center"
+                 HeightRequest="1"
+                 BackgroundColor="{DynamicResource boxView}"/>
+
+        </StackLayout>
 
     </Grid>
 

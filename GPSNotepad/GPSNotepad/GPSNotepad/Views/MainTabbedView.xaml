@@ -4,7 +4,8 @@
             xmlns:local="clr-namespace:GPSNotepad.Views"
             xmlns:behaviors="clr-namespace:GPSNotepad.Behaviors"
             x:Class="GPSNotepad.Views.MainTabbedView"
-            NavigationPage.HasNavigationBar="False">
+            NavigationPage.HasNavigationBar="False"
+            BarBackgroundColor="{DynamicResource viewBackground}">
 
     <TabbedPage.Behaviors>
         

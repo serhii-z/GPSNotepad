@@ -13,7 +13,10 @@ namespace GPSNotepad.Extensions
                 Name = pinModel.Name,
                 Latitude = pinModel.Latitude,
                 Longitude = pinModel.Longitude,
-                Description = pinModel.Description
+                Description = pinModel.Description,
+                ImagePath = pinModel.ImagePath,
+                IsFavorit = pinModel.IsFavorit,
+                UserId = pinModel.UserId,
             };
 
             return pinViewModel;
@@ -23,10 +26,14 @@ namespace GPSNotepad.Extensions
         {
             PinModel pinModel = new PinModel()
             {
+                Id = pinViewModel.PinId,
                 Name = pinViewModel.Name,
                 Latitude = pinViewModel.Latitude,
                 Longitude = pinViewModel.Longitude,
-                Description = pinViewModel.Description
+                Description = pinViewModel.Description,
+                ImagePath = pinViewModel.ImagePath,
+                IsFavorit = pinViewModel.IsFavorit,
+                UserId = pinViewModel.UserId,
             };
 
             return pinModel;
@@ -53,7 +60,7 @@ namespace GPSNotepad.Extensions
                 Label = pinViewModel.Name,
                 ZIndex = pinViewModel.PinId,
                 Address = pinViewModel.Description,
-                Icon =  BitmapDescriptorFactory.FromBundle("ic_placeholder")
+                Icon =  BitmapDescriptorFactory.FromBundle(Constants.ImagePlaceholder)
             };
 
             return pin;

@@ -1,5 +1,5 @@
 ﻿using GPSNotepad.Models;
-using GPSNotepad.Services.Repositiry;
+using GPSNotepad.Services.Repository;
 using GPSNotepad.Services.SettingsService;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,19 +49,6 @@ namespace GPSNotepad.Services.Pin
             pinModels = pinModels.Where(x => x.UserId == userId).ToList();
 
             return pinModels;
-        }
-
-        public PinModel CreatePinModel(string name, string latitude, string longitude, string description)
-        {
-            var pinModel = new PinModel
-            {
-                Name = name,
-                Latitude = double.Parse(latitude),
-                Longitude = double.Parse(longitude),
-                Description = description
-            };
-
-            return pinModel;
         }
 
         #endregion

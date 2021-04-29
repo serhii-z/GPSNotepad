@@ -1,7 +1,4 @@
 ﻿using Android.Content;
-using Android.Content.Res;
-using Android.Graphics.Drawables;
-using Android.Text;
 using GPSNotepad.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -21,11 +18,8 @@ namespace GPSNotepad.Droid
 
             if (Control != null)
             {
-                GradientDrawable gd = new GradientDrawable();
-                gd.SetColor(global::Android.Graphics.Color.Transparent);
-                this.Control.SetBackgroundDrawable(gd);
-                this.Control.SetRawInputType(InputTypes.TextFlagNoSuggestions);
-                Control.SetHintTextColor(ColorStateList.ValueOf(global::Android.Graphics.Color.White));
+                Control.Background = null;
+                Control.SetBackgroundColor(Android.Graphics.Color.Transparent);
             }
         }
     }

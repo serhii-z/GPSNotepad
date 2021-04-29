@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GPSNotepad.Resources.Themes.LightTheme">
+    
+    <Color x:Key="buttonBackground">RoyalBlue</Color>
+    <Color x:Key="buttonText">White</Color>
+    
+    <Color x:Key="buttonStartBackground">Transparent</Color>
+    <Color x:Key="buttonStartText">RoyalBlue</Color>
+    <Color x:Key="buttonStartBorder">RoyalBlue</Color>
+    
+    <Color x:Key="labelStartText">RoyalBlue</Color>
+    
+    <Color x:Key="viewBackground">White</Color>
+    
+    <Color x:Key="navigationBar">Transparent</Color>
+    
+    <Color x:Key="entryBorder">Gray</Color>
+    <Color x:Key="entryPlaceholder">LightGray</Color>
+    <Color x:Key="entryText">Gray</Color>
+    
+    <Color x:Key="boxView">LightGray</Color>
+    
+    <Color x:Key="labelText">DarkGray</Color>
+    <Color x:Key="labelTextError">Red</Color>
+    
+    <Color x:Key="labelNavBar">Black</Color>
+    <Color x:Key="entryNavBarBackground">AliceBlue</Color>
+    <Color x:Key="entryNavBarPlaceholder">LightGray</Color>
+    
+    <Color x:Key="listViewBackground">White</Color>
+    <Color x:Key="listViewSeparator">DarkGray</Color>
+
+    <Color x:Key="imageButton">Transparent</Color>
+    
+    <Color x:Key="frame">White</Color>
+
+    <Color x:Key="imageFavorit">AliceBlue</Color>
+
+    <Color x:Key="addviewFrameBackground">Transparent</Color>
+    <Color x:Key="addviewFrameBorder">Gray</Color>
+    
+    <Color x:Key="radioButtonText">Gray</Color>
+    <Color x:Key="radioButtonBorder">Gray</Color>
+    <Color x:Key="radioButtonBackground">Transparent</Color>
+
+    <Color x:Key="switchOn">LightGray</Color>
+    <Color x:Key="switchThumb">White</Color>
+
+    <Color x:Key="clockFrameBackground">White</Color>
+
+    <ImageSource x:Key="buttonMyLocation">my_location</ImageSource>
+    
+</ResourceDictionary>

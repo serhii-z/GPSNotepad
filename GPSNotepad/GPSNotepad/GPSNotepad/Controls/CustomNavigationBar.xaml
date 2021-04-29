@@ -2,7 +2,8 @@
 <Grid xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GPSNotepad.Controls.CustomNavigationBar"
-             x:Name="customNavigationBar">
+             x:Name="customNavigationBar"
+             BackgroundColor="{DynamicResource navigationBar}">
 
     <Grid.RowDefinitions>
 
@@ -14,14 +15,15 @@
 
     <Grid.ColumnDefinitions>
 
-        <ColumnDefinition Width="1*"/>
-        <ColumnDefinition Width="8*"/>
-        <ColumnDefinition Width="1*"/>
+        <ColumnDefinition Width="2*"/>
+        <ColumnDefinition Width="7*"/>
+        <ColumnDefinition Width="2*"/>
         
     </Grid.ColumnDefinitions>
 
-    <Image Grid.Column="0" 
-           Grid.Row="1"
+    <Image Grid.Row="1"
+           Grid.Column="0" 
+           HorizontalOptions="Center"
            Source="ic_left_blue">
 
         <Image.GestureRecognizers>
@@ -35,6 +37,7 @@
     <Label Grid.Column="1" 
            Grid.Row="1"
            Text="{Binding Title, Source={x:Reference customNavigationBar}}"
+           TextColor="{DynamicResource labelNavBar}"
            FontSize="Medium"
            FontAttributes="Bold"
            VerticalOptions="Center"

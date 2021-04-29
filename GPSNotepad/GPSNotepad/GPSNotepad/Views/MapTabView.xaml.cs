@@ -1,5 +1,4 @@
 ﻿using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace GPSNotepad.Views
 {
@@ -7,7 +6,7 @@ namespace GPSNotepad.Views
     {
         public MapTabView()
         {
-            InitializeComponent();         
+            InitializeComponent();       
         }
     }
 }

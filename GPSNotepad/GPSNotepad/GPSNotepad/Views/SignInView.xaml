@@ -6,15 +6,16 @@
              x:Class="GPSNotepad.Views.SignInView"
              NavigationPage.HasNavigationBar="False">
 
-    <Grid>
+    <Grid BackgroundColor="{DynamicResource viewBackground}">
 
         <Grid.RowDefinitions>
             
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="4*"/>
+            <RowDefinition Height="1.9*"/>
+            <RowDefinition Height="1.9*"/>
+            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="3.7*"/>
 
         </Grid.RowDefinitions>
         
@@ -30,41 +31,57 @@
                                       Grid.Column="0" 
                                       Grid.ColumnSpan="3"
                                       Title="{Binding NavBarTitle}"
-                                      ImageLeftTapCommand="{Binding ImageLeftTapCommand}"/>
+                                      ImageLeftTapCommand="{Binding GoBackTapCommand}"/>
 
         <controls:CustomEntry Grid.Row="1"
                               Grid.Column="1"
                               LabelText="{Binding LabelEmail}"
                               EntryText="{Binding EntryEmail}"
-                              Placeholder="{Binding EntryEmailPlaceholder}"
+                              Placeholder="{Binding EmailPlaceholder}"
                               ImageSource="{Binding ClearSource}"
                               ImageTapCommand="{Binding ImageEntryClearTapCommand}"
                               LabelErrorText="{Binding LabelEmailError}"
-                              BorderColor="{Binding BorderColor}"
-                              IsVisibleError="{Binding IsVisibleEmailError}"
-                              IsVisibleImage="{Binding IsVisibleImageEmail}"/>
+                              BorderColor="{Binding BorderColorPassword}"/>
 
 
         <controls:CustomEntry Grid.Row="2"
                               Grid.Column="1"
                               LabelText="{Binding LabelPassword}"
                               EntryText="{Binding EntryPassword}"
-                              Placeholder="{Binding EntryPasswordPlaceholder}"
+                              Placeholder="{Binding PasswordPlaceholder}"
                               ImageSource="{Binding EyeSource}"
                               IsHidePassword="{Binding IsHidePassword}"
                               ImageTapCommand="{Binding ImageEntryEyeTapCommand}"
                               LabelErrorText="{Binding LabelPasswordError}"
-                              BorderColor="{Binding BorderColor}"
-                              IsVisibleError="{Binding IsVisiblePasswordError}"
-                              IsVisibleImage="{Binding IsVisibleImagePassword}"/>
-
+                              BorderColor="{Binding BorderColorPassword}"/>
+        
+        
         <Button Grid.Row="3"
                 Grid.Column="1"
-                Text="{x:Static resource:Resources.ButtonLogIn}"
-                TextColor="White"
-                BackgroundColor="RoyalBlue"
+                Text="{x:Static resource:Resource.ButtonLogIn}"
+                TextColor="{DynamicResource buttonText}"
+                BackgroundColor="{DynamicResource buttonBackground}"
                 Command="{Binding LogInButtonTapCommand}"
                 IsEnabled="{Binding IsEnabledButton}"/>
+
+        <StackLayout Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+
+            <BoxView HorizontalOptions="FillAndExpand"
+                     VerticalOptions="Center"
+                     HeightRequest="1"
+                     BackgroundColor="{DynamicResource boxView}"/>
+
+            <Label Text="or" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center"
+                   TextColor="{DynamicResource boxView}"/>
+
+            <BoxView HorizontalOptions="FillAndExpand"
+                     VerticalOptions="Center"
+                     HeightRequest="1"
+                     BackgroundColor="{DynamicResource boxView}"/>
+
+        </StackLayout>
 
     </Grid>
     

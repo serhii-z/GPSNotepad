@@ -76,24 +76,6 @@ namespace GPSNotepad.Controls
             set => SetValue(LabelErrorTextProperty, value);
         }
 
-        public static readonly BindableProperty IsVisibleErrorProperty = BindableProperty.Create(nameof(IsVisibleError),
-            typeof(bool), typeof(CustomEntry));
-
-        public bool IsVisibleError
-        {
-            get => (bool)GetValue(IsVisibleErrorProperty);
-            set => SetValue(IsVisibleErrorProperty, value);
-        }
-
-        public static readonly BindableProperty IsVisibleImageProperty = BindableProperty.Create(nameof(IsVisibleImage),
-            typeof(bool), typeof(CustomEntry));
-
-        public bool IsVisibleImage
-        {
-            get => (bool)GetValue(IsVisibleImageProperty);
-            set => SetValue(IsVisibleImageProperty, value);
-        }
-
         public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(CustomEntry));
 
         public Color BorderColor

@@ -1,57 +1,86 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GPSNotepad.Views.SignUpView"
+             xmlns:controls="clr-namespace:GPSNotepad.Controls"
              xmlns:resource="clr-namespace:GPSNotepad.Properties"
-             Title="{x:Static resource:Resources.SignUpTitle}">
-    
-    <Grid BackgroundColor="White">
+             x:Class="GPSNotepad.Views.SignUpView" 
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid BackgroundColor="{DynamicResource viewBackground}">
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
+
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1.9*"/>
+            <RowDefinition Height="1.9*"/>
+            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="3.7*"/>
+
         </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*"/>
+
+            <ColumnDefinition Width="0.2*"/>
             <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="0.2*"/>
+
         </Grid.ColumnDefinitions>
-        <Entry 
-            Grid.Row="1"
-            Grid.Column="1"
-            Placeholder="Name"
-            Text="{Binding EntryNameText}"/>
-        <Entry 
-            Grid.Row="2"
-            Grid.Column="1"
-            Placeholder="Email"
-            Text="{Binding EntryEmailText}"/>
-        <Entry 
-            Grid.Row="3"
-            Grid.Column="1"
-            Placeholder="Password"
-            Text="{Binding EntryPasswordText}"
-            IsPassword="True"/>
-        <Entry 
-            Grid.Row="4"
-            Grid.Column="1"
-            Placeholder="ConfirmPassword"
-            Text="{Binding EntryConfirmPasswordText}"
-            IsPassword="True"/>
-        <Button 
-            Grid.Row="6"
-            Grid.Column="1"
-            Text="Sign up"
-            BackgroundColor="Chocolate"
-            TextColor="Black"
-            Command="{Binding SignUpTapCommand}"
-            IsEnabled="{Binding EnabledButton}"/>
+
+        <controls:CustomNavigationBar Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                                      Title="{Binding NavBarTitle}"
+                                      ImageLeftTapCommand="{Binding ImageLeftTapCommand}"/>
+
+        <controls:CustomEntry Grid.Row="1"
+                              Grid.Column="1"
+                              LabelText="{Binding LabelPassword}"
+                              EntryText="{Binding EntryPassword}"
+                              Placeholder="{Binding EntryPasswordPlaceholder}"
+                              ImageSource="{Binding EyePasswordSource}"
+                              IsHidePassword="{Binding IsHidePassword}"
+                              ImageTapCommand="{Binding ImagePasswordTapCommand}"
+                              LabelErrorText="{Binding LabelPasswordError}"
+                              BorderColor="{Binding BorderColorPassword}"/>
+
+        <controls:CustomEntry Grid.Row="2"
+                              Grid.Column="1"
+                              LabelText="{Binding LabelConfirmPassword}"
+                              EntryText="{Binding EntryConfirmPassword}"
+                              Placeholder="{Binding EntryConfirmPlaceholder}"
+                              ImageSource="{Binding EyeConfirmPasswordSource}"
+                              IsHidePassword="{Binding IsHidePassword}"
+                              ImageTapCommand="{Binding ImageConfirmTapCommand}"
+                              LabelErrorText="{Binding LabelConfirmPasswordError}"
+                              BorderColor="{Binding BorderColorConfirmPassword}"/>
+
+        <Button Grid.Row="3"
+                Grid.Column="1"
+                Text="{x:Static resource:Resource.ButtonCreateAccount}"
+                TextColor="{DynamicResource buttonText}"
+                BackgroundColor="{DynamicResource buttonBackground}"
+                Command="{Binding CreateAccountButtonTapCommand}"
+                IsEnabled="{Binding IsEnabledButton}"/>
+
+        <StackLayout Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+
+            <BoxView HorizontalOptions="FillAndExpand"
+                     VerticalOptions="Center"
+                     HeightRequest="1"
+                     BackgroundColor="{DynamicResource boxView}"/>
+
+            <Label Text="or" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center"
+                   TextColor="{DynamicResource boxView}"/>
+            
+
+            <BoxView HorizontalOptions="FillAndExpand"
+                     VerticalOptions="Center"
+                     HeightRequest="1"
+                     BackgroundColor="{DynamicResource boxView}"/>
+
+        </StackLayout>
+
     </Grid>
-    
+
 </ContentPage>

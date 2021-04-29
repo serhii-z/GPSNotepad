@@ -1,5 +1,4 @@
-﻿using GPSNotepad.Properties;
-using GPSNotepad.Services.Authentication;
+﻿using GPSNotepad.Services.Authentication;
 using GPSNotepad.Validators;
 using GPSNotepad.Views;
 using Prism.Navigation;
@@ -47,11 +46,18 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _cliarSourceEmail, value);
         }
 
-        private Color _borderColor;
-        public Color BorderColor
+        private Color _borderColorName;
+        public Color BorderColorName
         {
-            get => _borderColor;
-            set => SetProperty(ref _borderColor, value);
+            get => _borderColorName;
+            set => SetProperty(ref _borderColorName, value);
+        }
+
+        private Color _borderColorEmail;
+        public Color BorderColorEmail
+        {
+            get => _borderColorEmail;
+            set => SetProperty(ref _borderColorEmail, value);
         }
 
         private string _labelName;
@@ -82,8 +88,6 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _labelNameError, value);
         }
 
-        //
-
         private string _labelEmail;
         public string LabelEmail
         {
@@ -110,36 +114,6 @@ namespace GPSNotepad.ViewModels
         {
             get => _labelEmailError;
             set => SetProperty(ref _labelEmailError, value);
-        }
-
-        //
-
-        private bool _isVisibleNameError;
-        public bool IsVisibleNameError
-        {
-            get => _isVisibleNameError;
-            set => SetProperty(ref _isVisibleNameError, value);
-        }
-
-        private bool _isVisibleEmailError;
-        public bool IsVisibleEmailError
-        {
-            get => _isVisibleEmailError;
-            set => SetProperty(ref _isVisibleEmailError, value);
-        }
-
-        private bool _isVisibleImageName;
-        public bool IsVisibleImageName
-        {
-            get => _isVisibleImageName;
-            set => SetProperty(ref _isVisibleImageName, value);
-        }
-
-        private bool _isVisibleImageEmail;
-        public bool IsVisibleImageEmail
-        {
-            get => _isVisibleImageEmail;
-            set => SetProperty(ref _isVisibleImageEmail, value);
         }
 
         private bool _isEnabledButton;
@@ -170,22 +144,27 @@ namespace GPSNotepad.ViewModels
             }
         }
 
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+
+            if (parameters.TryGetValue(Constants.LoginKey, out string login))
+            {
+                LabelEmailError = login;
+            }
+        }
+
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
 
-            NavBarTitle = Resources.NavBarTitleRegister;
-            LabelName = Resources.LabelName;
-            EntryNamePlaceholder = Resources.LabelNamePlaceholder;
-            LabelNameError = Resources.Input;
-            LabelEmail = Resources.LabelEmail;
-            EntryEmailPlaceholder = Resources.EntryPlaseholderEmail;
-            LabelEmailError = Resources.Input;
-            BorderColor = Color.Gray;
-            IsVisibleImageName = false;
-            IsVisibleImageEmail = false;
-            ClearSourceName = "ic_clear";
-            ClearSourceEmail = "ic_clear";
+            NavBarTitle = Properties.Resource.NavBarTitleRegister;
+            LabelName = Properties.Resource.LabelName;
+            EntryNamePlaceholder = Properties.Resource.LabelNamePlaceholder;
+            LabelEmail = Properties.Resource.LabelEmail;
+            EntryEmailPlaceholder = Properties.Resource.EntryPlaseholderEmail;
+            BorderColorName = (Color)App.Current.Resources["entryBorder"];
+            BorderColorEmail = (Color)App.Current.Resources["entryBorder"];
         }
 
         #endregion
@@ -193,15 +172,17 @@ namespace GPSNotepad.ViewModels
 
         #region -- Private helpers --
 
-        private async void OnImageLeftTapCommandAsync(object obj)
+        private async void OnImageLeftTapCommandAsync()
         {
             await navigationService.GoBackAsync();
         }
 
         private async void OnNextButtonTapCommandAsync()
         {
-            IsVisibleNameError = false;
-            IsVisibleEmailError = false;
+            LabelNameError = string.Empty;
+            LabelEmailError = string.Empty;
+            BorderColorName = (Color)App.Current.Resources["entryBorder"];
+            BorderColorEmail = (Color)App.Current.Resources["entryBorder"];
 
             var isSuccess = CheckValidation();
 
@@ -246,11 +227,11 @@ namespace GPSNotepad.ViewModels
         {
             if (string.IsNullOrEmpty(elementText))
             {
-                IsVisibleImageEmail = false;
+                ClearSourceEmail = string.Empty;
             }
             else
             {
-                IsVisibleImageEmail = true;
+                ClearSourceEmail = "ic_clear";
             }
         }
 
@@ -258,11 +239,11 @@ namespace GPSNotepad.ViewModels
         {
             if (string.IsNullOrEmpty(elementText))
             {
-                IsVisibleImageName = false;
+                ClearSourceName = string.Empty;
             }
             else
             {
-                IsVisibleImageName = true;
+                ClearSourceName = "ic_clear";
             }
         }
 
@@ -273,12 +254,16 @@ namespace GPSNotepad.ViewModels
 
             if (!StringValidator.CheckName(_entryName))
             {
-                IsVisibleNameError = true;
+                LabelNameError = Properties.Resource.NameError;
+                BorderColorName = Color.Red;
+                LabelNameError = Properties.Resource.Input;
                 isSuccess = false;
             }
-            if (!StringValidator.CheckLogin(_entryEmail) && isSuccess)
+            if (!StringValidator.CheckEmail(_entryEmail) && isSuccess)
             {
-                IsVisibleEmailError = true;
+                LabelEmailError = Properties.Resource.EmailError;
+                BorderColorEmail = Color.Red;
+                LabelEmailError = Properties.Resource.Input;
                 isSuccess = false;
             }
 

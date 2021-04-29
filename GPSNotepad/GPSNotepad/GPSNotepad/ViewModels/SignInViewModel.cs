@@ -15,20 +15,18 @@ namespace GPSNotepad.ViewModels
     {
         private IAuthenticationService _authenticationService;
         private IAuthorizationService _authorizationService;
-        private IPageDialogService _pageDialog;
+
         public SignInViewModel(INavigationService navigationService, 
             IAuthenticationService authenticationService, 
-            IAuthorizationService authorizationService, 
-            IPageDialogService pageDialogService) : base(navigationService)
+            IAuthorizationService authorizationService) : base(navigationService)
         {
             _authenticationService = authenticationService;
             _authorizationService = authorizationService;
-            _pageDialog = pageDialogService;
         }
 
         #region --- Public Properties ---
 
-        public ICommand ImageLeftTapCommand => new Command(OnImageLeftTapCommandAsync);
+        public ICommand GoBackTapCommand => new Command(OnGoBackTapCommandAsync);
         public ICommand LogInButtonTapCommand => new Command(OnLogInButtonTapAsync);    
         public ICommand ImageEntryClearTapCommand => new Command(OnImageEntryClearTapCommandAsync);
         public ICommand ImageEntryEyeTapCommand => new Command(OnImageEntryEyeTapCommand);
@@ -76,11 +74,11 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _entryEmail, value);
         }
 
-        private string _entryEmailPlaceholder;
-        public string EntryEmailPlaceholder
+        private string _emailPlaceholder;
+        public string EmailPlaceholder
         {
-            get => _entryEmailPlaceholder;
-            set => SetProperty(ref _entryEmailPlaceholder, value);
+            get => _emailPlaceholder;
+            set => SetProperty(ref _emailPlaceholder, value);
         }
 
         private string _labelEmailError;
@@ -105,7 +103,7 @@ namespace GPSNotepad.ViewModels
         }
 
         private string _entryPasswordPlaceholder;
-        public string EntryPasswordPlaceholder
+        public string PasswordPlaceholder
         {
             get => _entryPasswordPlaceholder;
             set => SetProperty(ref _entryPasswordPlaceholder, value);
@@ -125,39 +123,18 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _isEnabledButton, value);
         }
 
-        private Color _borderColor;
-        public Color BorderColor
+        private Color _borderColorEmail;
+        public Color BorderColorEmail
         {
-            get => _borderColor;
-            set => SetProperty(ref _borderColor, value);
+            get => _borderColorEmail;
+            set => SetProperty(ref _borderColorEmail, value);
         }
 
-        private bool _isVisibleEmailError;
-        public bool IsVisibleEmailError
+        private Color _borderColorPassword;
+        public Color BorderColorPassword
         {
-            get => _isVisibleEmailError;
-            set => SetProperty(ref _isVisibleEmailError, value);
-        }
-
-        private bool _isVisiblePasswordError;
-        public bool IsVisiblePasswordError
-        {
-            get => _isVisiblePasswordError;
-            set => SetProperty(ref _isVisiblePasswordError, value);
-        }
-
-        private bool _isVisibleImageEmail;
-        public bool IsVisibleImageEmail
-        {
-            get => _isVisibleImageEmail;
-            set => SetProperty(ref _isVisibleImageEmail, value);
-        }
-
-        private bool _isVisibleImagePassword;
-        public bool IsVisibleImagePassword
-        {
-            get => _isVisibleImagePassword;
-            set => SetProperty(ref _isVisibleImagePassword, value);
+            get => _borderColorPassword;
+            set => SetProperty(ref _borderColorPassword, value);
         }
 
         #endregion
@@ -184,39 +161,30 @@ namespace GPSNotepad.ViewModels
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            if (parameters.TryGetValue(Constants.LoginKey, out string login))
-            {
-                EntryEmail = login;
-            }
-
+        {            
             IsHidePassword = false;
+            IsHidePassword = true;   
         }
 
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
 
-            NavBarTitle = Resources.NavBarTitleLogIn;
-            LabelEmail = Resources.LabelEmail;
-            EntryEmailPlaceholder = Resources.EntryPlaseholderEmail;
-            LabelEmailError = Resources.LabelEmailError;
-            LabelPassword = Resources.LabelPassword;
-            EntryPasswordPlaceholder = Resources.EntryPasswordPlaceholder;
-            LabelPasswordError = Resources.LabelPasswordError;
-            BorderColor = Color.Gray;
-            IsVisibleEmailError = false;
-            IsVisiblePasswordError = false;
+            NavBarTitle = Properties.Resource.NavBarTitleLogIn;
+            LabelEmail = Properties.Resource.LabelEmail;
+            EmailPlaceholder = Properties.Resource.EntryPlaseholderEmail;
+            LabelPassword = Properties.Resource.LabelPassword;
+            PasswordPlaceholder = Properties.Resource.EntryPasswordPlaceholder;
+            BorderColorEmail = (Color)App.Current.Resources["entryBorder"];
+            BorderColorPassword = (Color)App.Current.Resources["entryBorder"];
             IsHidePassword = true;
-            ClearSource = "ic_clear";
-            EyeSource = "ic_eye_off";
         }
 
         #endregion
 
         #region --- Private Helpers ---
 
-        private async void OnImageLeftTapCommandAsync()
+        private async void OnGoBackTapCommandAsync()
         {
             await navigationService.GoBackAsync();
         }
@@ -252,23 +220,23 @@ namespace GPSNotepad.ViewModels
         {
             if (string.IsNullOrEmpty(elementText))
             {
-                IsVisibleImageEmail = false;
+                ClearSource = string.Empty;
             }
             else
             {
-                IsVisibleImageEmail = true;
-            }   
+                ClearSource = "ic_clear";
+            }
         }
 
         private void ShowHideImagePassword(string elementText)
         {
             if (string.IsNullOrEmpty(elementText))
             {
-                IsVisibleImagePassword = false;
+                EyeSource = string.Empty;
             }
             else
             {
-                IsVisibleImagePassword = true;
+                EyeSource = "ic_eye_off";
             }
         }
 
@@ -278,10 +246,10 @@ namespace GPSNotepad.ViewModels
 
             if (!isSuccess)
             {
-                IsVisibleEmailError = true;
-                IsVisiblePasswordError = true;
-                EntryEmail = string.Empty;
-                EntryPassword = string.Empty;
+                BorderColorEmail = Color.Red;
+                BorderColorPassword = Color.Red;
+                LabelEmailError = Properties.Resource.LoginPasswordWrong;
+                LabelPasswordError = Properties.Resource.LoginPasswordWrong;
             }
 
             return isSuccess;

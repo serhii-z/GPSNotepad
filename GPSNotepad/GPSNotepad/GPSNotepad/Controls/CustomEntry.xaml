@@ -8,42 +8,48 @@
 
     <Grid.RowDefinitions>
 
-        <RowDefinition Height="0.15*"/>
-        <RowDefinition Height="0.4*"/>
-        <RowDefinition Height="0.15*"/>
-        <RowDefinition Height="0.2*"/>
+        <RowDefinition Height="1*"/>
+        <RowDefinition Height="1.5*"/>
+        <RowDefinition Height="0.5*"/>
 
     </Grid.RowDefinitions>
 
     <Grid.ColumnDefinitions>
 
-        <ColumnDefinition Width="0.9*"/>
-        <ColumnDefinition Width="0.1*"/>
+        <ColumnDefinition Width="9*"/>
+        <ColumnDefinition Width="1*"/>
 
     </Grid.ColumnDefinitions>
 
     <Label Grid.Row="0"
            Text="{Binding LabelText, Source={x:Reference customEntry}}"
-           FontSize="Small"/>
+           TextColor="{DynamicResource labelText}"
+           FontSize="Small"
+           FontAttributes="Bold"
+           VerticalOptions="Center"
+           HorizontalOptions="StartAndExpand"/>
 
     <Frame Grid.Row="1" 
            Grid.ColumnSpan="2" 
-           Grid.Column="0" 
+           Grid.Column="0"
+           BackgroundColor="Transparent"
            BorderColor="{Binding BorderColor, Source={x:Reference customEntry}}"></Frame>
 
 
-    <Entry Grid.Column="0" 
-           Grid.Row="1"
+    <Entry Grid.Row="1"
+           Grid.Column="0" 
            Grid.ColumnSpan="2"
            HorizontalOptions="FillAndExpand"
+           Margin="10,0,0,0"
            IsPassword="{Binding IsHidePassword, Source={x:Reference customEntry}}"
            Placeholder="{Binding Placeholder, Source={x:Reference customEntry}}"
-           Text="{Binding EntryText, Source={x:Reference customEntry}}" />
+           PlaceholderColor="{DynamicResource entryPlaceholder}"
+           Text="{Binding EntryText, Source={x:Reference customEntry}}"
+           TextColor="{DynamicResource entryText}"/>
 
             <Image Grid.Column="1" Grid.Row="1"
                    Source="{Binding ImageSource, Source={x:Reference customEntry}}"
-                   HorizontalOptions="Fill"
-                   IsVisible="{Binding IsVisibleImage, Source={x:Reference customEntry}}">
+                   HorizontalOptions="Fill">
 
                 <Image.GestureRecognizers>
 
@@ -56,9 +62,8 @@
 
         <Label Grid.Row="2"
                Text="{Binding LabelErrorText, Source={x:Reference customEntry}}"
-               IsVisible="{Binding IsVisibleError, Source={x:Reference customEntry}}"
                FontSize="Small"
-               TextColor="Red"/>
+               TextColor="{DynamicResource labelTextError}"/>
 
 
 </Grid>

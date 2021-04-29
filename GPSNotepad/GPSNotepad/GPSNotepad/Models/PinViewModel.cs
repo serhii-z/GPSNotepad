@@ -39,11 +39,25 @@ namespace GPSNotepad.Models
             set => SetProperty(ref _description, value);
         }
 
+        private string _imagePath;
+        public string ImagePath
+        {
+            get => _imagePath;
+            set => SetProperty(ref _imagePath, value);
+        }
+
+        private bool _isFavorit;
+        public bool IsFavorit
+        {
+            get => _isFavorit;
+            set => SetProperty(ref _isFavorit, value);
+        }
+
         private int _userId;
         public int UserId
         {
             get => _userId;
-            set => SetProperty(ref _pinId, value);
+            set => SetProperty(ref _userId, value);
         }
     }
 }

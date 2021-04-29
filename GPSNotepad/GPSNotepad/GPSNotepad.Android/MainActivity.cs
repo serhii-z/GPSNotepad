@@ -25,6 +25,7 @@ namespace GPSNotepad.Droid
         };
         protected override void OnCreate(Bundle savedInstanceState)
         {
+
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
@@ -32,7 +33,6 @@ namespace GPSNotepad.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-
             var platformConfig = new PlatformConfig
             {
                 BitmapDescriptorFactory = new BitmapConfig()

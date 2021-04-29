@@ -16,6 +16,11 @@ using GPSNotepad.Services.Permissions;
 using GPSNotepad.Services.GeoLocations;
 using GPSNotepad.Services.Authorization;
 using GPSNotepad.Services.Weather;
+using System;
+using GPSNotepad.Enums;
+using GPSNotepad.Services.Resources;
+using Prism.Services.Dialogs;
+using GPSNotepad.Models.Weather;
 
 namespace GPSNotepad.ViewModels
 {
@@ -26,29 +31,28 @@ namespace GPSNotepad.ViewModels
         private IAuthorizationService _authorizationService;
         private IWeatherService _weatherService;
         private PinViewModel _pinViewModel;
+        private IResourceService _resourceService;
+        private IDialogService _dialogService;
+
         public MapTabViewModel(INavigationService navigationService, IPinService pinService, 
             ISettingsManager settingsManager, PermissionService permissionService, 
-            IGeoLocationService geoLocationService, IAuthorizationService authorizationService, IWeatherService weatherService) : 
+            IGeoLocationService geoLocationService, IAuthorizationService authorizationService, 
+            IWeatherService weatherService, IResourceService resourceService, IDialogService dialogService) : 
             base(navigationService, pinService, settingsManager)
         {
             _permissionService = permissionService;
             _geoLocationService = geoLocationService;
             _authorizationService = authorizationService;
             _weatherService = weatherService;
-
-            Pins = new ObservableCollection<Pin>();   
+            _resourceService = resourceService;
+            _dialogService = dialogService;
+            WeatherCollection = new ObservableCollection<DataWeather>();
         }
 
         #region --- Public Properties ---
 
-        public ICommand SettingsTapCommand => new Command(OnSettingsTap);
-
-        private void OnSettingsTap(object obj)
-        {
-            //go to search page
-        }
-
-        public ICommand SearchBarTapCommand => new Command(OnSearchBarTap);                   //?
+        public ICommand SettingsTapCommand => new Command(OnSettingsTapAsync);
+        public ICommand SearchBarTapCommand => new Command(OnSearchBarTap);
         public ICommand PinTapCommand => new Command<Pin>(OnPinTapAsync);
         public ICommand PinSearchCommand => new Command(OnSearchPins);
         public ICommand MapTapCommand => new Command(OnMapTap);
@@ -57,6 +61,20 @@ namespace GPSNotepad.ViewModels
         public ICommand PinInfoTapCommand => new Command(OnPinInfoTap);
         public ICommand TimeButtonTapCommand => new Command(OnTimeButtonTapAsync);
 
+        private ObservableCollection<PinViewModel> _pins;
+        public ObservableCollection<PinViewModel> Pins
+        {
+            get => _pins;
+            set => SetProperty(ref _pins, value);
+        }
+
+        private ObservableCollection<DataWeather> _weatherCollection;
+        public ObservableCollection<DataWeather> WeatherCollection
+        {
+            get => _weatherCollection;
+            set => SetProperty(ref _weatherCollection, value);
+        }
+
         private bool _isUserPosition;
         public bool IsUserPosition
         {
@@ -64,15 +82,8 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _isUserPosition, value);
         }
 
-        private ObservableCollection<Pin> _pins;
-        public ObservableCollection<Pin> Pins
-        {
-            get => _pins;
-            set => SetProperty(ref _pins, value);
-        }
-
-        private Pin _pinSelectedItem;
-        public Pin PinSelectedItem
+        private PinViewModel _pinSelectedItem;
+        public PinViewModel PinSelectedItem
         {
             get => _pinSelectedItem;
             set => SetProperty(ref _pinSelectedItem, value);
@@ -85,7 +96,7 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _region, value);
         }
 
-        private bool _animated = false;
+        private bool _animated;
         public bool Animated
         {
             get => _animated;
@@ -120,13 +131,6 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _name, value);
         }
 
-        private string _description;
-        public string Description
-        {
-            get => _description;
-            set => SetProperty(ref _description, value);
-        }
-
         private string _position;
         public string Position
         {
@@ -134,25 +138,95 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _position, value);
         }
 
-        private string _temperature;
-        public string Temperature
+        private string _firstDay;
+        public string FirstDay
         {
-            get => _temperature;
-            set => SetProperty(ref _temperature, value);
+            get => _firstDay;
+            set => SetProperty(ref _firstDay, value);
         }
 
-        private string _windSpeed;
-        public string WindSpeed
+        private string _secondDay;
+        public string SecondDay
         {
-            get => _windSpeed;
-            set => SetProperty(ref _windSpeed, value);
+            get => _secondDay;
+            set => SetProperty(ref _secondDay, value);
         }
 
-        private string _iconPath;
-        public string IconPath
+        private string _thirdDay;
+        public string ThirdDay
         {
-            get => _iconPath;
-            set => SetProperty(ref _iconPath, value);
+            get => _thirdDay;
+            set => SetProperty(ref _thirdDay, value);
+        }
+
+        private string _fourstDay;
+        public string FourstDay
+        {
+            get => _fourstDay;
+            set => SetProperty(ref _fourstDay, value);
+        }
+
+        private string _firstIcon;
+        public string FirstIcon
+        {
+            get => _firstIcon;
+            set => SetProperty(ref _firstIcon, value);
+        }
+
+        private string _secondIcon;
+        public string SecondIcon
+        {
+            get => _secondIcon;
+            set => SetProperty(ref _secondIcon, value);
+        }
+
+        private string _thirdIcon;
+        public string ThirdIcon
+        {
+            get => _thirdIcon;
+            set => SetProperty(ref _thirdIcon, value);
+        }
+
+        private string _fourstIcon;
+        public string FourstIcon
+        {
+            get => _fourstIcon;
+            set => SetProperty(ref _fourstIcon, value);
+        }
+
+        private string _firstTemp;
+        public string FirstTemp
+        {
+            get => _firstTemp;
+            set => SetProperty(ref _firstTemp, value);
+        }
+
+        private string _secondTemp;
+        public string SecondTemp
+        {
+            get => _secondTemp;
+            set => SetProperty(ref _secondTemp, value);
+        }
+
+        private string _thirdTemp;
+        public string ThirdTemp
+        {
+            get => _thirdTemp;
+            set => SetProperty(ref _thirdTemp, value);
+        }
+
+        private string _fourstTemp;
+        public string FourstTemp
+        {
+            get => _fourstTemp;
+            set => SetProperty(ref _fourstTemp, value);
+        }
+
+        private MapStyle _style;
+        public MapStyle Style
+        {
+            get => _style;
+            set => SetProperty(ref _style, value);
         }
 
         #endregion
@@ -176,7 +250,7 @@ namespace GPSNotepad.ViewModels
             }
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        public async override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
 
@@ -184,12 +258,17 @@ namespace GPSNotepad.ViewModels
             {
                 MakePinFocus(value);
             }
+
+            _resourceService.ApplyTheme();
+            Style = _resourceService.GetMapStyle();
+            var pinsViewModel = await GetAllPinViewModelsAsync();
+
+            Pins = new ObservableCollection<PinViewModel>(pinsViewModel);
         }
 
         public async override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            //Pins = new ObservableCollection<PinViewModel>();
 
             var isStatus = await _permissionService.CheckStatusAsync();
 
@@ -197,10 +276,6 @@ namespace GPSNotepad.ViewModels
             {
                 IsUserPosition = true;
             }
-
-            var pinViewModels = await GetAllPinViewModelsAsync();
-
-            InitPins(pinViewModels);
         }
 
         #endregion
@@ -211,27 +286,24 @@ namespace GPSNotepad.ViewModels
         {
             var resultSearch = await SearchPins();
 
-            InitPins(resultSearch);
+            UpdatePins(resultSearch);
             OnSearchBarTap();
         }
 
         private void OnSelectedItemTap()
         {
-            var pin = _pinSelectedItem;
-            var pinViewmodel = pin.ToPinViewModel();
-
             OnMapTap();
-            MakePinFocus(pinViewmodel);
+            MakePinFocus(PinSelectedItem);
         }
 
         private void OnSearchBarTap()
         {
-            TopBorder = new Rectangle(0.0, 0.12, 1, 0.31);
+            TopBorder = new Rectangle(0, 0, 1.0, 0.31);
         }
 
         private void OnMapTap()
         {
-            TopBorder = new Rectangle(0.0, 0.12, 1, 0.0);
+            TopBorder = new Rectangle(0, 0, 1.0, 0);
         }
 
         private async void OnLocationButtonTapAsync()
@@ -246,33 +318,37 @@ namespace GPSNotepad.ViewModels
         {
             _authorizationService.LogOut();
 
-            await navigationService.NavigateAsync($"{nameof(SignInView)}");
+            await navigationService.NavigateAsync($"{nameof(FirstView)}");
         }
-
 
         private async void OnPinTapAsync(Pin pin)
         {
             _pinViewModel = pin.ToPinViewModel();
 
             ShowPinInfo();
-            await ShowWeatherAsync(_pinViewModel.Latitude.ToString(), _pinViewModel.Longitude.ToString());
+            await ShowWeatherAsync();
 
             BottomBorder = new Rectangle(0.5, 1.0, 1.0, 0.45);
         }
 
         private void OnPinInfoTap()
         {
-            BottomBorder = new Rectangle(0.0, 1.0, 1.0, 0.0);
+            BottomBorder = new Rectangle(0, 1.0, 1.0, 0.0);
         }
 
-        private async void OnTimeButtonTapAsync()
+        private void OnTimeButtonTapAsync()
         {
             OnPinInfoTap();
 
-            var parameters = new NavigationParameters();
+            var parameters = new DialogParameters();
             parameters.Add(Constants.PinViewModelKey, _pinViewModel);
 
-            await navigationService.NavigateAsync(nameof(ClockView), parameters, useModalNavigation: true);
+             _dialogService.ShowDialog(nameof(ClockView), parameters);
+        }
+
+        private async void OnSettingsTapAsync(object obj)
+        {
+            await navigationService.NavigateAsync($"{nameof(SettingsView)}");
         }
 
         #endregion
@@ -287,14 +363,16 @@ namespace GPSNotepad.ViewModels
             return pinList;
         }
 
-        private void InitPins(List<PinViewModel> pinViewModel)
+        private void UpdatePins(List<PinViewModel> pinsViewModel)
         {
             Pins.Clear();
 
-            foreach (var item in pinViewModel)
+            foreach (var item in pinsViewModel)
             {
-                Pins.Add(item.ToPin());
-                //Pins.Add(item);
+                if (item.IsFavorit)
+                {
+                    Pins.Add(item);
+                }
             }
         }
 
@@ -308,18 +386,27 @@ namespace GPSNotepad.ViewModels
         private void ShowPinInfo()
         {
             Name = _pinViewModel.Name;
-            Description = _pinViewModel.Description;
-            Position = string.Format("{0} {1}", _pinViewModel.Latitude.ToString(), _pinViewModel.Longitude.ToString());
+            Position = string.Format("{0}  {1}", _pinViewModel.Latitude.ToString(), _pinViewModel.Longitude.ToString());
         }
 
-        private async Task ShowWeatherAsync(string latitude, string longitude)
+        private async Task ShowWeatherAsync()
         {
-            var weatherResponse = await _weatherService.GetWeatherResponseAsync(latitude, longitude, Constants.OpenWeatherUnits);
-            var icon = weatherResponse.Weather.Select(x => x).First().Icon;
+            await _weatherService.GetWeatherResponseAsync(_pinViewModel.Latitude.ToString(), _pinViewModel.Longitude.ToString(), Constants.OpenWeatherUnits);
+            var temps = _weatherService.GetTemperature();
+            var icons = _weatherService.GetIcons();
+            var numberDays = _weatherService.GetNumberDays();
 
-            Temperature = string.Format("{0}: {1}°C", "temperature", weatherResponse.Main.Temp.ToString());
-            WindSpeed = string.Format("{0}: {1}km/h", "vind speed", weatherResponse.Wind.Speed.ToString());
-            IconPath = string.Format(Constants.OpenWeatherIconPath, icon);
+
+            for(int i = 0; i < 8; i++)
+            {
+                var nameDay = Convert.ToString((Days)numberDays[i]);
+                var icon = string.Format(Constants.OpenWeatherIconPath, icons[i].ToList()[0]);
+                var day = Convert.ToInt32(temps[i].day);
+                var night = Convert.ToInt32(temps[i].night);
+                var temp = string.Format("{0}{1} {2}{3}", day, "°", night, "°");
+                WeatherCollection.Add(new DataWeather(nameDay, icon, temp));
+            }
+
         }
 
         #endregion

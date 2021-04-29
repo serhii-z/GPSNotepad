@@ -10,7 +10,7 @@ namespace GPSNotepad.Validators
 
             return hasSequence.IsMatch(name);
         }
-        public static bool CheckLogin(string email)
+        public static bool CheckEmail(string email)
         {
             var hasSequence = new Regex(@"[a-z0-9._%+-]+@[a-z]+.[a-z]{2,4}");
 

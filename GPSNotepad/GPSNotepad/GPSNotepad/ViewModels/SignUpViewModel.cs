@@ -1,5 +1,4 @@
-﻿using GPSNotepad.Models;
-using GPSNotepad.Services.Authentication;
+﻿using GPSNotepad.Services.Authentication;
 using GPSNotepad.Validators;
 using Prism.Navigation;
 using Prism.Services;
@@ -8,6 +7,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using GPSNotepad.Properties;
 using System.Threading.Tasks;
+using GPSNotepad.Views;
 
 namespace GPSNotepad.ViewModels
 {
@@ -15,6 +15,8 @@ namespace GPSNotepad.ViewModels
     {
         private IAuthenticationService _authenticationService;
         private IPageDialogService _pageDialog;
+        private string _name;
+        private string _email;
 
         public SignUpViewModel(INavigationService navigationService,
             IAuthenticationService authenticationService,
@@ -24,106 +26,236 @@ namespace GPSNotepad.ViewModels
             _pageDialog = pageDialogService;
         }
 
-        #region --- Public Properties ---
-        public ICommand SignUpTapCommand => new Command(OnSignUpTapAsync);
+        #region -- Public properties --
 
-        private string _entryNameText;
-        public string EntryNameText
+        public ICommand ImageLeftTapCommand => new Command(OnImageLeftTapCommandAsync);
+        public ICommand CreateAccountButtonTapCommand => new Command(OnCreateAccountButtonTapAsync);
+        public ICommand ImagePasswordTapCommand => new Command(OnImagePasswordTapCommand);
+
+        private void OnImagePasswordTapCommand(object obj)
         {
-            get => _entryNameText;
-            set => SetProperty(ref _entryNameText, value);
+            if (IsHidePassword)
+            {
+                EyePasswordSource = "ic_eye";
+                IsHidePassword = false;
+            }
+            else
+            {
+                EyePasswordSource = "ic_eye_off";
+                IsHidePassword = true;
+            }
         }
 
-        private string _entryEmailText;
-        public string EntryEmailText
+        public ICommand ImageConfirmTapCommand => new Command(OnImageConfirmTapCommand);
+
+        private void OnImageConfirmTapCommand(object obj)
         {
-            get => _entryEmailText;
-            set => SetProperty(ref _entryEmailText, value);
+            if (IsHidePassword)
+            {
+                EyeConfirmPasswordSource = "ic_eye";
+                IsHidePassword = false;
+            }
+            else
+            {
+                EyeConfirmPasswordSource = "ic_eye_off";
+                IsHidePassword = true;
+            }
         }
 
-        private string _entryPasswordText;
-        public string EntryPasswordText
+        private string _navBarTitle;
+        public string NavBarTitle
         {
-            get => _entryPasswordText;
-            set => SetProperty(ref _entryPasswordText, value);
+            get => _navBarTitle;
+            set => SetProperty(ref _navBarTitle, value);
         }
 
-        private string _entryConfitmPasswordText;
-        public string EntryConfirmPasswordText
+        private ImageSource _eyePasswordSource;
+        public ImageSource EyePasswordSource
         {
-            get => _entryConfitmPasswordText;
-            set => SetProperty(ref _entryConfitmPasswordText, value);
+            get => _eyePasswordSource;
+            set => SetProperty(ref _eyePasswordSource, value);
         }
 
-        private bool _enabledButton = false;
-        public bool EnabledButton
+        private ImageSource _eyeConfirmPasswordSource;
+        public ImageSource EyeConfirmPasswordSource
         {
-            get => _enabledButton;
-            set => SetProperty(ref _enabledButton, value);
+            get => _eyeConfirmPasswordSource;
+            set => SetProperty(ref _eyeConfirmPasswordSource, value);
+        }
+
+        private Color _borderColorPassword;
+        public Color BorderColorPassword
+        {
+            get => _borderColorPassword;
+            set => SetProperty(ref _borderColorPassword, value);
+        }
+
+        private Color _borderColorConfirmPassword;
+        public Color BorderColorConfirmPassword
+        {
+            get => _borderColorConfirmPassword;
+            set => SetProperty(ref _borderColorConfirmPassword, value);
+        }
+
+        private string _labelPassword;
+        public string LabelPassword
+        {
+            get => _labelPassword;
+            set => SetProperty(ref _labelPassword, value);
+        }
+
+        private string _entryPassword;
+        public string EntryPassword
+        {
+            get => _entryPassword;
+            set => SetProperty(ref _entryPassword, value);
+        }
+
+        private string _entryPasswordPlaceholder;
+        public string EntryPasswordPlaceholder
+        {
+            get => _entryPasswordPlaceholder;
+            set => SetProperty(ref _entryPasswordPlaceholder, value);
+        }
+
+        private string _labelPasswordError;
+        public string LabelPasswordError
+        {
+            get => _labelPasswordError;
+            set => SetProperty(ref _labelPasswordError, value);
+        }
+
+        private string _labelConfirmPassword;
+        public string LabelConfirmPassword
+        {
+            get => _labelConfirmPassword;
+            set => SetProperty(ref _labelConfirmPassword, value);
+        }
+
+        private string _entryConfitmPassword;
+        public string EntryConfirmPassword
+        {
+            get => _entryConfitmPassword;
+            set => SetProperty(ref _entryConfitmPassword, value);
+        }
+
+        private string _entryConfirmPlaceholder;
+        public string EntryConfirmPlaceholder
+        {
+            get => _entryConfirmPlaceholder;
+            set => SetProperty(ref _entryConfirmPlaceholder, value);
+        }
+
+        private string _labelConfirmPasswordError;
+        public string LabelConfirmPasswordError
+        {
+            get => _labelConfirmPasswordError;
+            set => SetProperty(ref _labelConfirmPasswordError, value);
+        }
+
+        private bool _isEnabledButton;
+        public bool IsEnabledButton
+        {
+            get => _isEnabledButton;
+            set => SetProperty(ref _isEnabledButton, value);
+        }
+
+        private bool _isHidePassword;
+        public bool IsHidePassword
+        {
+            get => _isHidePassword;
+            set => SetProperty(ref _isHidePassword, value);
         }
 
         #endregion   
 
-        #region --- Overrides ---
+        #region -- Overrides --
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
             base.OnPropertyChanged(args);
 
-            if (args.PropertyName == nameof(EntryNameText))
+            if (args.PropertyName == nameof(EntryPassword))
             {
-                CheckTextInput(_entryNameText);
+                CheckTextInput(_entryPassword);
+                ShowHideImagePassword(_entryPassword);
             }
 
-            if (args.PropertyName == nameof(EntryEmailText))
+            if (args.PropertyName == nameof(EntryConfirmPassword))
             {
-                CheckTextInput(_entryEmailText);
+                CheckTextInput(_entryConfitmPassword);
+                ShowHideImageConfirmPassword(_entryConfitmPassword);
             }
+        }
 
-            if (args.PropertyName == nameof(EntryPasswordText))
-            {
-                CheckTextInput(_entryPasswordText);
-            }
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
 
-            if (args.PropertyName == nameof(EntryConfirmPasswordText))
+            if (parameters.TryGetValue(Constants.NameKey, out string name))
             {
-                CheckTextInput(_entryConfitmPasswordText);
+                _name = name;
             }
+            if (parameters.TryGetValue(Constants.LoginKey, out string login))
+            {
+                _email = login;
+            }
+            IsHidePassword = false;
+            IsHidePassword = true;
+        }
+
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+
+            NavBarTitle = Properties.Resource.NavBarTitleRegister;
+            LabelPassword = Properties.Resource.LabelPassword;
+            EntryPasswordPlaceholder = Properties.Resource.PasswordPlaceholder;     
+            LabelConfirmPassword = Properties.Resource.LabelConfirmPassword;
+            EntryConfirmPlaceholder = Properties.Resource.EntryConfirmPlaceholder;
+            BorderColorPassword = (Color)App.Current.Resources["entryBorder"];
+            BorderColorConfirmPassword = (Color)App.Current.Resources["entryBorder"];
+            IsHidePassword = true;  
         }
 
         #endregion
 
-        #region ---- Private Helpers ---
+        #region -- Private helpers --
 
-        private async void OnSignUpTapAsync()
+        private async void OnImageLeftTapCommandAsync()
         {
+            await navigationService.GoBackAsync();
+        }
+
+        private async void OnCreateAccountButtonTapAsync()
+        {
+            LabelPasswordError = string.Empty;
+            LabelConfirmPasswordError = string.Empty;
+            BorderColorPassword = (Color)App.Current.Resources["entryBorder"];
+            BorderColorConfirmPassword = (Color)App.Current.Resources["entryBorder"];
+
             var isSuccess = await TrySignUpUserAsync();
 
             if (isSuccess)
             {
-                var parameters = new NavigationParameters();
-                parameters.Add(Constants.LoginKey, _entryEmailText);
-
-                await navigationService.GoBackAsync(parameters);
+                await navigationService.NavigateAsync($"{nameof(SignInView)}");
             }
         }
 
         #endregion
 
-        #region --- Private Methods ---
+        #region -- Private methods --
 
         private void CheckTextInput(string elementText)
         {
             if (string.IsNullOrEmpty(elementText))
             {
-                EnabledButton = false;
+                IsEnabledButton = false;
             }
-            else if (!string.IsNullOrEmpty(_entryNameText) &&
-                !string.IsNullOrEmpty(_entryEmailText) &&
-                !string.IsNullOrEmpty(_entryPasswordText) &&
-                !string.IsNullOrEmpty(_entryConfitmPasswordText))
+            else if (!string.IsNullOrEmpty(_entryPassword) &&
+                !string.IsNullOrEmpty(_entryConfitmPassword))
             {
-                EnabledButton = true;
+                IsEnabledButton = true;
             }
         }
 
@@ -133,64 +265,76 @@ namespace GPSNotepad.ViewModels
 
             if (isSuccess)
             {
-                isSuccess = await _authenticationService.SignUpAsync(_entryNameText, _entryEmailText, _entryPasswordText);
+                isSuccess = await _authenticationService.SignUpAsync(_name, _email, _entryPassword);
 
                 if (!isSuccess)
                 {
-                    ShowAlert(Resources.SignUpLoginBusy);
-                    ClearEntries();
+                    var parameters = new NavigationParameters();
+                    parameters.Add(Constants.LoginKey, Properties.Resource.LoginBusy);
+
+                    await navigationService.GoBackAsync(parameters);
                 }
             }
 
             return isSuccess;
         }
 
-        private void ClearEntries()
-        {
-            EntryNameText = string.Empty;
-            EntryEmailText = string.Empty;
-            EntryPasswordText = string.Empty;
-            EntryConfirmPasswordText = string.Empty;
-        }
-
         private async void ShowAlert(string message)
         {
-            await _pageDialog.DisplayAlertAsync(Resources.AlertTitle, message, Resources.AlertOK);
+            await _pageDialog.DisplayAlertAsync(Properties.Resource.AlertTitle, message, Properties.Resource.AlertOK);
         }
 
         private bool CheckValidation()
         {
             var isSuccess = true;
 
-            if (!StringValidator.CheckName(_entryNameText))
+            if (!StringValidator.CheckQuantity(_entryPassword, 8))
             {
-                //ShowAlert(Resources.w);
+                LabelPasswordError = Properties.Resource.PasswordCountingSimbols;
+                BorderColorPassword = Color.Red;
+                LabelPasswordError = Properties.Resource.LabelPasswordError;
                 isSuccess = false;
             }
-            if (!StringValidator.CheckLogin(_entryEmailText) && isSuccess)
+            if (!StringValidator.CheckPresence(_entryPassword) && isSuccess)
             {
-                ShowAlert(Resources.SignUpInvalidEmail);
+                LabelPasswordError = Properties.Resource.PasswordPresence;
+                BorderColorPassword = Color.Red;
+                LabelPasswordError = Properties.Resource.LabelPasswordError;
                 isSuccess = false;
             }
-            if (!StringValidator.CheckQuantity(_entryPasswordText, 8) && isSuccess)
+            if (!StringValidator.CheckPasswordEquality(_entryPassword, _entryConfitmPassword) && isSuccess)
             {
-                ShowAlert(Resources.SignUpInvalidNumber);
+                LabelConfirmPasswordError = Properties.Resource.PasswordConfirmNotEqual;
+                BorderColorConfirmPassword = Color.Red;
+                LabelConfirmPasswordError = Properties.Resource.LabelConfirmPasswordError;
                 isSuccess = false;
             }
-            if (!StringValidator.CheckPresence(_entryPasswordText) && isSuccess)
-            {
-                ShowAlert(Resources.SignUpInvalidPresence);
-                isSuccess = false;
-            }
-            if (!StringValidator.CheckPasswordEquality(_entryPasswordText, _entryConfitmPasswordText) && isSuccess)
-            {
-                ShowAlert(Resources.SignUpNotEqual);
-                isSuccess = false;
-            }
-
-            ClearEntries();
 
             return isSuccess;
+        }
+
+        private void ShowHideImagePassword(string elementText)
+        {
+            if (string.IsNullOrEmpty(elementText))
+            {
+                EyePasswordSource = string.Empty;
+            }
+            else
+            {
+                EyePasswordSource = "ic_eye_off";
+            }
+        }
+
+        private void ShowHideImageConfirmPassword(string elementText)
+        {
+            if (string.IsNullOrEmpty(elementText))
+            {
+                EyeConfirmPasswordSource = string.Empty;
+            }
+            else
+            {
+                EyeConfirmPasswordSource = "ic_eye_off";
+            }
         }
 
         #endregion

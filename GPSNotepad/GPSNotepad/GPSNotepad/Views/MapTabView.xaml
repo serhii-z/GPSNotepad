@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:GPSNotepad.Controls"
              x:Class="GPSNotepad.Views.MapTabView"
-             xmlns:resource="clr-namespace:GPSNotepad.Properties"
-             Title="{x:Static resource:Resources.MapTabViewTitle}">
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{DynamicResource viewBackground}"
+             IconImageSource="ic_map">
 
     <Grid>
 
@@ -21,23 +22,25 @@
                                          SearchBarTapCommand="{Binding SearchBarTapCommand}"
                                          ImageExitTapCommand="{Binding ExitTapCommand}"/>
 
+
         <AbsoluteLayout Grid.Row="1">
 
             <local:CustomMap AbsoluteLayout.LayoutFlags="All"
-                         AbsoluteLayout.LayoutBounds="0,0,1,1"
-                         PinsSource="{Binding Pins}"
-                         CommandPinTap="{Binding PinTapCommand}"
-                         CommandMapTap="{Binding MapTapCommand}"
-                         Region="{Binding Region}"
-                         Animated="{Binding Anim}"
-                         MyLocationEnabled="{Binding IsUserPosition}"/>
-
+                             AbsoluteLayout.LayoutBounds="0,0,1,1"
+                             PinsSource="{Binding Pins}"
+                             CommandPinTap="{Binding PinTapCommand}"
+                             CommandMapTap="{Binding MapTapCommand}"
+                             Region="{Binding Region}"
+                             Animated="{Binding Animated}"
+                             MyLocationEnabled="{Binding IsUserPosition}"
+                             StyleMap="{Binding Style}"/>
 
             <ListView ItemsSource="{Binding Pins, Mode=TwoWay}"
-                  SelectedItem="{Binding PinSelectedItem, Mode=TwoWay}"
-                  BackgroundColor="White"
-                  AbsoluteLayout.LayoutFlags="All"
-                  AbsoluteLayout.LayoutBounds="{Binding TopBorder}">
+                      SelectedItem="{Binding PinSelectedItem, Mode=TwoWay}"
+                      AbsoluteLayout.LayoutFlags="All"
+                      AbsoluteLayout.LayoutBounds="{Binding TopBorder}"
+                      SeparatorColor="{DynamicResource listViewSeparator}"
+                      BackgroundColor="{DynamicResource viewBackground}">
 
                 <ListView.ItemTemplate>
 
@@ -47,9 +50,21 @@
 
                             <ViewCell.View>
 
-                                <StackLayout VerticalOptions="End">
-                                    <Label  Text="{Binding Label}" 
-                                        FontAttributes="Bold"/>
+                                <StackLayout VerticalOptions="End" Orientation="Horizontal">
+
+                                    <Image Source="ic_pin_gray"/>
+
+                                    <StackLayout>
+
+                                        <Label Text="{Binding Name}" 
+                                               TextColor="{DynamicResource labelText}"
+                                               FontAttributes="Bold"/>
+
+                                        <Label  Text="{Binding Description}"
+                                                TextColor="{DynamicResource labelText}"/>
+
+                                    </StackLayout>
+
                                 </StackLayout>
 
                             </ViewCell.View>
@@ -62,16 +77,23 @@
 
             </ListView>
 
-            <ImageButton Source="ic_location"
-                     CornerRadius="35"
-                     BackgroundColor="Transparent"
-                     AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0.9,0.95,0.1,0.06"
-                     Command="{Binding LocationButtonTapCommand}" />
+            <ImageButton Source="{DynamicResource buttonMyLocation}"
+                         WidthRequest="96" 
+                         HeightRequest="96"
+                         HorizontalOptions="End" 
+                         VerticalOptions="End"
+                         BackgroundColor="{DynamicResource imageButton}"
+                         AbsoluteLayout.LayoutFlags="PositionProportional"
+                         AbsoluteLayout.LayoutBounds="1.0,1.0,-1,-1"
+                         Margin="0,0,20,20"
+                         Command="{Binding LocationButtonTapCommand}"/>
+
+
 
             <Frame AbsoluteLayout.LayoutFlags="All"
-               AbsoluteLayout.LayoutBounds="{Binding BottomBorder}"
-               IsVisible="{Binding HasVisible}">
+                   AbsoluteLayout.LayoutBounds="{Binding BottomBorder}"
+                   IsVisible="{Binding HasVisible}"
+                   BackgroundColor="{DynamicResource viewBackground}">
 
                 <Frame.GestureRecognizers>
 
@@ -83,8 +105,8 @@
 
                     <Grid.RowDefinitions>
 
-                        <RowDefinition Height="2*" />
                         <RowDefinition Height="1*" />
+                        <RowDefinition Height="2*" />
                         <RowDefinition Height="1*" />
 
                     </Grid.RowDefinitions>
@@ -92,37 +114,55 @@
                     <StackLayout Grid.Row="0">
 
                         <Label Text="{Binding Name}" 
-                           HorizontalOptions="Center" 
-                           FontAttributes="Bold"/>
+                               FontAttributes="Bold"
+                               TextColor="{DynamicResource labelText}"/>
 
-                        <Label Text="{Binding Position}"/>
-
-                        <Label Text="{Binding Description}"/>
-
-                    </StackLayout>
-
-                    <StackLayout Grid.Row="1" Orientation="Horizontal">
-
-                        <Image VerticalOptions="End"
-                           HorizontalOptions="Start"
-                           Source="{Binding IconPath}">
-                        </Image>
-
-                        <StackLayout Orientation="Vertical">
-
-                            <Label Text="{Binding Temperature}" />
-
-                            <Label Text="{Binding WindSpeed}"/>
-
-                        </StackLayout>
+                        <Label Text="{Binding Position}"
+                               FontSize="Small"
+                               TextColor="{DynamicResource labelText}"/>
 
                     </StackLayout>
+
+                    <CollectionView Grid.Row="1"
+                                    ItemsSource="{Binding WeatherCollection}">
+
+                        <CollectionView.ItemsLayout>
+
+                            <LinearItemsLayout Orientation="Horizontal" 
+                                               ItemSpacing="40"/>
+
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+
+                            <DataTemplate>
+
+                                <StackLayout>
+
+                                    <Label Text="{Binding NameDay}"
+                                           TextColor="{DynamicResource labelText}"
+                                           HorizontalOptions="Center"/>
+
+                                    <Image HorizontalOptions="Center"
+                                           Source="{Binding Icon}"/>
+
+                                    <Label Text="{Binding Temp}"
+                                           TextColor="{DynamicResource labelText}"
+                                           HorizontalOptions="Center"/>
+
+                                </StackLayout>
+
+                            </DataTemplate>
+
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
 
                     <Button Grid.Row="2"
-                        Text="Time"
-                        BackgroundColor="Blue"
-                        TextColor="White"
-                        Command="{Binding TimeButtonTapCommand}"/>
+                            Text="Time"
+                            BackgroundColor="{DynamicResource buttonBackground}"
+                            TextColor="{DynamicResource buttonText}"
+                            Command="{Binding TimeButtonTapCommand}"/>
 
                 </Grid>
 

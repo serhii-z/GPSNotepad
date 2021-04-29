@@ -1,5 +1,5 @@
 ﻿using GPSNotepad.Models;
-using GPSNotepad.Services.Repositiry;
+using GPSNotepad.Services.Repository;
 using GPSNotepad.Services.SettingsService;
 using System.Linq;
 using System.Threading.Tasks;

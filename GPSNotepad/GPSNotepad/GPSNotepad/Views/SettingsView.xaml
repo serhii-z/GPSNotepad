@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resource="clr-namespace:GPSNotepad.Properties" 
+             xmlns:controls="clr-namespace:GPSNotepad.Controls"
+             x:Class="GPSNotepad.Views.SettingsView"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid BackgroundColor="{DynamicResource viewBackground}">
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="7*"/>
+
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="1*"/>
+
+        </Grid.ColumnDefinitions>
+
+        <controls:CustomNavigationBar Grid.Row="0" 
+                                      Grid.Column="0" 
+                                      Grid.ColumnSpan="3"
+                                      Title="{x:Static resource:Resource.SettingsTitle}"
+                                      ImageLeftTapCommand="{Binding GoBackTapCommand}"/>
+        
+        <BoxView Grid.Row="0"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="3"
+                 VerticalOptions="End"
+                 HeightRequest="1"
+                 BackgroundColor="{DynamicResource boxView}"/>
+
+        <Grid Grid.Row="1"
+              Grid.Column="0"
+              Grid.ColumnSpan="3">
+
+            <Grid.RowDefinitions>
+
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="1.4*"/>
+                <RowDefinition Height="0.3*"/>
+
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="7.7*"/>
+                <ColumnDefinition Width="2*"/>
+
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="1" 
+               Grid.Column="1"
+               Text="{x:Static resource:Resource.LabelColorClock}"
+               TextColor="{DynamicResource labelText}"
+               FontSize="Medium"
+               VerticalOptions="CenterAndExpand"
+               HorizontalOptions="Start"/>
+
+            <Image Grid.Row="1" 
+                   Grid.Column="2"
+                   HorizontalOptions="Center"
+                   Source="ic_left_gray">
+
+                <Image.GestureRecognizers>
+
+                    <TapGestureRecognizer Command="{Binding ColorClockTapCommand}"/>
+
+                </Image.GestureRecognizers>
+
+            </Image>
+
+        </Grid>
+        
+        <BoxView Grid.Row="1"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="3"
+                 VerticalOptions="End"
+                 HeightRequest="1"
+                 BackgroundColor="{DynamicResource boxView}"/>
+
+
+        <Grid Grid.Row="2"
+              Grid.Column="0"
+              Grid.ColumnSpan="3">
+
+            <Grid.RowDefinitions>
+
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="1.4*"/>
+                <RowDefinition Height="0.3*"/>
+
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="7.7*"/>
+                <ColumnDefinition Width="2*"/>
+
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="1" 
+               Grid.Column="1"
+               Text="{x:Static resource:Resource.DarkTheme}"
+               TextColor="{DynamicResource labelText}"
+               FontSize="Medium"
+               VerticalOptions="CenterAndExpand"
+               HorizontalOptions="Start"/>
+
+            <Switch Grid.Row="1" 
+                    Grid.Column="2"
+                    OnColor="{DynamicResource switchOn}"
+                    ThumbColor="{DynamicResource switchThumb}"
+                    HorizontalOptions="Center"
+                    IsToggled="{Binding IsToggled}">
+
+            </Switch>
+
+        </Grid>
+
+        <BoxView Grid.Row="2"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="3"
+                 VerticalOptions="End"
+                 HeightRequest="1"
+                 BackgroundColor="{DynamicResource boxView}"/>
+
+
+    </Grid>
+    
+</ContentPage>

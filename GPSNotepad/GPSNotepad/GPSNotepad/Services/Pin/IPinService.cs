@@ -10,6 +10,5 @@ namespace GPSNotepad.Services.Pin
         Task<int> UpdatePinAsync(PinModel pinModel);
         Task<int> DeletePinAsync(PinModel pinModel);
         Task<List<PinModel>> GetAllPinModelsAsync();
-        PinModel CreatePinModel(string name, string latitude, string longitude, string description);
     }
 }

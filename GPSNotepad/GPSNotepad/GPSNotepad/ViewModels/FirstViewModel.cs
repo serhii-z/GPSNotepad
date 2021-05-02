@@ -28,7 +28,7 @@ namespace GPSNotepad.ViewModels
         {
             base.OnNavigatedTo(parameters);
 
-            _resourceService.ApplyTheme();
+            //_resourceService.ApplyTheme();
         }
 
         #endregion

@@ -23,7 +23,6 @@
 
     <Image Grid.Row="1"
            Grid.Column="0" 
-           HorizontalOptions="Center"
            Source="ic_left_blue">
 
         <Image.GestureRecognizers>
@@ -34,13 +33,14 @@
         
     </Image>
 
-    <Label Grid.Column="1" 
-           Grid.Row="1"
+    <Label Grid.Row="1"
+           Grid.Column="1"     
            Text="{Binding Title, Source={x:Reference customNavigationBar}}"
            TextColor="{DynamicResource labelNavBar}"
-           FontSize="Medium"
+           FontSize="Large"
+           FontFamily="Montserrat"
            FontAttributes="Bold"
-           VerticalOptions="Center"
+           VerticalOptions="CenterAndExpand"
            HorizontalOptions="CenterAndExpand"/>
 
 </Grid>

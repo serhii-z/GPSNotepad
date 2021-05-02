@@ -4,9 +4,12 @@
              xmlns:local="clr-namespace:GPSNotepad.Controls" 
              x:Class="GPSNotepad.Views.AddPinView"
              xmlns:resource="clr-namespace:GPSNotepad.Properties"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="True"
+             BackgroundColor="{DynamicResource viewBackground}">
 
-    <Grid BackgroundColor="{DynamicResource viewBackground}">
+    <Grid>
 
         <Grid.RowDefinitions>
 
@@ -32,13 +35,15 @@
                                    Title="{Binding NavBarTitle}"
                                    ImageLeftTapCommand="{Binding GoBackTapCommand}">
 
-            <Image Source="ic_save" 
+            <Image Source="ic_save2x" 
                    Grid.Row="1" 
                    Grid.Column="2"
                    HorizontalOptions="Center">
 
                 <Image.GestureRecognizers>
+                    
                     <TapGestureRecognizer Command="{Binding SaveTapCommand}"/>
+
                 </Image.GestureRecognizers>
 
             </Image>
@@ -94,9 +99,11 @@
                        Text="{x:Static resource:Resource.LabelCoordinates}"
                        TextColor="{DynamicResource labelText}"
                        FontSize="Small"
-                       FontAttributes="Bold"/>
+                       FontAttributes="Bold"
+                       FontFamily="Montserrat"/>
 
                 <Frame Grid.Row="1"
+                       HasShadow="False"
                        BackgroundColor="{DynamicResource addViewFrameBackground}"
                        BorderColor="{DynamicResource addViewFrameBorder}"/>
 
@@ -104,10 +111,11 @@
                        HorizontalOptions="FillAndExpand"
                        Margin="10,0,0,0"
                        Placeholder="{x:Static resource:Resource.EntryLatitudePlaceholder}"
-                       PlaceholderColor="{DynamicResource entryPlaceholder}"         
-                       Text="{Binding EntryLatitude}"
+                       PlaceholderColor="{DynamicResource entryPlaceholder}"
                        TextColor="{DynamicResource entryText}"
-                       FontSize="Small"/>
+                       Text="{Binding EntryLatitude}"
+                       FontSize="Small"
+                       FontFamily="Montserrat"/>
 
             </Grid>
 
@@ -122,6 +130,7 @@
                 </Grid.RowDefinitions>
 
                 <Frame Grid.Row="1"
+                       HasShadow="False"
                        BackgroundColor="{DynamicResource addViewFrameBackground}"
                        BorderColor="{DynamicResource addViewFrameBorder}"/>
 
@@ -130,9 +139,10 @@
                        Margin="10,0,0,0"
                        Placeholder="{x:Static resource:Resource.EntryLongitudePlaceholder}"
                        PlaceholderColor="{DynamicResource entryPlaceholder}"
-                       Text="{Binding EntryLongitude}"
                        TextColor="{DynamicResource entryText}"
-                       FontSize="Small"/>
+                       Text="{Binding EntryLongitude}"
+                       FontSize="Small"
+                       FontFamily="Montserrat"/>
 
             </Grid>
 

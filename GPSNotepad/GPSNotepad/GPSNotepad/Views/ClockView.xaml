@@ -22,52 +22,43 @@
         <StackLayout Grid.Row="0" Orientation="Horizontal">
 
             <Label Text="{Binding Name}"
-                           TextColor="{DynamicResource labelText}"
-                           VerticalOptions="End"
-                           HorizontalOptions="FillAndExpand"
-                           VerticalTextAlignment="Start"
-                           HorizontalTextAlignment="Center"/>
-
-            <!--<Image VerticalOptions="Start"
-                           HorizontalOptions="Fill"
-                           Source="ic_clear">
-
-                <Image.GestureRecognizers>
-
-                    <TapGestureRecognizer Command="{Binding GoBackTapCommand}"/>
-
-                </Image.GestureRecognizers>
-
-            </Image>-->
+                   TextColor="{DynamicResource labelText}"
+                   FontFamily="Montserrat"
+                   VerticalOptions="End"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalTextAlignment="Start"
+                   HorizontalTextAlignment="Center"/>
 
         </StackLayout>
 
         <StackLayout Grid.Row="1" Orientation="Horizontal">
 
             <Label Text="{Binding Time}" 
-                           TextColor="{DynamicResource labelText}"
-                           FontAttributes="Bold"
-                           FontSize="Medium"
-                           VerticalOptions="End"
-                           HorizontalOptions="FillAndExpand"
-                           VerticalTextAlignment="Center"
-                           HorizontalTextAlignment="End"/>
+                   TextColor="{DynamicResource labelText}"
+                   FontAttributes="Bold"
+                   FontSize="Medium"
+                   FontFamily="Montserrat"
+                   VerticalOptions="End"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="End"/>
 
             <Label Text="{Binding GMTInfo}" 
-                           TextColor="{DynamicResource labelText}"
-                           FontAttributes="Bold"
-                           FontSize="Medium"
-                           VerticalOptions="End"
-                           HorizontalOptions="StartAndExpand"
-                           VerticalTextAlignment="Center"
-                           HorizontalTextAlignment="Start" />
+                   TextColor="{DynamicResource labelText}"
+                   FontAttributes="Bold"
+                   FontSize="Medium"
+                   FontFamily="Montserrat"
+                   VerticalOptions="End"
+                   HorizontalOptions="StartAndExpand"
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Start" />
 
         </StackLayout>
 
         <local:CustomSKCanvasView Grid.Row="2" 
-                                          TimeCorrection="{Binding TimeCorrection}"
-                                          GMTInfo="{Binding GMTInfo}"
-                                          ColorClock="{Binding ColorClock}"/>
+                                  TimeCorrection="{Binding TimeCorrection}"
+                                  GMTInfo="{Binding GMTInfo}"
+                                  ColorClock="{Binding ColorClock}"/>
 
     </Grid>
 

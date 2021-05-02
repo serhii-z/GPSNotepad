@@ -24,8 +24,6 @@ namespace GPSNotepad.ViewModels
 
         #region -- Public properties --
 
-        //public ICommand GoBackTapCommand => new Command(OnGoBackTapAsync);
-
         private double _timeCorrection;
         public double TimeCorrection
         {
@@ -52,12 +50,9 @@ namespace GPSNotepad.ViewModels
         {
             get => _name;
             set => SetProperty(ref _name, value);
-        }
+        }     
 
         private string _colorClock;
-
-        public event Action<IDialogParameters> RequestClose;
-
         public string ColorClock
         {
             get => _colorClock;
@@ -68,6 +63,8 @@ namespace GPSNotepad.ViewModels
 
         #region -- IDialogAware implement --
 
+        public event Action<IDialogParameters> RequestClose;
+
         public bool CanCloseDialog()
         {
             return true;
@@ -75,7 +72,6 @@ namespace GPSNotepad.ViewModels
 
         public void OnDialogClosed()
         {
-
         }
 
         public void OnDialogOpened(IDialogParameters parameters)
@@ -87,15 +83,6 @@ namespace GPSNotepad.ViewModels
 
             ColorClock = _settingsManager.ColorClock;
         }
-
-        #endregion
-
-        #region -- Private helpers --
-
-        //private void OnGoBackTapAsync()
-        //{
-        //    navigationService.GoBackAsync();
-        //}
 
         #endregion
 
@@ -129,8 +116,6 @@ namespace GPSNotepad.ViewModels
                 return true;
             });
         }
-
-
 
         #endregion
     }

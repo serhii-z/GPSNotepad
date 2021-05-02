@@ -1,10 +1,9 @@
-﻿using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 namespace GPSNotepad.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainTabbedView : Xamarin.Forms.TabbedPage
+    public partial class MainTabbedView : BaseTabbedPage
     {
         public MainTabbedView()
         {

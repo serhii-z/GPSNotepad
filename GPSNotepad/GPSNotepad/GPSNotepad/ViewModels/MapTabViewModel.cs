@@ -47,12 +47,13 @@ namespace GPSNotepad.ViewModels
             _resourceService = resourceService;
             _dialogService = dialogService;
             WeatherCollection = new ObservableCollection<DataWeather>();
+            Pins = new ObservableCollection<PinViewModel>();
         }
 
         #region --- Public Properties ---
 
         public ICommand SettingsTapCommand => new Command(OnSettingsTapAsync);
-        public ICommand SearchBarTapCommand => new Command(OnSearchBarTap);
+        public ICommand FocusedCommand => new Command(OnFocused);
         public ICommand PinTapCommand => new Command<Pin>(OnPinTapAsync);
         public ICommand PinSearchCommand => new Command(OnSearchPins);
         public ICommand MapTapCommand => new Command(OnMapTap);
@@ -259,11 +260,10 @@ namespace GPSNotepad.ViewModels
                 MakePinFocus(value);
             }
 
-            _resourceService.ApplyTheme();
             Style = _resourceService.GetMapStyle();
             var pinsViewModel = await GetAllPinViewModelsAsync();
 
-            Pins = new ObservableCollection<PinViewModel>(pinsViewModel);
+            UpdatePins(pinsViewModel);
         }
 
         public async override void Initialize(INavigationParameters parameters)
@@ -286,17 +286,18 @@ namespace GPSNotepad.ViewModels
         {
             var resultSearch = await SearchPins();
 
-            UpdatePins(resultSearch);
-            OnSearchBarTap();
+            UpdatePins(resultSearch); 
         }
 
         private void OnSelectedItemTap()
         {
+            SearchText = string.Empty;
+
             OnMapTap();
             MakePinFocus(PinSelectedItem);
         }
 
-        private void OnSearchBarTap()
+        private void OnFocused()
         {
             TopBorder = new Rectangle(0, 0, 1.0, 0.31);
         }
@@ -366,21 +367,24 @@ namespace GPSNotepad.ViewModels
         private void UpdatePins(List<PinViewModel> pinsViewModel)
         {
             Pins.Clear();
+            var temp = new List<PinViewModel>();
 
             foreach (var item in pinsViewModel)
             {
                 if (item.IsFavorit)
                 {
-                    Pins.Add(item);
+                    temp.Add(item);
                 }
             }
+
+            Pins = new ObservableCollection<PinViewModel>(temp);
         }
 
         private void MakePinFocus(PinViewModel pinViewModel)
         {
-            var pin = pinViewModel.ToPin();
+            var position = new Position(pinViewModel.Latitude, pinViewModel.Longitude);
 
-            Region = MapSpan.FromCenterAndRadius(pin.Position, Distance.FromKilometers(2));
+            Region = MapSpan.FromCenterAndRadius(position, Distance.FromKilometers(2));
         }
 
         private void ShowPinInfo()
@@ -406,7 +410,6 @@ namespace GPSNotepad.ViewModels
                 var temp = string.Format("{0}{1} {2}{3}", day, "°", night, "°");
                 WeatherCollection.Add(new DataWeather(nameDay, icon, temp));
             }
-
         }
 
         #endregion

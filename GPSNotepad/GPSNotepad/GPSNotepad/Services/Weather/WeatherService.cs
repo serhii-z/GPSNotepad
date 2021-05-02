@@ -12,6 +12,8 @@ namespace GPSNotepad.Services.Weather
     {
         private Root _weatherResponse;
 
+        #region -- IWeatherService implement --
+
         public async Task<Root> GetWeatherResponseAsync(string latitude, string longitude, string units)
         {        
             var url = string.Format(Constants.OpenWeatherUrl, latitude, longitude, units, Constants.OpenWeatherKey);
@@ -55,5 +57,7 @@ namespace GPSNotepad.Services.Weather
 
             return numberDays;
         }
+
+        #endregion
     }
 }

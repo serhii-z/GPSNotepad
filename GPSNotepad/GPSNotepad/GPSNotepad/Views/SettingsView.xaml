@@ -4,9 +4,12 @@
              xmlns:resource="clr-namespace:GPSNotepad.Properties" 
              xmlns:controls="clr-namespace:GPSNotepad.Controls"
              x:Class="GPSNotepad.Views.SettingsView"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+             BackgroundColor="{DynamicResource viewBackground}">
 
-    <Grid BackgroundColor="{DynamicResource viewBackground}">
+    <Grid>
 
         <Grid.RowDefinitions>
 
@@ -63,6 +66,7 @@
                Text="{x:Static resource:Resource.LabelColorClock}"
                TextColor="{DynamicResource labelText}"
                FontSize="Medium"
+               FontFamily="Montserrat"
                VerticalOptions="CenterAndExpand"
                HorizontalOptions="Start"/>
 
@@ -114,6 +118,7 @@
                Text="{x:Static resource:Resource.DarkTheme}"
                TextColor="{DynamicResource labelText}"
                FontSize="Medium"
+               FontFamily="Montserrat"
                VerticalOptions="CenterAndExpand"
                HorizontalOptions="Start"/>
 

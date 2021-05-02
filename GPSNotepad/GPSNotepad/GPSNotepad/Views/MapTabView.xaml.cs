@@ -6,7 +6,7 @@ namespace GPSNotepad.Views
     {
         public MapTabView()
         {
-            InitializeComponent();       
+            InitializeComponent();
         }
     }
 }

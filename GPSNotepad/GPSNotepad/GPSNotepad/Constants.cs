@@ -17,6 +17,8 @@
         public const string ColorClockDefault = "blue";
         public const string ColorClockRed = "red";
         public const string DarkTheme = "DarkTheme";
+        public const string DarkThemePath = "GPSNotepad.Resources.StyleMap.dark.json";
+        public const string LightThemePath = "GPSNotepad.Resources.StyleMap.light.json";
         public const string ColorClockKey = "colorClock";
         public const string RadioButtonBlueKey = "radioButtonBlue";
         public const string RadioButtonRedKey = "radioButtonRed";

@@ -11,7 +11,6 @@ using GPSNotepad.Services.Pin;
 using Plugin.Settings.Abstractions;
 using Plugin.Settings;
 using GPSNotepad.Services.SettingsService;
-using System.Threading.Tasks;
 using GPSNotepad.Services.Permissions;
 using GPSNotepad.Services.GeoLocations;
 using GPSNotepad.Services.Weather;
@@ -80,6 +79,8 @@ namespace GPSNotepad
             InitializeComponent();
           
             Device.SetFlags(new string[] { "RadioButton_Experimental" });
+            App.Current.Container.Resolve<ResourceService>().ApplyTheme();
+
             var isAuthorized = Container.Resolve<AuthorizationService>().IsAuthorized;
 
             if (isAuthorized)

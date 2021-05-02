@@ -17,11 +17,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\FontStyles\Montserrat.ttf" />
     <None Remove="Resources\StyleMap\dark.json" />
     <None Remove="Resources\StyleMap\light.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\FontStyles\Montserrat.ttf" />
     <EmbeddedResource Include="Resources\StyleMap\dark.json" />
     <EmbeddedResource Include="Resources\StyleMap\light.json" />
   </ItemGroup>
@@ -46,9 +48,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Controls\CustomNavigationBar.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Controls\CustomPasswordView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resource.resx">

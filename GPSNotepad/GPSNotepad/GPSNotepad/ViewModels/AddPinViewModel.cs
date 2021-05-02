@@ -62,6 +62,13 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _navBarTitle, value);
         }
 
+        private Color _textColor;
+        public Color TextColor
+        {
+            get => _textColor;
+            set => SetProperty(ref _textColor, value);
+        }
+
         private Color _borderColorName;
         public Color BorderColorName
         {
@@ -197,11 +204,11 @@ namespace GPSNotepad.ViewModels
             }
 
             Style = _resourceService.GetMapStyle();
-            NavBarTitle = Properties.Resource.NavBarTitleAddPin;
-            LabelName = Properties.Resource.Label;
-            LabelDescription = Properties.Resource.LabelDescription;
-            EntryPlaceholder = Properties.Resource.EntryPlaceholderLabel;           
-            EntryDescriptionPlaceholder = Properties.Resource.EntryDescriptionPlaceholder;
+            NavBarTitle = Resource.NavBarTitleAddPin;
+            LabelName = Resource.Label;
+            LabelDescription = Resource.LabelDescription;
+            EntryPlaceholder = Resource.EntryPlaceholderLabel;           
+            EntryDescriptionPlaceholder = Resource.EntryDescriptionPlaceholder;
             BorderColorName = Color.Gray;
             BorderColorDescription = Color.Gray;
         }
@@ -294,7 +301,6 @@ namespace GPSNotepad.ViewModels
 
             return pinViewModel;
         }
-
 
         #endregion
     }

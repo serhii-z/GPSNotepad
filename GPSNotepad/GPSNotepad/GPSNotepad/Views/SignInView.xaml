@@ -4,9 +4,12 @@
              xmlns:controls="clr-namespace:GPSNotepad.Controls"
              xmlns:resource="clr-namespace:GPSNotepad.Properties"
              x:Class="GPSNotepad.Views.SignInView"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+             BackgroundColor="{DynamicResource viewBackground}">
 
-    <Grid BackgroundColor="{DynamicResource viewBackground}">
+    <Grid>
 
         <Grid.RowDefinitions>
             
@@ -60,6 +63,7 @@
                 Grid.Column="1"
                 Text="{x:Static resource:Resource.ButtonLogIn}"
                 TextColor="{DynamicResource buttonText}"
+                FontFamily="Montserrat"
                 BackgroundColor="{DynamicResource buttonBackground}"
                 Command="{Binding LogInButtonTapCommand}"
                 IsEnabled="{Binding IsEnabledButton}"/>
@@ -74,7 +78,8 @@
             <Label Text="or" 
                    HorizontalOptions="Center" 
                    VerticalOptions="Center"
-                   TextColor="{DynamicResource boxView}"/>
+                   TextColor="{DynamicResource boxView}"
+                   FontFamily="Monserrat"/>
 
             <BoxView HorizontalOptions="FillAndExpand"
                      VerticalOptions="Center"

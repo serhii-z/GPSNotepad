@@ -25,16 +25,17 @@
            Text="{Binding LabelText, Source={x:Reference customEntry}}"
            TextColor="{DynamicResource labelText}"
            FontSize="Small"
+           FontFamily="Montserrat"
            FontAttributes="Bold"
            VerticalOptions="Center"
            HorizontalOptions="StartAndExpand"/>
 
-    <Frame Grid.Row="1" 
-           Grid.ColumnSpan="2" 
+    <Frame Grid.Row="1"
            Grid.Column="0"
-           BackgroundColor="Transparent"
-           BorderColor="{Binding BorderColor, Source={x:Reference customEntry}}"></Frame>
-
+           Grid.ColumnSpan="2"
+           HasShadow="False"
+           BackgroundColor="{DynamicResource frameBackground}"
+           BorderColor="{Binding BorderColor, Source={x:Reference customEntry}}"/>
 
     <Entry Grid.Row="1"
            Grid.Column="0" 
@@ -44,26 +45,26 @@
            IsPassword="{Binding IsHidePassword, Source={x:Reference customEntry}}"
            Placeholder="{Binding Placeholder, Source={x:Reference customEntry}}"
            PlaceholderColor="{DynamicResource entryPlaceholder}"
+           TextColor="{DynamicResource entryText}"
            Text="{Binding EntryText, Source={x:Reference customEntry}}"
-           TextColor="{DynamicResource entryText}"/>
+           FontFamily="Montserrat"/>
 
-            <Image Grid.Column="1" Grid.Row="1"
-                   Source="{Binding ImageSource, Source={x:Reference customEntry}}"
-                   HorizontalOptions="Fill">
+    <Image Grid.Column="1" Grid.Row="1"
+           Source="{Binding ImageSource, Source={x:Reference customEntry}}"
+           HorizontalOptions="Fill">
 
-                <Image.GestureRecognizers>
+        <Image.GestureRecognizers>
 
-                    <TapGestureRecognizer Command="{Binding ImageTapCommand, Source={x:Reference customEntry}}"/>
+            <TapGestureRecognizer Command="{Binding ImageTapCommand, Source={x:Reference customEntry}}"/>
 
-                </Image.GestureRecognizers>
+        </Image.GestureRecognizers>
 
-            </Image>
-            
+    </Image>
 
-        <Label Grid.Row="2"
-               Text="{Binding LabelErrorText, Source={x:Reference customEntry}}"
-               FontSize="Small"
-               TextColor="{DynamicResource labelTextError}"/>
-
+    <Label Grid.Row="2"
+           Text="{Binding LabelErrorText, Source={x:Reference customEntry}}"
+           FontSize="Small"
+           FontFamily="Montserrat"
+           TextColor="{DynamicResource labelTextError}"/>
 
 </Grid>

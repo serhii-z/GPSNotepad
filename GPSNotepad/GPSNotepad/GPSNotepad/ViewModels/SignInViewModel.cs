@@ -1,9 +1,7 @@
-﻿using GPSNotepad.Properties;
-using GPSNotepad.Services.Authentication;
+﻿using GPSNotepad.Services.Authentication;
 using GPSNotepad.Services.Authorization;
 using GPSNotepad.Views;
 using Prism.Navigation;
-using Prism.Services;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;

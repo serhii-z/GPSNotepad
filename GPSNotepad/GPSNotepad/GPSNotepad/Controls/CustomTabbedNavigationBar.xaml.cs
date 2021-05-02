@@ -21,22 +21,22 @@ namespace GPSNotepad.Controls
             set => SetValue(ImageSettingsTapCommandProperty, value);
         }
 
-        public static readonly BindableProperty PinSearchCommandProperty = BindableProperty.Create(nameof(PinSearchCommand),
+        public static readonly BindableProperty SearchCommandProperty = BindableProperty.Create(nameof(SearchCommand),
             typeof(Command), typeof(CustomTabbedNavigationBar));
 
-        public ICommand PinSearchCommand
+        public ICommand SearchCommand
         {
-            get => (ICommand)GetValue(PinSearchCommandProperty);
-            set => SetValue(PinSearchCommandProperty, value);
+            get => (ICommand)GetValue(SearchCommandProperty);
+            set => SetValue(SearchCommandProperty, value);
         }
 
-        public static readonly BindableProperty SearchBarTapCommandProperty = BindableProperty.Create(nameof(SearchBarTapCommand), 
+        public static readonly BindableProperty FocusedCommandProperty = BindableProperty.Create(nameof(FocusedCommand), 
             typeof(Command), typeof(CustomTabbedNavigationBar));
 
-        public ICommand SearchBarTapCommand
+        public ICommand FocusedCommand
         {
-            get => (ICommand)GetValue(SearchBarTapCommandProperty);
-            set => SetValue(SearchBarTapCommandProperty, value);
+            get => (ICommand)GetValue(FocusedCommandProperty);
+            set => SetValue(FocusedCommandProperty, value);
         }
 
         public static readonly BindableProperty ImageExitTapCommandProperty = BindableProperty.Create(nameof(ImageExitTapCommand),

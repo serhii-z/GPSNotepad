@@ -1,11 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+<page:BaseTabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:local="clr-namespace:GPSNotepad.Views"
             xmlns:behaviors="clr-namespace:GPSNotepad.Behaviors"
+            xmlns:page="clr-namespace:GPSNotepad.Views"
             x:Class="GPSNotepad.Views.MainTabbedView"
             NavigationPage.HasNavigationBar="False"
-            BarBackgroundColor="{DynamicResource viewBackground}">
+            BarBackgroundColor="{DynamicResource viewBackground}"
+            BackgroundColor="{DynamicResource viewBackground}"         
+            TapColor="{DynamicResource tabColor}">
 
     <TabbedPage.Behaviors>
         
@@ -13,11 +16,11 @@
         
     </TabbedPage.Behaviors>
 
-    <TabbedPage.Children >
+    <TabbedPage.Children>
 
         <local:MapTabView />
-        <local:PinListTabView />
+        <local:PinListTabView/>
 
     </TabbedPage.Children>
 
-</TabbedPage>
+</page:BaseTabbedPage>

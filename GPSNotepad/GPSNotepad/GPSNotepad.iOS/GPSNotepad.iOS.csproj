@@ -71,6 +71,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CustomEntryRenderer.cs" />
+    <Compile Include="CustomTabbedPageRenderer.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <None Include="Entitlements.plist" />
@@ -175,7 +176,7 @@
     <BundleResource Include="Resources\ic_save.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_save%402x.png" />
+    <BundleResource Include="Resources\ic_save2x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_save%403x.png" />

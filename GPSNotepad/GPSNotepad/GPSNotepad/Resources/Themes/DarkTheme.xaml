@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GPSNotepad.Resources.Themes.DarkTheme">
 
-    <Color x:Key="buttonBackground">RoyalBlue</Color>
+    <Color x:Key="buttonBackground">#596EFB</Color>
     <Color x:Key="buttonText">White</Color>
     
     <Color x:Key="buttonStartBackground">Transparent</Color>
@@ -15,23 +15,23 @@
     <Color x:Key="viewBackground">#282933</Color>
     
     <Color x:Key="navigationBar">Transparent</Color>
-    
-    <Color x:Key="entryText">White</Color>
+
     <Color x:Key="entryBorder">White</Color>
-    <Color x:Key="entryPlaceholder">LightGray</Color>
-    
-    <Color x:Key="boxView">White</Color>
-    
+    <Color x:Key="entryPlaceholder">#858E9E</Color>
+    <Color x:Key="entryText">White</Color>
+
+    <Color x:Key="boxView">#33374E</Color>
+
+    <Color x:Key="labelTextBlack">White</Color>
     <Color x:Key="labelText">White</Color>
     <Color x:Key="labelTextError">Red</Color>
-    
-    <Color x:Key="labelNavBar">White</Color>
 
+    <Color x:Key="labelNavBar">White</Color>
     <Color x:Key="entryNavBarBackground">#56566e</Color>
-    <Color x:Key="entryNavBarPlaceholder">White</Color>
+    <Color x:Key="entryNavBarPlaceholder">LightGray</Color>
 
     <Color x:Key="listViewBackground">#282933</Color>
-    <Color x:Key="listViewSeparator">LightGray</Color>
+    <Color x:Key="listViewSeparator">#33374E</Color>
     
     <Color x:Key="imageButton">Transparent</Color>
     
@@ -51,6 +51,12 @@
     <Color x:Key="switchOn">LightGray</Color>
     <Color x:Key="switchThumb">White</Color>
 
+    <Color x:Key="tabColor">#33374E</Color>
+
+    <Color x:Key="frameBackground">Transparent</Color>
+
     <ImageSource x:Key="buttonMyLocation">my_locationdark</ImageSource>
+    <ImageSource x:Key="tabIconMap">ic_map</ImageSource>
+    <ImageSource x:Key="tabIconPin">ic_pin</ImageSource>
 
 </ResourceDictionary>

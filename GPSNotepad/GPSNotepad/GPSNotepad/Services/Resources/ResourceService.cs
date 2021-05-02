@@ -40,11 +40,11 @@ namespace GPSNotepad.Services.Resources
 
             if (_settingsManager.ThemeName == Constants.DarkTheme)
             {
-                stream = assembly.GetManifestResourceStream($"GPSNotepad.Resources.StyleMap.dark.json");
+                stream = assembly.GetManifestResourceStream(Constants.DarkThemePath);
             }
             else
             {
-                stream = assembly.GetManifestResourceStream($"GPSNotepad.Resources.StyleMap.light.json");
+                stream = assembly.GetManifestResourceStream(Constants.LightThemePath);
             }
 
             using (var reader = new System.IO.StreamReader(stream))

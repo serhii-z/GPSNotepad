@@ -40,8 +40,8 @@ namespace GPSNotepad.ViewModels
         public ICommand ExitTapCommand => new Command(OnExitTapAsync);
         public ICommand EditTapCommand => new Command(OnEditTapAsync);
         public ICommand DeleteTapCommand => new Command(OnDeleteTap);
-        public ICommand ImageRightTapCommand => new Command<object>(OnImageRightTapCommandAsync);
-        public ICommand ImageLikeTapCommand => new Command<object>(OnImageLikeTapCommandAsync);
+        public ICommand RightTapCommand => new Command<PinViewModel>(OnRightTapCommandAsync);
+        public ICommand LikeTapCommand => new Command<PinViewModel>(OnLikeTapCommandAsync);
 
 
         private ObservableCollection<PinViewModel> _pins;
@@ -107,9 +107,8 @@ namespace GPSNotepad.ViewModels
             UpdatePins(resultSearch);
         }
 
-        private async void OnImageRightTapCommandAsync(object obj)
+        private async void OnRightTapCommandAsync(PinViewModel pinViewModel)
         {
-            var pinViewModel = obj as PinViewModel;
             var parameters = new NavigationParameters();
             parameters.Add(Constants.PinViewModelKey, pinViewModel);
 
@@ -149,10 +148,8 @@ namespace GPSNotepad.ViewModels
             }
         }
 
-        private async void OnImageLikeTapCommandAsync(object obj)
+        private async void OnLikeTapCommandAsync(PinViewModel pinViewModel)
         {
-            var pinViewModel = obj as PinViewModel;
-
             if (pinViewModel.IsFavorit)
             {
                 pinViewModel.ImagePath = Constants.ImageLikeGray;
@@ -164,9 +161,7 @@ namespace GPSNotepad.ViewModels
                 pinViewModel.IsFavorit = true;
             }
 
-            var pinModel = pinViewModel.ToPinModel();
-
-            await SaveChangeAsync(pinModel);
+            await UpdateChangeAsync(pinViewModel);
         }
 
         private async void OnSettingsTapAsync()
@@ -197,8 +192,10 @@ namespace GPSNotepad.ViewModels
             }
         }
 
-        private async Task SaveChangeAsync(PinModel pinModel)
+        private async Task UpdateChangeAsync(PinViewModel pinViewModel)
         {
+            var pinModel = pinViewModel.ToPinModel();
+
             await pinService.UpdatePinAsync(pinModel);
         }
 

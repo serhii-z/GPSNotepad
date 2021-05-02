@@ -5,7 +5,9 @@
              x:Class="GPSNotepad.Views.MapTabView"
              NavigationPage.HasNavigationBar="False"
              BackgroundColor="{DynamicResource viewBackground}"
-             IconImageSource="ic_map">
+             IconImageSource="{DynamicResource tabIconMap}"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="True">
 
     <Grid>
 
@@ -18,8 +20,8 @@
         
         <local:CustomTabbedNavigationBar Grid.Row="0"
                                          ImageSettingsTapCommand="{Binding SettingsTapCommand}"
-                                         PinSearchCommand="{Binding PinSearchCommand}"
-                                         SearchBarTapCommand="{Binding SearchBarTapCommand}"
+                                         SearchCommand="{Binding PinSearchCommand}"
+                                         FocusedCommand="{Binding SearchBarTapCommand}"
                                          ImageExitTapCommand="{Binding ExitTapCommand}"/>
 
 
@@ -57,11 +59,13 @@
                                     <StackLayout>
 
                                         <Label Text="{Binding Name}" 
-                                               TextColor="{DynamicResource labelText}"
-                                               FontAttributes="Bold"/>
+                                               TextColor="{DynamicResource labelTextBlack}"
+                                               FontAttributes="Bold"
+                                               FontFamily="Montserrat"/>
 
-                                        <Label  Text="{Binding Description}"
-                                                TextColor="{DynamicResource labelText}"/>
+                                        <Label Text="{Binding Description}"
+                                               TextColor="{DynamicResource labelText}"
+                                               FontFamily="Montserrat"/>
 
                                     </StackLayout>
 
@@ -84,7 +88,7 @@
                          VerticalOptions="End"
                          BackgroundColor="{DynamicResource imageButton}"
                          AbsoluteLayout.LayoutFlags="PositionProportional"
-                         AbsoluteLayout.LayoutBounds="1.0,1.0,-1,-1"
+                         AbsoluteLayout.LayoutBounds="1,1,-1,-1"
                          Margin="0,0,20,20"
                          Command="{Binding LocationButtonTapCommand}"/>
 
@@ -92,6 +96,7 @@
 
             <Frame AbsoluteLayout.LayoutFlags="All"
                    AbsoluteLayout.LayoutBounds="{Binding BottomBorder}"
+                   HasShadow="False"
                    IsVisible="{Binding HasVisible}"
                    BackgroundColor="{DynamicResource viewBackground}">
 
@@ -115,11 +120,13 @@
 
                         <Label Text="{Binding Name}" 
                                FontAttributes="Bold"
-                               TextColor="{DynamicResource labelText}"/>
+                               TextColor="{DynamicResource labelTextBlack}"
+                               FontFamily="Montserrat"/>
 
                         <Label Text="{Binding Position}"
                                FontSize="Small"
-                               TextColor="{DynamicResource labelText}"/>
+                               TextColor="{DynamicResource labelText}"
+                               FontFamily="Montserrat"/>
 
                     </StackLayout>
 
@@ -141,6 +148,7 @@
 
                                     <Label Text="{Binding NameDay}"
                                            TextColor="{DynamicResource labelText}"
+                                           FontFamily="Montserrat"
                                            HorizontalOptions="Center"/>
 
                                     <Image HorizontalOptions="Center"
@@ -148,6 +156,7 @@
 
                                     <Label Text="{Binding Temp}"
                                            TextColor="{DynamicResource labelText}"
+                                           FontFamily="Montserrat"
                                            HorizontalOptions="Center"/>
 
                                 </StackLayout>
@@ -162,6 +171,7 @@
                             Text="Time"
                             BackgroundColor="{DynamicResource buttonBackground}"
                             TextColor="{DynamicResource buttonText}"
+                            FontFamily="Montserrat"
                             Command="{Binding TimeButtonTapCommand}"/>
 
                 </Grid>

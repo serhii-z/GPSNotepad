@@ -6,6 +6,8 @@ namespace GPSNotepad.Services.Time
 {
     public class TimeService : ITimeService
     {
+        #region -- ITimeService implement --
+
         public int GetTimeCorrection(PinViewModel pinViewModel)
         {
             var timeZone = TimeZoneLookup.GetTimeZone(pinViewModel.Latitude, pinViewModel.Longitude).Result;
@@ -16,5 +18,7 @@ namespace GPSNotepad.Services.Time
 
             return hours;
         }
+
+        #endregion
     }
 }

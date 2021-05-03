@@ -32,34 +32,17 @@ namespace GPSNotepad.Services.Authentication
             return users.Count > 0;
         }
 
-        public async Task<bool> SignUpAsync(string name, string email, string password)
+        public async Task<bool> SignUpAsync(UserModel user)
         {
             var users = await _repository.GetAllAsync<UserModel>();
-            users = users.Where(x => x.Email == email).ToList();
+            users = users.Where(x => x.Email == user.Email).ToList();
 
             if (users.Count == 0)
             {
-                var user = CreateUser(name, email, password);
                 var result = await _repository.InsertAsync(user);
             }
 
             return users.Count == 0;
-        }
-
-        #endregion
-
-        #region -- Private methods --
-
-        private UserModel CreateUser(string name, string email, string password)
-        {
-            var user = new UserModel()
-            {
-                Name = name,
-                Email = email,
-                Password = password
-            };
-
-            return user;
         }
 
         #endregion

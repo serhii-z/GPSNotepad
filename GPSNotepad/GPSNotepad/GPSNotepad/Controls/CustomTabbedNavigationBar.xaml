@@ -61,7 +61,8 @@
 
     </Entry>
 
-    <Image Grid.Column="2" Grid.Row="1"
+    <Image Grid.Column="2" 
+           Grid.Row="1"
            Source="{DynamicResource iconExid}">
 
         <Image.GestureRecognizers>

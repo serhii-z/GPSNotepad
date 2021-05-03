@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using System.Threading.Tasks;
 using GPSNotepad.Views;
+using GPSNotepad.Models;
 
 namespace GPSNotepad.ViewModels
 {
@@ -264,7 +265,8 @@ namespace GPSNotepad.ViewModels
 
             if (isSuccess)
             {
-                isSuccess = await _authenticationService.SignUpAsync(_name, _email, _entryPassword);
+                var user = CreateUser();
+                isSuccess = await _authenticationService.SignUpAsync(user);
 
                 if (!isSuccess)
                 {
@@ -276,6 +278,18 @@ namespace GPSNotepad.ViewModels
             }
 
             return isSuccess;
+        }
+
+        private UserModel CreateUser()
+        {
+            var user = new UserModel()
+            {
+                Name = _name,
+                Email = _email,
+                Password = EntryPassword
+            };
+
+            return user;
         }
 
         private async void ShowAlert(string message)

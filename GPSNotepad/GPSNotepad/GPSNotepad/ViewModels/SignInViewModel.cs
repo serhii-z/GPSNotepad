@@ -168,11 +168,11 @@ namespace GPSNotepad.ViewModels
         {
             base.Initialize(parameters);
 
-            NavBarTitle = Properties.Resource.NavBarTitleLogIn;
-            LabelEmail = Properties.Resource.LabelEmail;
-            EmailPlaceholder = Properties.Resource.EntryPlaseholderEmail;
-            LabelPassword = Properties.Resource.LabelPassword;
-            PasswordPlaceholder = Properties.Resource.EntryPasswordPlaceholder;
+            NavBarTitle = (string)App.Current.Resources["NavBarTitleLogIn"];
+            LabelEmail = (string)App.Current.Resources["LabelEmail"];
+            EmailPlaceholder = (string)App.Current.Resources["EntryPlaseholderEmail"];
+            LabelPassword = (string)App.Current.Resources["LabelPassword"];
+            PasswordPlaceholder = (string)App.Current.Resources["EntryPasswordPlaceholder"];
             BorderColorEmail = (Color)App.Current.Resources["entryBorder"];
             BorderColorPassword = (Color)App.Current.Resources["entryBorder"];
             IsHidePassword = true;
@@ -246,8 +246,8 @@ namespace GPSNotepad.ViewModels
             {
                 BorderColorEmail = Color.Red;
                 BorderColorPassword = Color.Red;
-                LabelEmailError = Properties.Resource.LoginPasswordWrong;
-                LabelPasswordError = Properties.Resource.LoginPasswordWrong;
+                LabelEmailError = (string)App.Current.Resources["LoginPasswordWrong"];
+                LabelPasswordError = (string)App.Current.Resources["LoginPasswordWrong"];
             }
 
             return isSuccess;

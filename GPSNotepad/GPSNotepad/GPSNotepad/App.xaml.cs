@@ -80,6 +80,8 @@ namespace GPSNotepad
           
             Device.SetFlags(new string[] { "RadioButton_Experimental" });
             App.Current.Container.Resolve<ResourceService>().ApplyTheme();
+            App.Current.Container.Resolve<ResourceService>().ApplyCulture();
+            App.Current.Container.Resolve<ResourceService>().AddIcons();
 
             var isAuthorized = Container.Resolve<AuthorizationService>().IsAuthorized;
 

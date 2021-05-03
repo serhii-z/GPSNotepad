@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:local="clr-namespace:GPSNotepad.Controls" 
              x:Class="GPSNotepad.Views.AddPinView"
-             xmlns:resource="clr-namespace:GPSNotepad.Properties"
              NavigationPage.HasNavigationBar="False"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="True"
@@ -35,8 +34,8 @@
                                    Title="{Binding NavBarTitle}"
                                    ImageLeftTapCommand="{Binding GoBackTapCommand}">
 
-            <Image Source="ic_save2x" 
-                   Grid.Row="1" 
+            <Image Source="{DynamicResource iconSave}" 
+                   Grid.Row="1"
                    Grid.Column="2"
                    HorizontalOptions="Center">
 
@@ -96,7 +95,7 @@
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0"     
-                       Text="{x:Static resource:Resource.LabelCoordinates}"
+                       Text="{DynamicResource LabelCoordinates}"
                        TextColor="{DynamicResource labelText}"
                        FontSize="Small"
                        FontAttributes="Bold"
@@ -110,7 +109,7 @@
                 <Entry Grid.Row="1"
                        HorizontalOptions="FillAndExpand"
                        Margin="10,0,0,0"
-                       Placeholder="{x:Static resource:Resource.EntryLatitudePlaceholder}"
+                       Placeholder="{DynamicResource EntryLatitudePlaceholder}"
                        PlaceholderColor="{DynamicResource entryPlaceholder}"
                        TextColor="{DynamicResource entryText}"
                        Text="{Binding EntryLatitude}"
@@ -137,7 +136,7 @@
                 <Entry Grid.Row="1"
                        HorizontalOptions="FillAndExpand"
                        Margin="10,0,0,0"
-                       Placeholder="{x:Static resource:Resource.EntryLongitudePlaceholder}"
+                       Placeholder="{DynamicResource EntryLongitudePlaceholder}"
                        PlaceholderColor="{DynamicResource entryPlaceholder}"
                        TextColor="{DynamicResource entryText}"
                        Text="{Binding EntryLongitude}"
@@ -160,7 +159,7 @@
 
         <ImageButton Grid.Row="4"
                      Grid.Column="1"
-                     Source="{DynamicResource buttonMyLocation}"
+                     Source="{DynamicResource iconMyLocation}"
                      WidthRequest="50" 
                      HeightRequest="50"
                      HorizontalOptions="End" 

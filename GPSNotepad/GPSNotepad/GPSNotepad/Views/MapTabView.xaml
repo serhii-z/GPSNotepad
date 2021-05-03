@@ -17,13 +17,12 @@
             <RowDefinition Height="9*"/>
 
         </Grid.RowDefinitions>
-        
+
         <local:CustomTabbedNavigationBar Grid.Row="0"
                                          ImageSettingsTapCommand="{Binding SettingsTapCommand}"
                                          SearchCommand="{Binding PinSearchCommand}"
                                          FocusedCommand="{Binding SearchBarTapCommand}"
                                          ImageExitTapCommand="{Binding ExitTapCommand}"/>
-
 
         <AbsoluteLayout Grid.Row="1">
 
@@ -54,7 +53,7 @@
 
                                 <StackLayout VerticalOptions="End" Orientation="Horizontal">
 
-                                    <Image Source="ic_pin_gray"/>
+                                    <Image Source="{DynamicResource iconPinGray}"/>
 
                                     <StackLayout>
 
@@ -81,7 +80,7 @@
 
             </ListView>
 
-            <ImageButton Source="{DynamicResource buttonMyLocation}"
+            <ImageButton Source="{DynamicResource iconMyLocation}"
                          WidthRequest="96" 
                          HeightRequest="96"
                          HorizontalOptions="End" 
@@ -91,8 +90,6 @@
                          AbsoluteLayout.LayoutBounds="1,1,-1,-1"
                          Margin="0,0,20,20"
                          Command="{Binding LocationButtonTapCommand}"/>
-
-
 
             <Frame AbsoluteLayout.LayoutFlags="All"
                    AbsoluteLayout.LayoutBounds="{Binding BottomBorder}"

@@ -39,10 +39,22 @@ namespace GPSNotepad.Services.SettingsService
             set => Preferences.Set(nameof(IsDarkTheme), value);
         }
 
+        public bool IsRussianCulture
+        {
+            get => Preferences.Get(nameof(IsRussianCulture), false);
+            set => Preferences.Set(nameof(IsRussianCulture), value);
+        }
+
         public string ThemeName
         {
             get => Preferences.Get(nameof(ThemeName), string.Empty);
             set => Preferences.Set(nameof(ThemeName), value);
+        }
+
+        public string CultureName
+        {
+            get => Preferences.Get(nameof(CultureName), "en");
+            set => Preferences.Set(nameof(CultureName), value);
         }
 
         public void SaveUserId(int id)

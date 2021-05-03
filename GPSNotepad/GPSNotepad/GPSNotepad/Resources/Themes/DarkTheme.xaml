@@ -55,8 +55,6 @@
 
     <Color x:Key="frameBackground">Transparent</Color>
 
-    <ImageSource x:Key="buttonMyLocation">my_locationdark</ImageSource>
-    <ImageSource x:Key="tabIconMap">ic_map</ImageSource>
-    <ImageSource x:Key="tabIconPin">ic_pin</ImageSource>
+    <ImageSource x:Key="iconMyLocation">my_locationdark</ImageSource>
 
 </ResourceDictionary>

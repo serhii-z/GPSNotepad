@@ -1,11 +1,11 @@
 ﻿using Xamarin.Forms.Xaml;
 
-namespace GPSNotepad.Resources.Themes
+namespace GPSNotepad.Resources.Localization
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class DarkTheme
+    public partial class Ru
     {
-        public DarkTheme()
+        public Ru()
         {
             InitializeComponent();
         }

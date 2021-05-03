@@ -158,11 +158,11 @@ namespace GPSNotepad.ViewModels
         {
             base.Initialize(parameters);
 
-            NavBarTitle = Properties.Resource.NavBarTitleRegister;
-            LabelName = Properties.Resource.LabelName;
-            EntryNamePlaceholder = Properties.Resource.LabelNamePlaceholder;
-            LabelEmail = Properties.Resource.LabelEmail;
-            EntryEmailPlaceholder = Properties.Resource.EntryPlaseholderEmail;
+            NavBarTitle = (string)App.Current.Resources["NavBarTitleRegister"];
+            LabelName = (string)App.Current.Resources["LabelName"];
+            EntryNamePlaceholder = (string)App.Current.Resources["LabelNamePlaceholder"];
+            LabelEmail = (string)App.Current.Resources["LabelEmail"];
+            EntryEmailPlaceholder = (string)App.Current.Resources["EntryPlaseholderEmail"];
             BorderColorName = (Color)App.Current.Resources["entryBorder"];
             BorderColorEmail = (Color)App.Current.Resources["entryBorder"];
         }
@@ -254,16 +254,16 @@ namespace GPSNotepad.ViewModels
 
             if (!StringValidator.CheckName(_entryName))
             {
-                LabelNameError = Properties.Resource.NameError;
+                LabelNameError = (string)App.Current.Resources["NameError"];
                 BorderColorName = Color.Red;
-                LabelNameError = Properties.Resource.Input;
+                LabelNameError = (string)App.Current.Resources["Input"];
                 isSuccess = false;
             }
             if (!StringValidator.CheckEmail(_entryEmail) && isSuccess)
             {
-                LabelEmailError = Properties.Resource.EmailError;
+                LabelEmailError = (string)App.Current.Resources["EmailError"];
                 BorderColorEmail = Color.Red;
-                LabelEmailError = Properties.Resource.Input;
+                LabelEmailError = (string)App.Current.Resources["Input"];
                 isSuccess = false;
             }
 

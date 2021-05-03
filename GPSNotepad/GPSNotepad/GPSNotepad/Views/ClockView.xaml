@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Frame xmlns:prism="http://prismlibrary.com"
-        xmlns="http://xamarin.com/schemas/2014/forms"
-        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-        xmlns:local="clr-namespace:GPSNotepad.Controls"
-        prism:DialogLayout.RelativeHeightRequest="0.7"
-        prism:DialogLayout.RelativeWidthRequest="0.95"
-        prism:DialogLayout.CloseOnBackgroundTapped="True"
-        x:Class="GPSNotepad.Views.ClockView"
-        BackgroundColor="{DynamicResource clockFrameBackground}">
+       xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:GPSNotepad.Controls"
+       prism:DialogLayout.RelativeHeightRequest="0.7"
+       prism:DialogLayout.RelativeWidthRequest="0.95"
+       prism:DialogLayout.CloseOnBackgroundTapped="True"
+       x:Class="GPSNotepad.Views.ClockView"
+       BackgroundColor="{DynamicResource clockFrameBackground}">
 
     <Grid>
 
@@ -31,7 +31,8 @@
 
         </StackLayout>
 
-        <StackLayout Grid.Row="1" Orientation="Horizontal">
+        <StackLayout Grid.Row="1" 
+                     Orientation="Horizontal">
 
             <Label Text="{Binding Time}" 
                    TextColor="{DynamicResource labelText}"

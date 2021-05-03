@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GPSNotepad.Resources.Localization.Ru">
+
+    <x:String x:Key="LabelNameApplication">Блокнот с картой</x:String>
+    <x:String x:Key="LabelName">Имя</x:String>
+    <x:String x:Key="LabelNamePlaceholder">Введите ваше имя</x:String>
+    <x:String x:Key="LabelEmail">Электронная почта</x:String>
+    <x:String x:Key="LabelPassword">Пароль</x:String>
+    <x:String x:Key="LabelConfirmPassword">Подтвердить пароль</x:String>
+    <x:String x:Key="LabelPasswordError">Пароль неправильный</x:String>
+    <x:String x:Key="LabelConfirmPasswordError">Пароли не совпадают</x:String>
+    <x:String x:Key="LabelColorClock">Цвет часов</x:String>
+    <x:String x:Key="Label">Метка</x:String>
+    <x:String x:Key="LabelDescription">Описание</x:String>
+    <x:String x:Key="LabelCoordinates">Координаты</x:String>
+    <x:String x:Key="LabelRussian">Русский</x:String>
+
+    <x:String x:Key="ButtonLogIn">Авторизироваться</x:String>
+    <x:String x:Key="ButtonCreateAccount">Создать аккаунт</x:String>
+    <x:String x:Key="ButtonNext">Следующая</x:String>
+    
+    <x:String x:Key="NavBarTitleRegister">Создать аккаунт</x:String>
+    <x:String x:Key="NavBarTitleLogIn">Авторизироваться</x:String>
+    <x:String x:Key="NavBarTitleAddPin">Добавить пин</x:String>
+    
+    <x:String x:Key="EntryPlaseholderEmail">Введите электронную почту</x:String>
+    <x:String x:Key="EntryConfirmPlaceholder">Повторите пароль</x:String>
+    <x:String x:Key="EntryPasswordPlaceholder">Введите пароль</x:String>
+    <x:String x:Key="EntryPlaceholderLabel">Введите метку</x:String>
+    <x:String x:Key="EntryDescriptionPlaceholder">Напишите описание</x:String>
+    <x:String x:Key="EntryLatitudePlaceholder">Широта</x:String>
+    <x:String x:Key="EntryLongitudePlaceholder">Долгота</x:String>
+
+    <x:String x:Key="PasswordPlaceholder">Создайте пароль</x:String>
+    <x:String x:Key="PasswordCountingSimbols">Несоответствие подсчета</x:String>
+    <x:String x:Key="PasswordPresence">Несоответствие присутствия</x:String>
+    <x:String x:Key="PasswordConfirmNotEqual">Пароль и пароль подтверждения не равны!</x:String>
+
+    <x:String x:Key="LoginPasswordWrong">Неверный логин или пароль!</x:String>
+
+    <x:String x:Key="NameError">Это не может быть имя</x:String>
+    <x:String x:Key="EmailError">Это не может быть электронное письмо</x:String>
+    
+    <x:String x:Key="Input">Неправильный ввод</x:String>
+    
+    <x:String x:Key="DarkTheme">Темная тема</x:String>
+    
+    <x:String x:Key="SettingsTitle">Настройки</x:String>
+    
+    <x:String x:Key="ColorClockTitle">Цвет часов</x:String>
+
+    <x:String x:Key="RadioButtonBlue">Синие</x:String>
+    <x:String x:Key="RadioButtonRed">Красные</x:String>
+
+    <x:String x:Key="SearchBarPlaseholder">Поиск</x:String>
+
+    <x:String x:Key="LoginBusy">Этот логин занят</x:String>
+
+    <x:String x:Key="AlertTitle">Сообщение</x:String>
+    <x:String x:Key="AlertOK">OK</x:String>
+    <x:String x:Key="AlertMessage">Вы действительно хотите удалить пин?</x:String>
+    <x:String x:Key="AlertYes">Да</x:String>
+    <x:String x:Key="AlertNo">Нет</x:String>
+
+</ResourceDictionary>

@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:GPSNotepad.Controls"
-             xmlns:resource="clr-namespace:GPSNotepad.Properties"
              x:Class="GPSNotepad.Views.StartSignUpView"
              NavigationPage.HasNavigationBar="False"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
@@ -56,7 +55,7 @@
 
         <Button Grid.Row="3"
                 Grid.Column="1"
-                Text="{x:Static resource:Resource.ButtonNext}"
+                Text="{DynamicResource ButtonNext}"
                 TextColor="{DynamicResource buttonText}"
                 FontFamily="Montserrat"
                 BackgroundColor="{DynamicResource buttonBackground}"

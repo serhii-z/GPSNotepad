@@ -23,7 +23,7 @@
 
     <Image Grid.Row="1"
            Grid.Column="0" 
-           Source="ic_left_blue">
+           Source="{DynamicResource iconLeft}">
 
         <Image.GestureRecognizers>
 

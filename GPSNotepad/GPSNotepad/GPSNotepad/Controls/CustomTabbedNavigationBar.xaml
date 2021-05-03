@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Grid xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:resource="clr-namespace:GPSNotepad.Properties" 
              xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              x:Class="GPSNotepad.Controls.CustomTabbedNavigationBar"
              x:Name="navigationBar"
@@ -25,7 +24,7 @@
 
     
     <Image Grid.Column="0" Grid.Row="1"
-           Source="ic_settings">
+           Source="{DynamicResource iconSettings}">
 
         <Image.GestureRecognizers>
 
@@ -47,7 +46,7 @@
            FontFamily="Montserrat"
            TextColor="{DynamicResource entryText}"
            PlaceholderColor="{DynamicResource entryNavBarPlaceholder}"
-           Placeholder="{x:Static resource:Resource.SearchBarPlaseholder}">
+           Placeholder="{DynamicResource SearchBarPlaseholder}">
 
         <Entry.Behaviors>
 
@@ -63,7 +62,7 @@
     </Entry>
 
     <Image Grid.Column="2" Grid.Row="1"
-           Source="ic_exid">
+           Source="{DynamicResource iconExid}">
 
         <Image.GestureRecognizers>
 

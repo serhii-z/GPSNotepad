@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GPSNotepad.Resources.Images.Icons">
+
+    <ImageSource x:Key="iconEnterPage">pic_enter_page</ImageSource>
+    <ImageSource x:Key="tabIconMap">ic_map</ImageSource>
+    <ImageSource x:Key="tabIconPin">ic_pin</ImageSource>
+    <ImageSource x:Key="iconPinGray">ic_pin_gray</ImageSource>
+    <ImageSource x:Key="iconRight">ic_left_gray</ImageSource>
+    <ImageSource x:Key="iconLeft">ic_left_blue</ImageSource>
+    <ImageSource x:Key="iconAdd">add</ImageSource>
+    <ImageSource x:Key="iconSave">ic_save2x</ImageSource>
+    <ImageSource x:Key="iconSettings">ic_settings</ImageSource>
+    <ImageSource x:Key="iconExid">ic_exid</ImageSource>
+
+</ResourceDictionary>

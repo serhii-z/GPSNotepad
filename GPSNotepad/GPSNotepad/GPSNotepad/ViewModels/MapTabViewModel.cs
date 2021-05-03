@@ -16,8 +16,6 @@ using GPSNotepad.Services.Permissions;
 using GPSNotepad.Services.GeoLocations;
 using GPSNotepad.Services.Authorization;
 using GPSNotepad.Services.Weather;
-using System;
-using GPSNotepad.Enums;
 using GPSNotepad.Services.Resources;
 using Prism.Services.Dialogs;
 using GPSNotepad.Models.Weather;
@@ -46,7 +44,7 @@ namespace GPSNotepad.ViewModels
             _weatherService = weatherService;
             _resourceService = resourceService;
             _dialogService = dialogService;
-            WeatherCollection = new ObservableCollection<DataWeather>();
+            WeatherCollection = new ObservableCollection<WeatherView>();
             Pins = new ObservableCollection<PinViewModel>();
         }
 
@@ -69,8 +67,8 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _pins, value);
         }
 
-        private ObservableCollection<DataWeather> _weatherCollection;
-        public ObservableCollection<DataWeather> WeatherCollection
+        private ObservableCollection<WeatherView> _weatherCollection;
+        public ObservableCollection<WeatherView> WeatherCollection
         {
             get => _weatherCollection;
             set => SetProperty(ref _weatherCollection, value);
@@ -395,20 +393,11 @@ namespace GPSNotepad.ViewModels
 
         private async Task ShowWeatherAsync()
         {
-            await _weatherService.GetWeatherResponseAsync(_pinViewModel.Latitude.ToString(), _pinViewModel.Longitude.ToString(), Constants.OpenWeatherUnits);
-            var temps = _weatherService.GetTemperature();
-            var icons = _weatherService.GetIcons();
-            var numberDays = _weatherService.GetNumberDays();
+            var weatherList = await _weatherService.GetWeatherAsync(_pinViewModel.Latitude, _pinViewModel.Longitude);
 
-
-            for(int i = 0; i < 8; i++)
+            foreach(var item in weatherList)
             {
-                var nameDay = Convert.ToString((Days)numberDays[i]);
-                var icon = string.Format(Constants.OpenWeatherIconPath, icons[i].ToList()[0]);
-                var day = Convert.ToInt32(temps[i].day);
-                var night = Convert.ToInt32(temps[i].night);
-                var temp = string.Format("{0}{1} {2}{3}", day, "°", night, "°");
-                WeatherCollection.Add(new DataWeather(nameDay, icon, temp));
+                WeatherCollection.Add(item);
             }
         }
 

@@ -5,7 +5,6 @@ using Prism.Services;
 using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
-using GPSNotepad.Properties;
 using System.Threading.Tasks;
 using GPSNotepad.Views;
 
@@ -52,12 +51,12 @@ namespace GPSNotepad.ViewModels
         {
             if (IsHidePassword)
             {
-                EyeConfirmPasswordSource = "ic_eye";
+                EyeConfirmPasswordSource = Constants.ImageEye;
                 IsHidePassword = false;
             }
             else
             {
-                EyeConfirmPasswordSource = "ic_eye_off";
+                EyeConfirmPasswordSource = Constants.ImageEyeOff;
                 IsHidePassword = true;
             }
         }
@@ -208,11 +207,11 @@ namespace GPSNotepad.ViewModels
         {
             base.Initialize(parameters);
 
-            NavBarTitle = Properties.Resource.NavBarTitleRegister;
-            LabelPassword = Properties.Resource.LabelPassword;
-            EntryPasswordPlaceholder = Properties.Resource.PasswordPlaceholder;     
-            LabelConfirmPassword = Properties.Resource.LabelConfirmPassword;
-            EntryConfirmPlaceholder = Properties.Resource.EntryConfirmPlaceholder;
+            NavBarTitle = (string)App.Current.Resources["NavBarTitleRegister"];
+            LabelPassword = (string)App.Current.Resources["LabelPassword"];
+            EntryPasswordPlaceholder = (string)App.Current.Resources["PasswordPlaceholder"];     
+            LabelConfirmPassword = (string)App.Current.Resources["LabelConfirmPassword"];
+            EntryConfirmPlaceholder = (string)App.Current.Resources["EntryConfirmPlaceholder"];
             BorderColorPassword = (Color)App.Current.Resources["entryBorder"];
             BorderColorConfirmPassword = (Color)App.Current.Resources["entryBorder"];
             IsHidePassword = true;  
@@ -270,7 +269,7 @@ namespace GPSNotepad.ViewModels
                 if (!isSuccess)
                 {
                     var parameters = new NavigationParameters();
-                    parameters.Add(Constants.LoginKey, Properties.Resource.LoginBusy);
+                    parameters.Add(Constants.LoginKey, (string)App.Current.Resources["LoginBusy"]);
 
                     await navigationService.GoBackAsync(parameters);
                 }
@@ -281,7 +280,7 @@ namespace GPSNotepad.ViewModels
 
         private async void ShowAlert(string message)
         {
-            await _pageDialog.DisplayAlertAsync(Properties.Resource.AlertTitle, message, Properties.Resource.AlertOK);
+            await _pageDialog.DisplayAlertAsync((string)App.Current.Resources["AlertTitle"], message, (string)App.Current.Resources["AlertOK"]);
         }
 
         private bool CheckValidation()
@@ -290,23 +289,23 @@ namespace GPSNotepad.ViewModels
 
             if (!StringValidator.CheckQuantity(_entryPassword, 8))
             {
-                LabelPasswordError = Properties.Resource.PasswordCountingSimbols;
+                LabelPasswordError = (string)App.Current.Resources["PasswordCountingSimbols"];
                 BorderColorPassword = Color.Red;
-                LabelPasswordError = Properties.Resource.LabelPasswordError;
+                LabelPasswordError = (string)App.Current.Resources["LabelPasswordError"];
                 isSuccess = false;
             }
             if (!StringValidator.CheckPresence(_entryPassword) && isSuccess)
             {
-                LabelPasswordError = Properties.Resource.PasswordPresence;
+                LabelPasswordError = (string)App.Current.Resources["PasswordPresence"];
                 BorderColorPassword = Color.Red;
-                LabelPasswordError = Properties.Resource.LabelPasswordError;
+                LabelPasswordError = (string)App.Current.Resources["LabelPasswordError"];
                 isSuccess = false;
             }
             if (!StringValidator.CheckPasswordEquality(_entryPassword, _entryConfitmPassword) && isSuccess)
             {
-                LabelConfirmPasswordError = Properties.Resource.PasswordConfirmNotEqual;
+                LabelConfirmPasswordError = (string)App.Current.Resources["PasswordConfirmNotEqual"];
                 BorderColorConfirmPassword = Color.Red;
-                LabelConfirmPasswordError = Properties.Resource.LabelConfirmPasswordError;
+                LabelConfirmPasswordError = (string)App.Current.Resources["LabelConfirmPasswordError"];
                 isSuccess = false;
             }
 
@@ -321,7 +320,7 @@ namespace GPSNotepad.ViewModels
             }
             else
             {
-                EyePasswordSource = "ic_eye_off";
+                EyePasswordSource = Constants.ImageEyeOff;
             }
         }
 
@@ -333,7 +332,7 @@ namespace GPSNotepad.ViewModels
             }
             else
             {
-                EyeConfirmPasswordSource = "ic_eye_off";
+                EyeConfirmPasswordSource = Constants.ImageEyeOff;
             }
         }
 

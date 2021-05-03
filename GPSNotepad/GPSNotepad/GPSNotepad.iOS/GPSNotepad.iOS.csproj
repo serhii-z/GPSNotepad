@@ -395,7 +395,7 @@
     <BundleResource Include="Resources\pic_enter_page%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\addbutton.png" />
+    <BundleResource Include="Resources\add.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\my_location.png" />

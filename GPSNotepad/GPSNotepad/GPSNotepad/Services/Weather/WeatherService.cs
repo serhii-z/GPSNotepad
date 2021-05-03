@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Linq;
 using System.Collections.Generic;
 using System;
+using GPSNotepad.Enums;
 
 namespace GPSNotepad.Services.Weather
 {
@@ -14,7 +15,33 @@ namespace GPSNotepad.Services.Weather
 
         #region -- IWeatherService implement --
 
-        public async Task<Root> GetWeatherResponseAsync(string latitude, string longitude, string units)
+        public async Task<List<WeatherView>> GetWeatherAsync(double latitude, double longitude)
+        {
+            await GetWeatherResponseAsync(latitude.ToString(), longitude.ToString(), Constants.OpenWeatherUnits);
+            var temps = GetTemperature();
+            var icons = GetIcons();
+            var numberDays = GetNumberDays();
+            var WeatherList = new List<WeatherView>();
+
+
+            for (int i = 0; i < 8; i++)
+            {
+                var nameDay = Convert.ToString((Days)numberDays[i]);
+                var icon = string.Format(Constants.OpenWeatherIconPath, icons[i].ToList()[0]);
+                var day = Convert.ToInt32(temps[i].day);
+                var night = Convert.ToInt32(temps[i].night);
+                var temp = string.Format("{0}{1} {2}{3}", day, "°", night, "°");
+                WeatherList.Add(new WeatherView(nameDay, icon, temp));
+            }
+
+            return WeatherList;
+        }
+
+        #endregion
+
+        #region -- Private methods --
+
+        private async Task<Root> GetWeatherResponseAsync(string latitude, string longitude, string units)
         {        
             var url = string.Format(Constants.OpenWeatherUrl, latitude, longitude, units, Constants.OpenWeatherKey);
             var httpClient = new HttpClient();
@@ -29,19 +56,20 @@ namespace GPSNotepad.Services.Weather
             return _weatherResponse;
         }
 
-        public List<Temp> GetTemperature()
+        private List<Temp> GetTemperature()
         {
             return _weatherResponse.daily.Select(x => x.temp).ToList();
         }
 
-        public List<List<string>> GetIcons()
+        private List<List<string>> GetIcons()
         {
             var weather = _weatherResponse.daily.Select(x => x.weather);
 
             return weather.Select(x => x.Select(y => y.icon).ToList()).ToList();
         }
 
-        public int[] GetNumberDays()
+
+        private int[] GetNumberDays()
         {
             var numberDay = Convert.ToInt32(DateTime.Now.DayOfWeek);
             int[] numberDays = new int[8];

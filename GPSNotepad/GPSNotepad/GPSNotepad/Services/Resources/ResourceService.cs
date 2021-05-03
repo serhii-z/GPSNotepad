@@ -1,4 +1,6 @@
-﻿using GPSNotepad.Resources.Themes;
+﻿using GPSNotepad.Resources.Images;
+using GPSNotepad.Resources.Localization;
+using GPSNotepad.Resources.Themes;
 using GPSNotepad.Services.SettingsService;
 using System.IO;
 using System.Reflection;
@@ -32,6 +34,21 @@ namespace GPSNotepad.Services.Resources
             }
         }
 
+        public void ApplyCulture()
+        {
+            switch (_settingsManager.CultureName)
+            {
+                case "ru":
+                    App.Current.Resources.Add(new Ru());
+                    ApplyDarkColor();
+                    break;
+                default:
+                    App.Current.Resources.Add(new En());
+                    UndoDarkColor();
+                    break;
+            }
+        }
+
         public MapStyle GetMapStyle()
         {
             var assembly = typeof(App).GetTypeInfo().Assembly;
@@ -47,12 +64,17 @@ namespace GPSNotepad.Services.Resources
                 stream = assembly.GetManifestResourceStream(Constants.LightThemePath);
             }
 
-            using (var reader = new System.IO.StreamReader(stream))
+            using (var reader = new StreamReader(stream))
             {
                 styleFile = reader.ReadToEnd();
             }
 
             return MapStyle.FromJson(styleFile);
+        }
+
+        public void AddIcons()
+        {
+            App.Current.Resources.Add(new Icons());
         }
 
         #endregion

@@ -48,15 +48,13 @@
 
     <Color x:Key="clockFrameBackground">White</Color>
 
-    <Color x:Key="switchOn">LightGray</Color>
-    <Color x:Key="switchThumb">White</Color>
+    <Color x:Key="switchOn">Gray</Color>
+    <Color x:Key="switchThumb">LightGray</Color>
 
     <Color x:Key="tabColor">AliceBlue</Color>
 
     <Color x:Key="frameBackground">Transparent</Color>
 
-    <ImageSource x:Key="buttonMyLocation">my_location</ImageSource>
-    <ImageSource x:Key="tabIconMap">ic_map</ImageSource>
-    <ImageSource x:Key="tabIconPin">ic_pin</ImageSource>
-    
+    <ImageSource x:Key="iconMyLocation">my_location</ImageSource>
+
 </ResourceDictionary>

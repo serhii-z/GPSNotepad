@@ -139,7 +139,7 @@
                                                Grid.Row="1" 
                                                Grid.RowSpan="2"
                                                HorizontalOptions="Center"
-                                               Source="ic_left_gray" >
+                                               Source="{DynamicResource iconRight}" >
 
                                         <Image.GestureRecognizers>
 
@@ -166,7 +166,7 @@
                      AbsoluteLayout.LayoutBounds="0,0,1,0.001"
                      BackgroundColor="{DynamicResource boxView}"/>
 
-            <ImageButton Source="addbutton.png"
+            <ImageButton Source="{DynamicResource iconAdd}"
                      WidthRequest="96" 
                      HeightRequest="96"
                      HorizontalOptions="End" 

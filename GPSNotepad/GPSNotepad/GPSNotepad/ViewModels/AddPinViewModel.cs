@@ -1,6 +1,5 @@
 ﻿using GPSNotepad.Extensions;
 using GPSNotepad.Models;
-using GPSNotepad.Properties;
 using GPSNotepad.Services.GeoLocations;
 using GPSNotepad.Services.Permissions;
 using GPSNotepad.Services.Pin;
@@ -204,11 +203,11 @@ namespace GPSNotepad.ViewModels
             }
 
             Style = _resourceService.GetMapStyle();
-            NavBarTitle = Resource.NavBarTitleAddPin;
-            LabelName = Resource.Label;
-            LabelDescription = Resource.LabelDescription;
-            EntryPlaceholder = Resource.EntryPlaceholderLabel;           
-            EntryDescriptionPlaceholder = Resource.EntryDescriptionPlaceholder;
+            NavBarTitle = (string)App.Current.Resources["NavBarTitleAddPin"];
+            LabelName = (string)App.Current.Resources["Label"];
+            LabelDescription = (string)App.Current.Resources["LabelDescription"];
+            EntryPlaceholder = (string)App.Current.Resources["EntryPlaceholderLabel"];           
+            EntryDescriptionPlaceholder = (string)App.Current.Resources["EntryDescriptionPlaceholder"];
             BorderColorName = Color.Gray;
             BorderColorDescription = Color.Gray;
         }

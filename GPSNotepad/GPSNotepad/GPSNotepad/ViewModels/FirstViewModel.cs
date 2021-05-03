@@ -22,17 +22,6 @@ namespace GPSNotepad.ViewModels
 
         #endregion
 
-        #region -- Overrides --
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
-
-            //_resourceService.ApplyTheme();
-        }
-
-        #endregion
-
         #region -- Private helpers --
 
         private async void OnLogInButtonTapAsync(object obj)

@@ -1,6 +1,5 @@
 ﻿using GPSNotepad.Extensions;
 using GPSNotepad.Models;
-using GPSNotepad.Properties;
 using GPSNotepad.Services.Authorization;
 using GPSNotepad.Services.Pin;
 using GPSNotepad.Services.SettingsService;
@@ -133,8 +132,8 @@ namespace GPSNotepad.ViewModels
 
         private async void OnDeleteTap(object obj)
         {
-            bool isDialogYes = await _pageDialog.DisplayAlertAsync(Properties.Resource.AlertTitle,
-                Properties.Resource.AlertMessage, Properties.Resource.AlertYes, Properties.Resource.AlertNo);
+            bool isDialogYes = await _pageDialog.DisplayAlertAsync((string)App.Current.Resources["AlertTitle"],
+                (string)App.Current.Resources["AlertMessage"], (string)App.Current.Resources["AlertYes"], (string)App.Current.Resources["AlertNo"]);
 
             if (isDialogYes)
             {

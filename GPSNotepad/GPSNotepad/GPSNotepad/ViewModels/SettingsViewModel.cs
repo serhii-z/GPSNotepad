@@ -35,6 +35,13 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _isToggled, value);
         }
 
+        private bool _isRussian;
+        public bool IsRussian
+        {
+            get => _isRussian;
+            set => SetProperty(ref _isRussian, value);
+        }
+
         #endregion
 
         #region -- Overrides --
@@ -58,6 +65,22 @@ namespace GPSNotepad.ViewModels
 
                 _resourceService.ApplyTheme();
             }
+            if (args.PropertyName == nameof(IsRussian))
+            {
+                if (IsRussian)
+                {
+                    _settingsManager.IsRussianCulture = IsRussian;
+                    _settingsManager.CultureName = "ru";
+                }
+                else
+                {
+                    _settingsManager.IsRussianCulture = IsToggled;
+                    _settingsManager.CultureName = string.Empty;
+                }
+
+                _resourceService.ApplyCulture();
+            }
+
         }
 
         #endregion
@@ -69,6 +92,7 @@ namespace GPSNotepad.ViewModels
             base.OnNavigatedTo(parameters);
 
             ActivateControlsTheme();
+            ActivateControlsCulture();
         }
 
         #endregion
@@ -92,6 +116,11 @@ namespace GPSNotepad.ViewModels
         private void ActivateControlsTheme()
         {
             IsToggled = _settingsManager.IsDarkTheme;
+        }
+
+        private void ActivateControlsCulture()
+        {
+            IsRussian = _settingsManager.IsRussianCulture;
         }
 
         #endregion

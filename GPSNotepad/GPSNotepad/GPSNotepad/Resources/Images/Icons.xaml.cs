@@ -1,11 +1,11 @@
 ﻿using Xamarin.Forms.Xaml;
 
-namespace GPSNotepad.Resources.Themes
+namespace GPSNotepad.Resources.Images
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class DarkTheme
+    public partial class Icons
     {
-        public DarkTheme()
+        public Icons()
         {
             InitializeComponent();
         }

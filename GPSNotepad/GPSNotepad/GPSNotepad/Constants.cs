@@ -13,6 +13,8 @@
         public const string ImageLikeGray = "ic_like_gray";
         public const string ImageLikeBlue = "ic_like_blue";
         public const string ImagePlaceholder = "ic_placeholder";
+        public const string ImageEye = "ic_eye";
+        public const string ImageEyeOff = "ic_eye_off";
         public const string UserIdKey = "id";
         public const string ColorClockDefault = "blue";
         public const string ColorClockRed = "red";

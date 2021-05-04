@@ -38,18 +38,16 @@ namespace GPSNotepad.Droid
             LoadApplication(new App(new AndroidInitializer()));
         }
 
-        protected override void OnStart()
-        {
-            base.OnStart();
-
-        }
+        //protected override void OnStart()
+        //{
+        //    base.OnStart();
+        //}
 
 
         public class AndroidInitializer : IPlatformInitializer
         {
             public void RegisterTypes(IContainerRegistry containerRegistry)
-            {
-                
+            {            
             }
         }
     }

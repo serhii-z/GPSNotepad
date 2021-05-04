@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 using static Xamarin.Essentials.Permissions;
 
 namespace GPSNotepad.Services.Permissions
@@ -27,12 +29,27 @@ namespace GPSNotepad.Services.Permissions
 
         private async Task<PermissionStatus> CheckAndRequestPermissionAsync<T>(T permission) where T : BasePermission
         {
+            //var status = await permission.CheckStatusAsync();
+
+            //if (status != PermissionStatus.Granted)
+            //{
+            //    status = await permission.RequestAsync();
+            //}
+
             var status = await permission.CheckStatusAsync();
 
-            if (status != PermissionStatus.Granted)
+            if (status == PermissionStatus.Granted)
+                return status;
+
+            if (status == PermissionStatus.Denied && DeviceInfo.Platform == DevicePlatform.iOS)
             {
-                status = await permission.RequestAsync();
+
+                Device.OpenUri(new Uri("app-settings:"));
+
+                return status;
             }
+
+            status = await permission.RequestAsync();
 
             return status;
         }

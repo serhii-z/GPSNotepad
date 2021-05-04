@@ -10,6 +10,7 @@ namespace GPSNotepad.Services.Permissions
     {
         #region --- IPermissionService implement ---
 
+        [Obsolete]
         public async Task<bool> CheckStatusAsync()
         {
             var isStatus = false;
@@ -27,29 +28,20 @@ namespace GPSNotepad.Services.Permissions
 
         #region --- Private Methods ---
 
+        [Obsolete]
         private async Task<PermissionStatus> CheckAndRequestPermissionAsync<T>(T permission) where T : BasePermission
         {
-            //var status = await permission.CheckStatusAsync();
-
-            //if (status != PermissionStatus.Granted)
-            //{
-            //    status = await permission.RequestAsync();
-            //}
-
             var status = await permission.CheckStatusAsync();
-
-            if (status == PermissionStatus.Granted)
-                return status;
 
             if (status == PermissionStatus.Denied && DeviceInfo.Platform == DevicePlatform.iOS)
             {
-
                 Device.OpenUri(new Uri("app-settings:"));
-
-                return status;
             }
 
-            status = await permission.RequestAsync();
+            if (status != PermissionStatus.Granted)
+            {
+                status = await permission.RequestAsync();
+            }
 
             return status;
         }

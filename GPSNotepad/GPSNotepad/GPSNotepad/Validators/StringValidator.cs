@@ -4,12 +4,15 @@ namespace GPSNotepad.Validators
 {
     public static class StringValidator
     {
+        #region -- Public methods --
+
         public static bool CheckName(string name)
         {
             var hasSequence = new Regex(@"[A-Z][a-z]+");
 
             return hasSequence.IsMatch(name);
         }
+
         public static bool CheckEmail(string email)
         {
             var hasSequence = new Regex(@"[a-z0-9._%+-]+@[a-z]+.[a-z]{2,4}");
@@ -38,5 +41,7 @@ namespace GPSNotepad.Validators
 
             return hasNumber.IsMatch(item) && hasUpperChar.IsMatch(item) && hasLowerChar.IsMatch(item);
         }
+
+        #endregion
     }
 }

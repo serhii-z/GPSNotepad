@@ -1,7 +1,6 @@
 ﻿using Android.Content;
 using Android.Graphics.Drawables;
 using Android.Text;
-using GPSNotepad.Controls;
 using GPSNotepad.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -23,9 +22,9 @@ namespace GPSNotepad.Droid
             {
                 GradientDrawable gd = new GradientDrawable();
                 gd.SetColor(Android.Graphics.Color.Transparent);
-                this.Control.SetBackground(gd);
-                this.Control.SetPadding(20, 0, 0, 0);
-                this.Control.InputType = InputTypes.TextVariationVisiblePassword; 
+                Control.SetBackground(gd);
+                Control.SetPadding(20, 0, 0, 0);
+                Control.InputType = InputTypes.TextVariationVisiblePassword; 
             }
         }
     }

@@ -12,8 +12,8 @@ namespace GPSNotepad.Controls
             InitializeComponent();
         }
 
-        public static readonly BindableProperty ImageLeftTapCommandProperty = BindableProperty.Create(nameof(ImageLeftTapCommand), typeof(Command),
-           typeof(CustomNavigationBar));
+        public static readonly BindableProperty ImageLeftTapCommandProperty = BindableProperty.Create(nameof(ImageLeftTapCommand), 
+            typeof(Command), typeof(CustomNavigationBar));
 
         public ICommand ImageLeftTapCommand
         {

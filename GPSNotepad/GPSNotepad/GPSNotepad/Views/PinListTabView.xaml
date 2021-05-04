@@ -174,7 +174,7 @@
                      BackgroundColor="{DynamicResource imageButton}"
                      AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="1.0,1.0,-1,-1"
-                     Margin="0,0,20,20"
+                     Margin="0,0,40,20"
                      Command="{Binding AddTapCommand}"/>
 
             <BoxView AbsoluteLayout.LayoutFlags="All"

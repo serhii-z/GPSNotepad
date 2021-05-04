@@ -15,7 +15,6 @@ using GPSNotepad.Services.Permissions;
 using GPSNotepad.Services.GeoLocations;
 using GPSNotepad.Services.Weather;
 using GPSNotepad.Services.Time;
-using System;
 using GPSNotepad.Services.Resources;
 
 namespace GPSNotepad
@@ -23,9 +22,10 @@ namespace GPSNotepad
     public partial class App : PrismApplication
     {
         public App(IPlatformInitializer initializer = null) : base(initializer)
-        {
-            
+        {          
         }
+
+        #region -- Overrides --
 
         protected override void OnStart()
         {
@@ -94,5 +94,7 @@ namespace GPSNotepad
                 NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(FirstView)}");
             }   
         }
+
+        #endregion
     }
 }

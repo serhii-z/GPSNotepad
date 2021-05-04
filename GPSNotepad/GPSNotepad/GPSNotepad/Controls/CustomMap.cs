@@ -5,7 +5,6 @@ using Xamarin.Forms.GoogleMaps;
 using GPSNotepad.Models;
 using GPSNotepad.Extensions;
 using System.Runtime.CompilerServices;
-using System;
 
 namespace GPSNotepad.Controls
 {
@@ -23,7 +22,7 @@ namespace GPSNotepad.Controls
         #region -- Pablic properties --
 
         public static readonly BindableProperty CommandMapTapProperty = BindableProperty.Create(nameof(CommandMapTap), typeof(Command),
-            typeof(CustomMap), default(Command));
+            typeof(CustomMap));
 
         public ICommand CommandMapTap
         {
@@ -32,7 +31,7 @@ namespace GPSNotepad.Controls
         }
 
         public static readonly BindableProperty CommandPinTapProperty = BindableProperty.Create(nameof(CommandPinTap), typeof(Command),
-            typeof(CustomMap), default(Command));
+            typeof(CustomMap));
 
         public ICommand CommandPinTap
         {
@@ -50,7 +49,7 @@ namespace GPSNotepad.Controls
         }
 
         public static readonly BindableProperty RegionProperty = BindableProperty.Create(nameof(Region), typeof(MapSpan),
-            typeof(CustomMap), default(MapSpan), propertyChanged: OnRegionChanged);
+            typeof(CustomMap), propertyChanged: OnRegionChanged);
 
         public new MapSpan Region
         {
@@ -83,8 +82,8 @@ namespace GPSNotepad.Controls
         {
             if (newValue != null)
             {
-                var behavior = (CustomMap)bindable;
-                behavior.MoveToRegion((MapSpan)newValue, behavior.Animated);
+                var map = (CustomMap)bindable;
+                map.MoveToRegion((MapSpan)newValue, map.Animated);
             }
         }
 
@@ -100,9 +99,9 @@ namespace GPSNotepad.Controls
 
         private static void OnStyleMapPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            var behavior = (CustomMap)bindable;
+            var map = (CustomMap)bindable;
             var style = newValue as MapStyle;
-            behavior.MapStyle = style;
+            map.MapStyle = style;
         }
 
         #endregion

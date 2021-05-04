@@ -58,17 +58,17 @@ namespace GPSNotepad.Controls
 
         private static void OnStartClockChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            var behavior = bindable as CustomSKCanvasView;
+            var canvasView = bindable as CustomSKCanvasView;
 
-            behavior._clockCanvas.StartClock(behavior, behavior.TimeCorrection);
+            canvasView._clockCanvas.StartClock(canvasView, canvasView.TimeCorrection);
         }
 
         private static void OnColorClock(BindableObject bindable, object oldValue, object newValue)
         {
-            var behavior = bindable as CustomSKCanvasView;
+            var canvasView = bindable as CustomSKCanvasView;
             var color = newValue as string;
 
-            behavior._clockCanvas.ApplyColor(color);
+            canvasView._clockCanvas.ApplyColor(color);
         }
 
         #endregion

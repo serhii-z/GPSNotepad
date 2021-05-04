@@ -1,6 +1,5 @@
 ﻿using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
 using Android.OS;
 using Prism;
 using Prism.Ioc;
@@ -37,12 +36,6 @@ namespace GPSNotepad.Droid
             Xamarin.FormsGoogleMaps.Init(this, savedInstanceState, platformConfig);
             LoadApplication(new App(new AndroidInitializer()));
         }
-
-        //protected override void OnStart()
-        //{
-        //    base.OnStart();
-        //}
-
 
         public class AndroidInitializer : IPlatformInitializer
         {

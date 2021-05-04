@@ -127,7 +127,7 @@
                     OnColor="{DynamicResource switchOn}"
                     ThumbColor="{DynamicResource switchThumb}"
                     HorizontalOptions="Center"
-                    IsToggled="{Binding IsToggled}">
+                    IsToggled="{Binding IsDark}">
 
             </Switch>
 

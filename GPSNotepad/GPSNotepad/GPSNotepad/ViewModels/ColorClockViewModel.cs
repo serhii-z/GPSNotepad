@@ -16,7 +16,7 @@ namespace GPSNotepad.ViewModels
         #region -- Public properties --
 
         public ICommand GoBackTapCommand => new Command(OnGoBackTapCommandAsync);
-        public ICommand BlueTapCommand => new Command(OnBueTapCommand);
+        public ICommand BlueTapCommand => new Command(OnBlueTapCommand);
         public ICommand RedTapCommand => new Command(OnRedTapCommand);
 
         private bool _isChackedBlue;
@@ -57,7 +57,7 @@ namespace GPSNotepad.ViewModels
 
         #region -- Private helpers --
 
-        private void OnBueTapCommand()
+        private void OnBlueTapCommand()
         {
             _settingsManager.IsRadioButtonBlue = true;
             _settingsManager.IsRadioButtonRed = false;

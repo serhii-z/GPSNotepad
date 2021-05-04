@@ -202,14 +202,7 @@ namespace GPSNotepad.ViewModels
                 IsUserPosition = true;
             }
 
-            Style = _resourceService.GetMapStyle();
-            NavBarTitle = (string)App.Current.Resources["NavBarTitleAddPin"];
-            LabelName = (string)App.Current.Resources["Label"];
-            LabelDescription = (string)App.Current.Resources["LabelDescription"];
-            EntryPlaceholder = (string)App.Current.Resources["EntryPlaceholderLabel"];           
-            EntryDescriptionPlaceholder = (string)App.Current.Resources["EntryDescriptionPlaceholder"];
-            BorderColorName = Color.Gray;
-            BorderColorDescription = Color.Gray;
+            InitProperties();
         }
 
         #endregion
@@ -285,7 +278,6 @@ namespace GPSNotepad.ViewModels
             return pinViewModel;
         }
 
-
         private PinViewModel CreatePinViewModel() 
         {
             var pinViewModel = new PinViewModel
@@ -299,6 +291,18 @@ namespace GPSNotepad.ViewModels
             };
 
             return pinViewModel;
+        }
+
+        private void InitProperties()
+        {
+            Style = _resourceService.GetMapStyle();
+            NavBarTitle = (string)App.Current.Resources["NavBarTitleAddPin"];
+            LabelName = (string)App.Current.Resources["Label"];
+            LabelDescription = (string)App.Current.Resources["LabelDescription"];
+            EntryPlaceholder = (string)App.Current.Resources["EntryPlaceholderLabel"];
+            EntryDescriptionPlaceholder = (string)App.Current.Resources["EntryDescriptionPlaceholder"];
+            BorderColorName = Color.Gray;
+            BorderColorDescription = Color.Gray;
         }
 
         #endregion

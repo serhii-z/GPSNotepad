@@ -37,8 +37,8 @@ namespace GPSNotepad.ViewModels
         public ICommand AddTapCommand => new Command(OnAddTapAsync);
         public ICommand SearchCommand => new Command(OnSearchPinsAsync);
         public ICommand ExitTapCommand => new Command(OnExitTapAsync);
-        public ICommand EditTapCommand => new Command(OnEditTapAsync);
-        public ICommand DeleteTapCommand => new Command(OnDeleteTap);
+        public ICommand EditTapCommand => new Command<PinViewModel>(OnEditTapAsync);
+        public ICommand DeleteTapCommand => new Command<PinViewModel>(OnDeleteTap);
         public ICommand RightTapCommand => new Command<PinViewModel>(OnRightTapCommandAsync);
         public ICommand LikeTapCommand => new Command<PinViewModel>(OnLikeTapCommandAsync);
 
@@ -70,7 +70,7 @@ namespace GPSNotepad.ViewModels
             }
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        public async override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
 
@@ -78,11 +78,6 @@ namespace GPSNotepad.ViewModels
             {
                 Pins.Add(value);
             }
-        }
-
-        public async override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
 
             var pinsViewModel = await GetAllPinViewModelsAsync();
 
@@ -93,7 +88,7 @@ namespace GPSNotepad.ViewModels
 
         #region --- Private Helpers ---
 
-        private async void OnAddTapAsync(object obj)
+        private async void OnAddTapAsync()
         {
             await navigationService.NavigateAsync(nameof(AddPinView));
         }
@@ -121,23 +116,21 @@ namespace GPSNotepad.ViewModels
             await navigationService.NavigateAsync($"{nameof(FirstView)}");
         }
 
-        private async void OnEditTapAsync(object obj)
+        private async void OnEditTapAsync(PinViewModel pinViewModel)
         {
-            var pinViewModel = obj as PinViewModel;
             var parameters = new NavigationParameters();
             parameters.Add(Constants.PinViewModelKey, pinViewModel);
 
             await navigationService.NavigateAsync(nameof(AddPinView), parameters);
         }
 
-        private async void OnDeleteTap(object obj)
+        private async void OnDeleteTap(PinViewModel pinViewModel)
         {
             bool isDialogYes = await _pageDialog.DisplayAlertAsync((string)App.Current.Resources["AlertTitle"],
                 (string)App.Current.Resources["AlertMessage"], (string)App.Current.Resources["AlertYes"], (string)App.Current.Resources["AlertNo"]);
 
             if (isDialogYes)
             {
-                var pinViewModel = obj as PinViewModel;
                 var answer = await pinService.DeletePinAsync(pinViewModel.ToPinModel());
 
                 if (answer == 1)

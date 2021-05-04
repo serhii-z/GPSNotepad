@@ -168,14 +168,7 @@ namespace GPSNotepad.ViewModels
         {
             base.Initialize(parameters);
 
-            NavBarTitle = (string)App.Current.Resources["NavBarTitleLogIn"];
-            LabelEmail = (string)App.Current.Resources["LabelEmail"];
-            EmailPlaceholder = (string)App.Current.Resources["EntryPlaseholderEmail"];
-            LabelPassword = (string)App.Current.Resources["LabelPassword"];
-            PasswordPlaceholder = (string)App.Current.Resources["EntryPasswordPlaceholder"];
-            BorderColorEmail = (Color)App.Current.Resources["entryBorder"];
-            BorderColorPassword = (Color)App.Current.Resources["entryBorder"];
-            IsHidePassword = true;
+            InitProperties();
         }
 
         #endregion
@@ -270,6 +263,18 @@ namespace GPSNotepad.ViewModels
         private void OnImageEntryClearTapCommandAsync()
         {
             EntryEmail = string.Empty;
+        }
+
+        private void InitProperties()
+        {
+            NavBarTitle = (string)App.Current.Resources["NavBarTitleLogIn"];
+            LabelEmail = (string)App.Current.Resources["LabelEmail"];
+            EmailPlaceholder = (string)App.Current.Resources["EntryPlaseholderEmail"];
+            LabelPassword = (string)App.Current.Resources["LabelPassword"];
+            PasswordPlaceholder = (string)App.Current.Resources["EntryPasswordPlaceholder"];
+            BorderColorEmail = (Color)App.Current.Resources["entryBorder"];
+            BorderColorPassword = (Color)App.Current.Resources["entryBorder"];
+            IsHidePassword = true;
         }
 
         #endregion

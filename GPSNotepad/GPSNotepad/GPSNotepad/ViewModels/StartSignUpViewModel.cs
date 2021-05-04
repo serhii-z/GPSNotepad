@@ -158,13 +158,7 @@ namespace GPSNotepad.ViewModels
         {
             base.Initialize(parameters);
 
-            NavBarTitle = (string)App.Current.Resources["NavBarTitleRegister"];
-            LabelName = (string)App.Current.Resources["LabelName"];
-            EntryNamePlaceholder = (string)App.Current.Resources["LabelNamePlaceholder"];
-            LabelEmail = (string)App.Current.Resources["LabelEmail"];
-            EntryEmailPlaceholder = (string)App.Current.Resources["EntryPlaseholderEmail"];
-            BorderColorName = (Color)App.Current.Resources["entryBorder"];
-            BorderColorEmail = (Color)App.Current.Resources["entryBorder"];
+            InitProperties();
         }
 
         #endregion
@@ -268,6 +262,17 @@ namespace GPSNotepad.ViewModels
             }
 
             return isSuccess;
+        }
+
+        private void InitProperties()
+        {
+            NavBarTitle = (string)App.Current.Resources["NavBarTitleRegister"];
+            LabelName = (string)App.Current.Resources["LabelName"];
+            EntryNamePlaceholder = (string)App.Current.Resources["LabelNamePlaceholder"];
+            LabelEmail = (string)App.Current.Resources["LabelEmail"];
+            EntryEmailPlaceholder = (string)App.Current.Resources["EntryPlaseholderEmail"];
+            BorderColorName = (Color)App.Current.Resources["entryBorder"];
+            BorderColorEmail = (Color)App.Current.Resources["entryBorder"];
         }
 
         #endregion

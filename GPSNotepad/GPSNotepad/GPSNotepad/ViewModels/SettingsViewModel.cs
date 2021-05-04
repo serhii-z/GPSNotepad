@@ -28,11 +28,11 @@ namespace GPSNotepad.ViewModels
         public ICommand GoBackTapCommand => new Command(OnGoBackTapCommandAsync);
         public ICommand ColorClockTapCommand => new Command(OnColorClockTapCommandAsync);
 
-        private bool _isToggled;
-        public bool IsToggled
+        private bool _isDark;
+        public bool IsDark
         {
-            get => _isToggled;
-            set => SetProperty(ref _isToggled, value);
+            get => _isDark;
+            set => SetProperty(ref _isDark, value);
         }
 
         private bool _isRussian;
@@ -50,16 +50,16 @@ namespace GPSNotepad.ViewModels
         {
             base.OnPropertyChanged(args);
 
-            if(args.PropertyName == nameof(IsToggled))
+            if(args.PropertyName == nameof(IsDark))
             {
-                if (IsToggled)
+                if (IsDark)
                 {
-                    _settingsManager.IsDarkTheme = IsToggled;
+                    _settingsManager.IsDarkTheme = IsDark;
                     _settingsManager.ThemeName = nameof(DarkTheme);
                 }
                 else
                 {
-                    _settingsManager.IsDarkTheme = IsToggled;
+                    _settingsManager.IsDarkTheme = IsDark;
                     _settingsManager.ThemeName = string.Empty;
                 }
 
@@ -70,11 +70,11 @@ namespace GPSNotepad.ViewModels
                 if (IsRussian)
                 {
                     _settingsManager.IsRussianCulture = IsRussian;
-                    _settingsManager.CultureName = "ru";
+                    _settingsManager.CultureName = Constants.RussianCulture;
                 }
                 else
                 {
-                    _settingsManager.IsRussianCulture = IsToggled;
+                    _settingsManager.IsRussianCulture = IsDark;
                     _settingsManager.CultureName = string.Empty;
                 }
 
@@ -115,7 +115,7 @@ namespace GPSNotepad.ViewModels
 
         private void ActivateControlsTheme()
         {
-            IsToggled = _settingsManager.IsDarkTheme;
+            IsDark = _settingsManager.IsDarkTheme;
         }
 
         private void ActivateControlsCulture()

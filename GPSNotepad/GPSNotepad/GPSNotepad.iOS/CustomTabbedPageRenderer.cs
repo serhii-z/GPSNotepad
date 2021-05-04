@@ -29,12 +29,13 @@ namespace GPSNotepad.iOS
         }
         UIImage GetImageWithColorPosition(UIColor color, CGSize size)
         {
-            if (size.Height < 83)
+            var safeAriaBottom = UIApplication.SharedApplication.KeyWindow.SafeAreaInsets.Bottom;
+
+            if (safeAriaBottom > 0)
             {
                 size.Height = 83;
             }
-
-            var safeAriaBottom = UIApplication.SharedApplication.KeyWindow.SafeAreaInsets.Bottom;
+            
             var rect = new CGRect(0, 0, size.Width, size.Height - safeAriaBottom);
 
             UIGraphics.BeginImageContextWithOptions(size, false, 0);

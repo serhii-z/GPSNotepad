@@ -208,14 +208,7 @@ namespace GPSNotepad.ViewModels
         {
             base.Initialize(parameters);
 
-            NavBarTitle = (string)App.Current.Resources["NavBarTitleRegister"];
-            LabelPassword = (string)App.Current.Resources["LabelPassword"];
-            EntryPasswordPlaceholder = (string)App.Current.Resources["PasswordPlaceholder"];     
-            LabelConfirmPassword = (string)App.Current.Resources["LabelConfirmPassword"];
-            EntryConfirmPlaceholder = (string)App.Current.Resources["EntryConfirmPlaceholder"];
-            BorderColorPassword = (Color)App.Current.Resources["entryBorder"];
-            BorderColorConfirmPassword = (Color)App.Current.Resources["entryBorder"];
-            IsHidePassword = true;  
+            InitProperties();  
         }
 
         #endregion
@@ -348,6 +341,18 @@ namespace GPSNotepad.ViewModels
             {
                 EyeConfirmPasswordSource = Constants.ImageEyeOff;
             }
+        }
+
+        private void InitProperties()
+        {
+            NavBarTitle = (string)App.Current.Resources["NavBarTitleRegister"];
+            LabelPassword = (string)App.Current.Resources["LabelPassword"];
+            EntryPasswordPlaceholder = (string)App.Current.Resources["PasswordPlaceholder"];
+            LabelConfirmPassword = (string)App.Current.Resources["LabelConfirmPassword"];
+            EntryConfirmPlaceholder = (string)App.Current.Resources["EntryConfirmPlaceholder"];
+            BorderColorPassword = (Color)App.Current.Resources["entryBorder"];
+            BorderColorConfirmPassword = (Color)App.Current.Resources["entryBorder"];
+            IsHidePassword = true;
         }
 
         #endregion

@@ -24,5 +24,6 @@
         public const string ColorClockKey = "colorClock";
         public const string RadioButtonBlueKey = "radioButtonBlue";
         public const string RadioButtonRedKey = "radioButtonRed";
+        public const string RussianCulture = "ru";
     }
 }

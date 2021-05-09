@@ -29,7 +29,9 @@
 
         </Grid.ColumnDefinitions>
 
-        <controls:CustomNavigationBar Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+        <controls:CustomNavigationBar Grid.Row="0" 
+                                      Grid.Column="0" 
+                                      Grid.ColumnSpan="3"
                                       Title="{Binding NavBarTitle}"
                                       ImageLeftTapCommand="{Binding ImageLeftTapCommand}"/>
 
@@ -62,12 +64,14 @@
                 Command="{Binding NextButtonTapCommand}"
                 IsEnabled="{Binding IsEnabledButton}"/>
 
-        <StackLayout Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+        <StackLayout Grid.Row="4" 
+                     Grid.Column="1" 
+                     Orientation="Horizontal">
 
             <BoxView HorizontalOptions="FillAndExpand"
-                 VerticalOptions="Center"
-                 HeightRequest="1"
-                 BackgroundColor="{DynamicResource boxView}"/>
+                     VerticalOptions="Center"
+                     HeightRequest="1"
+                     BackgroundColor="{DynamicResource boxView}"/>
 
             <Label Text="or" 
                    HorizontalOptions="Center" 
@@ -76,9 +80,9 @@
                    FontFamily="Montserrat"/>
 
             <BoxView HorizontalOptions="FillAndExpand"
-                 VerticalOptions="Center"
-                 HeightRequest="1"
-                 BackgroundColor="{DynamicResource boxView}"/>
+                     VerticalOptions="Center"
+                     HeightRequest="1"
+                     BackgroundColor="{DynamicResource boxView}"/>
 
         </StackLayout>
 

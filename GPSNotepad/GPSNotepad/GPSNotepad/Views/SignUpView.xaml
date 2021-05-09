@@ -29,7 +29,9 @@
 
         </Grid.ColumnDefinitions>
 
-        <controls:CustomNavigationBar Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+        <controls:CustomNavigationBar Grid.Row="0" 
+                                      Grid.Column="0" 
+                                      Grid.ColumnSpan="3"
                                       Title="{Binding NavBarTitle}"
                                       ImageLeftTapCommand="{Binding ImageLeftTapCommand}"/>
 
@@ -64,7 +66,9 @@
                 Command="{Binding CreateAccountButtonTapCommand}"
                 IsEnabled="{Binding IsEnabledButton}"/>
 
-        <StackLayout Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+        <StackLayout Grid.Row="4" 
+                     Grid.Column="1" 
+                     Orientation="Horizontal">
 
             <BoxView HorizontalOptions="FillAndExpand"
                      VerticalOptions="Center"

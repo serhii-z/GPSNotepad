@@ -234,17 +234,17 @@ namespace GPSNotepad.ViewModels
             }
         }
 
-        private void OnImageDescriptionClearTapCommand(object obj)
+        private void OnImageDescriptionClearTapCommand()
         {
             EntryDescription = string.Empty;
         }
 
-        private void OnImageNameClearTapCommand(object obj)
+        private void OnImageNameClearTapCommand()
         {
             EntryName = string.Empty;
         }
 
-        private async void OnGoBackTapCommandAsync(object obj)
+        private async void OnGoBackTapCommandAsync()
         {
             await navigationService.GoBackAsync();
         }

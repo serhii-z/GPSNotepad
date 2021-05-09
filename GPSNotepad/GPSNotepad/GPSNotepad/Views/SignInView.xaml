@@ -67,7 +67,9 @@
                 Command="{Binding LogInButtonTapCommand}"
                 IsEnabled="{Binding IsEnabledButton}"/>
 
-        <StackLayout Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+        <StackLayout Grid.Row="4" 
+                     Grid.Column="1" 
+                     Orientation="Horizontal">
 
             <BoxView HorizontalOptions="FillAndExpand"
                      VerticalOptions="Center"

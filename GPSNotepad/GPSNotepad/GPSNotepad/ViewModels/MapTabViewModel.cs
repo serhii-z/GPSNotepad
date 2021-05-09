@@ -48,7 +48,7 @@ namespace GPSNotepad.ViewModels
             Pins = new ObservableCollection<PinViewModel>();
         }
 
-        #region --- Public Properties ---
+        #region --- Public properties ---
 
         public ICommand SettingsTapCommand => new Command(OnSettingsTapAsync);
         public ICommand FocusedCommand => new Command(OnFocused);
@@ -278,7 +278,7 @@ namespace GPSNotepad.ViewModels
 
         #endregion
 
-        #region --- Private Helpers ---
+        #region --- Private helpers ---
 
         private async void OnSearchPins()
         {
@@ -345,14 +345,14 @@ namespace GPSNotepad.ViewModels
              _dialogService.ShowDialog(nameof(ClockView), parameters);
         }
 
-        private async void OnSettingsTapAsync(object obj)
+        private async void OnSettingsTapAsync()
         {
             await navigationService.NavigateAsync($"{nameof(SettingsView)}");
         }
 
         #endregion
 
-        #region --- Private Methods ---
+        #region --- Private methods ---
 
         private async Task<List<PinViewModel>> SearchPins()
         {

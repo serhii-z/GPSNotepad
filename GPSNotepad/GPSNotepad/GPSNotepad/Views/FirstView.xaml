@@ -38,7 +38,7 @@
         <Label Grid.Row="1"
                Grid.Column="1"
                FontSize="Large"
-               FontFamily="Colatemta"
+               FontFamily="Montserrat"
                TextColor="{DynamicResource labelStartText}"
                HorizontalOptions="Center"
                Text="{DynamicResource LabelNameApplication}"/>

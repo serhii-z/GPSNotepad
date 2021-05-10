@@ -17,12 +17,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\FontStyles\Colatemta.otf" />
     <None Remove="Resources\FontStyles\Montserrat.ttf" />
     <None Remove="Resources\StyleMap\dark.json" />
     <None Remove="Resources\StyleMap\light.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\FontStyles\Colatemta.otf" />
     <EmbeddedResource Include="Resources\FontStyles\Montserrat.ttf" />
     <EmbeddedResource Include="Resources\StyleMap\dark.json" />
     <EmbeddedResource Include="Resources\StyleMap\light.json" />

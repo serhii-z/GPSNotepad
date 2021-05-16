@@ -62,13 +62,6 @@ namespace GPSNotepad.ViewModels
             }
         }
 
-        private string _navBarTitle;
-        public string NavBarTitle
-        {
-            get => _navBarTitle;
-            set => SetProperty(ref _navBarTitle, value);
-        }
-
         private ImageSource _eyePasswordSource;
         public ImageSource EyePasswordSource
         {
@@ -97,25 +90,11 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _borderColorConfirmPassword, value);
         }
 
-        private string _labelPassword;
-        public string LabelPassword
-        {
-            get => _labelPassword;
-            set => SetProperty(ref _labelPassword, value);
-        }
-
         private string _entryPassword;
         public string EntryPassword
         {
             get => _entryPassword;
             set => SetProperty(ref _entryPassword, value);
-        }
-
-        private string _entryPasswordPlaceholder;
-        public string EntryPasswordPlaceholder
-        {
-            get => _entryPasswordPlaceholder;
-            set => SetProperty(ref _entryPasswordPlaceholder, value);
         }
 
         private string _labelPasswordError;
@@ -125,25 +104,11 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _labelPasswordError, value);
         }
 
-        private string _labelConfirmPassword;
-        public string LabelConfirmPassword
-        {
-            get => _labelConfirmPassword;
-            set => SetProperty(ref _labelConfirmPassword, value);
-        }
-
         private string _entryConfitmPassword;
         public string EntryConfirmPassword
         {
             get => _entryConfitmPassword;
             set => SetProperty(ref _entryConfitmPassword, value);
-        }
-
-        private string _entryConfirmPlaceholder;
-        public string EntryConfirmPlaceholder
-        {
-            get => _entryConfirmPlaceholder;
-            set => SetProperty(ref _entryConfirmPlaceholder, value);
         }
 
         private string _labelConfirmPasswordError;
@@ -208,7 +173,9 @@ namespace GPSNotepad.ViewModels
         {
             base.Initialize(parameters);
 
-            InitProperties();  
+            BorderColorPassword = (Color)App.Current.Resources["entryBorder"];
+            BorderColorConfirmPassword = (Color)App.Current.Resources["entryBorder"];
+            IsHidePassword = true;
         }
 
         #endregion
@@ -341,18 +308,6 @@ namespace GPSNotepad.ViewModels
             {
                 EyeConfirmPasswordSource = Constants.ImageEyeOff;
             }
-        }
-
-        private void InitProperties()
-        {
-            NavBarTitle = (string)App.Current.Resources["NavBarTitleRegister"];
-            LabelPassword = (string)App.Current.Resources["LabelPassword"];
-            EntryPasswordPlaceholder = (string)App.Current.Resources["PasswordPlaceholder"];
-            LabelConfirmPassword = (string)App.Current.Resources["LabelConfirmPassword"];
-            EntryConfirmPlaceholder = (string)App.Current.Resources["EntryConfirmPlaceholder"];
-            BorderColorPassword = (Color)App.Current.Resources["entryBorder"];
-            BorderColorConfirmPassword = (Color)App.Current.Resources["entryBorder"];
-            IsHidePassword = true;
         }
 
         #endregion

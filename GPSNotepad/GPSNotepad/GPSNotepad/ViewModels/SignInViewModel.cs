@@ -37,13 +37,6 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _isHidePassword, value);
         }
 
-        private string _navBarTitle;
-        public string NavBarTitle
-        {
-            get => _navBarTitle;
-            set => SetProperty(ref _navBarTitle, value);
-        }
-
         private ImageSource _clearSource;
         public ImageSource ClearSource
         {
@@ -58,25 +51,11 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _eyeSource, value);
         }
 
-        private string _labelEmail;
-        public string LabelEmail
-        {
-            get => _labelEmail;
-            set => SetProperty(ref _labelEmail, value);
-        }
-
         private string _entryEmail;
         public string EntryEmail
         {
             get => _entryEmail;
             set => SetProperty(ref _entryEmail, value);
-        }
-
-        private string _emailPlaceholder;
-        public string EmailPlaceholder
-        {
-            get => _emailPlaceholder;
-            set => SetProperty(ref _emailPlaceholder, value);
         }
 
         private string _labelEmailError;
@@ -86,25 +65,11 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _labelEmailError, value);
         }
 
-        private string _labelPassword;
-        public string LabelPassword
-        {
-            get => _labelPassword;
-            set => SetProperty(ref _labelPassword, value);
-        }
-
         private string _entryPassword;
         public string EntryPassword
         {
             get => _entryPassword;
             set => SetProperty(ref _entryPassword, value);
-        }
-
-        private string _entryPasswordPlaceholder;
-        public string PasswordPlaceholder
-        {
-            get => _entryPasswordPlaceholder;
-            set => SetProperty(ref _entryPasswordPlaceholder, value);
         }
 
         private string _labelPasswordError;
@@ -168,7 +133,9 @@ namespace GPSNotepad.ViewModels
         {
             base.Initialize(parameters);
 
-            InitProperties();
+            BorderColorEmail = (Color)App.Current.Resources["entryBorder"];
+            BorderColorPassword = (Color)App.Current.Resources["entryBorder"];
+            IsHidePassword = true;
         }
 
         #endregion
@@ -215,7 +182,7 @@ namespace GPSNotepad.ViewModels
             }
             else
             {
-                ClearSource = "ic_clear";
+                ClearSource = Constants.ImageClear;
             }
         }
 
@@ -227,7 +194,7 @@ namespace GPSNotepad.ViewModels
             }
             else
             {
-                EyeSource = "ic_eye_off";
+                EyeSource = Constants.ImageEyeOff;
             }
         }
 
@@ -250,12 +217,12 @@ namespace GPSNotepad.ViewModels
         {
             if (IsHidePassword)
             {
-                EyeSource = "ic_eye";
+                EyeSource = Constants.ImageEye;
                 IsHidePassword = false;
             }
             else
             {
-                EyeSource = "ic_eye_off";
+                EyeSource = Constants.ImageEyeOff;
                 IsHidePassword = true;
             }
         }
@@ -263,18 +230,6 @@ namespace GPSNotepad.ViewModels
         private void OnImageEntryClearTapCommandAsync()
         {
             EntryEmail = string.Empty;
-        }
-
-        private void InitProperties()
-        {
-            NavBarTitle = (string)App.Current.Resources["NavBarTitleLogIn"];
-            LabelEmail = (string)App.Current.Resources["LabelEmail"];
-            EmailPlaceholder = (string)App.Current.Resources["EntryPlaseholderEmail"];
-            LabelPassword = (string)App.Current.Resources["LabelPassword"];
-            PasswordPlaceholder = (string)App.Current.Resources["EntryPasswordPlaceholder"];
-            BorderColorEmail = (Color)App.Current.Resources["entryBorder"];
-            BorderColorPassword = (Color)App.Current.Resources["entryBorder"];
-            IsHidePassword = true;
         }
 
         #endregion

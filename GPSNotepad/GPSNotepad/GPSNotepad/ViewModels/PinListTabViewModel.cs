@@ -63,6 +63,8 @@ namespace GPSNotepad.ViewModels
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
+            base.OnPropertyChanged(args);
+
             if (args.PropertyName == nameof(SearchText) &&
                 SearchCommand.CanExecute(null))
             {

@@ -31,7 +31,7 @@
         <local:CustomNavigationBar Grid.Row="0" 
                                    Grid.Column="0" 
                                    Grid.ColumnSpan="3"
-                                   Title="{Binding NavBarTitle}"
+                                   Title="{DynamicResource NavBarTitleAddPin}"
                                    ImageLeftTapCommand="{Binding GoBackTapCommand}">
 
             <Image Source="{DynamicResource iconSave}" 
@@ -58,21 +58,21 @@
 
         <local:CustomEntry Grid.Row="1"
                            Grid.Column="1"
-                           LabelText="{Binding LabelName}"
+                           LabelText="{DynamicResource Label}"
                            EntryText="{Binding EntryName}"
-                           Placeholder="{Binding EntryPlaceholder}"
+                           Placeholder="{DynamicResource EntryPlaceholderLabel}"
                            ImageSource="{Binding ClearSourceName}"
                            ImageTapCommand="{Binding ImageNameClearTapCommand}"
-                           BorderColor="{Binding BorderColorName}"/>
+                           BorderColor="{DynamicResource entryBorder}"/>
 
         <local:CustomEntry Grid.Row="2"
                            Grid.Column="1"
-                           LabelText="{Binding LabelDescription}"
+                           LabelText="{DynamicResource LabelDescription}"
                            EntryText="{Binding EntryDescription}"
-                           Placeholder="{Binding EntryDescriptionPlaceholder}"
+                           Placeholder="{DynamicResource EntryDescriptionPlaceholder}"
                            ImageSource="{Binding ClearSourceDescription}"
                            ImageTapCommand="{Binding ImageDescriptionClearTapCommand}"
-                           BorderColor="{Binding BorderColorDescription}"/>
+                           BorderColor="{DynamicResource entryBorder}"/>
 
         <Grid Grid.Row="3" 
               Grid.Column="1" >

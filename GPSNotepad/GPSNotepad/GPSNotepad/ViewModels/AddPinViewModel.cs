@@ -7,6 +7,7 @@ using GPSNotepad.Services.Resources;
 using Prism.Navigation;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -54,42 +55,6 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _isUserPosition, value);
         }
 
-        private string _navBarTitle;
-        public string NavBarTitle
-        {
-            get => _navBarTitle;
-            set => SetProperty(ref _navBarTitle, value);
-        }
-
-        private Color _textColor;
-        public Color TextColor
-        {
-            get => _textColor;
-            set => SetProperty(ref _textColor, value);
-        }
-
-        private Color _borderColorName;
-        public Color BorderColorName
-        {
-            get => _borderColorName;
-            set => SetProperty(ref _borderColorName, value);
-        }
-
-        private Color _borderColorDescription;
-        public Color BorderColorDescription
-        {
-            get => _borderColorDescription;
-            set => SetProperty(ref _borderColorDescription, value);
-        }
-
-
-        private string _labelName;
-        public string LabelName
-        {
-            get => _labelName;
-            set => SetProperty(ref _labelName, value);
-        }
-
         private string _entryName = string.Empty;
         public string EntryName
         {
@@ -97,32 +62,11 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _entryName, value);
         }
 
-        private string _entryPlaceholder;
-        public string EntryPlaceholder
-        {
-            get => _entryPlaceholder;
-            set => SetProperty(ref _entryPlaceholder, value);
-        }
-
-        private string _labelDescription;
-        public string LabelDescription
-        {
-            get => _labelDescription;
-            set => SetProperty(ref _labelDescription, value);
-        }
-
         private string _entryDescription = string.Empty;
         public string EntryDescription
         {
             get => _entryDescription;
             set => SetProperty(ref _entryDescription, value);
-        }
-
-        private string _entryDescriptionPlaceholder;
-        public string EntryDescriptionPlaceholder
-        {
-            get => _entryDescriptionPlaceholder;
-            set => SetProperty(ref _entryDescriptionPlaceholder, value);
         }
 
         private string _entryLatitude;
@@ -139,18 +83,18 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _entryLongitude, value);
         }
 
-        private bool _isVisibleImageName;
-        public bool IsVisibleImageName
+        private ImageSource _clearSourceName;
+        public ImageSource ClearSourceName
         {
-            get => _isVisibleImageName;
-            set => SetProperty(ref _isVisibleImageName, value);
+            get => _clearSourceName;
+            set => SetProperty(ref _clearSourceName, value);
         }
 
-        private bool _isVisibleImageDescription;
-        public bool IsVisibleImageDescription
+        private ImageSource _clearSourceDescription;
+        public ImageSource ClearSourceDescription
         {
-            get => _isVisibleImageDescription;
-            set => SetProperty(ref _isVisibleImageDescription, value);
+            get => _clearSourceDescription;
+            set => SetProperty(ref _clearSourceDescription, value);
         }
 
         private MapSpan _region;
@@ -178,6 +122,21 @@ namespace GPSNotepad.ViewModels
 
         #region -- Overrides --
 
+        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            base.OnPropertyChanged(args);
+
+            if (args.PropertyName == nameof(EntryName))
+            {
+                ShowHideImageName(_entryName);
+            }
+
+            if (args.PropertyName == nameof(EntryDescription))
+            {
+                ShowHideImageDescription(_entryDescription);
+            }
+        }
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -202,7 +161,7 @@ namespace GPSNotepad.ViewModels
                 IsUserPosition = true;
             }
 
-            InitProperties();
+            Style = _resourceService.GetMapStyle();
         }
 
         #endregion
@@ -293,16 +252,28 @@ namespace GPSNotepad.ViewModels
             return pinViewModel;
         }
 
-        private void InitProperties()
+        private void ShowHideImageName(string elementText)
         {
-            Style = _resourceService.GetMapStyle();
-            NavBarTitle = (string)App.Current.Resources["NavBarTitleAddPin"];
-            LabelName = (string)App.Current.Resources["Label"];
-            LabelDescription = (string)App.Current.Resources["LabelDescription"];
-            EntryPlaceholder = (string)App.Current.Resources["EntryPlaceholderLabel"];
-            EntryDescriptionPlaceholder = (string)App.Current.Resources["EntryDescriptionPlaceholder"];
-            BorderColorName = Color.Gray;
-            BorderColorDescription = Color.Gray;
+            if (string.IsNullOrEmpty(elementText))
+            {
+                ClearSourceName = string.Empty;
+            }
+            else
+            {
+                ClearSourceName = Constants.ImageClear;
+            }
+        }
+
+        private void ShowHideImageDescription(string elementText)
+        {
+            if (string.IsNullOrEmpty(elementText))
+            {
+                ClearSourceDescription = string.Empty;
+            }
+            else
+            {
+                ClearSourceDescription = Constants.ImageClear;
+            }
         }
 
         #endregion

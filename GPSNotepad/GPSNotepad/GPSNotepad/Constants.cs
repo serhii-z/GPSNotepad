@@ -15,6 +15,7 @@
         public const string ImagePlaceholder = "ic_placeholder";
         public const string ImageEye = "ic_eye";
         public const string ImageEyeOff = "ic_eye_off";
+        public const string ImageClear = "ic_clear";
         public const string UserIdKey = "id";
         public const string ColorClockDefault = "blue";
         public const string ColorClockRed = "red";

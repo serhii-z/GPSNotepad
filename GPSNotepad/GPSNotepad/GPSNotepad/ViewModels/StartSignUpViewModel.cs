@@ -25,13 +25,6 @@ namespace GPSNotepad.ViewModels
         public ICommand ImageNameClearTapCommand => new Command(OnImageNameClearTapCommandAsync);
         public ICommand ImageEmailClearTapCommand => new Command(OnImageEmailClearTapCommandAsync);
 
-        private string _navBarTitle;
-        public string NavBarTitle
-        {
-            get => _navBarTitle;
-            set => SetProperty(ref _navBarTitle, value);
-        }
-
         private ImageSource _clearSourceName;
         public ImageSource ClearSourceName
         {
@@ -60,25 +53,11 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _borderColorEmail, value);
         }
 
-        private string _labelName;
-        public string LabelName
-        {
-            get => _labelName;
-            set => SetProperty(ref _labelName, value);
-        }
-
         private string _entryName;
         public string EntryName
         {
             get => _entryName;
             set => SetProperty(ref _entryName, value);
-        }
-
-        private string _entryNamePlaceholder;
-        public string EntryNamePlaceholder
-        {
-            get => _entryNamePlaceholder;
-            set => SetProperty(ref _entryNamePlaceholder, value);
         }
 
         private string _labelNameError;
@@ -88,25 +67,11 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _labelNameError, value);
         }
 
-        private string _labelEmail;
-        public string LabelEmail
-        {
-            get => _labelEmail;
-            set => SetProperty(ref _labelEmail, value);
-        }
-
         private string _entryEmail;
         public string EntryEmail
         {
             get => _entryEmail;
             set => SetProperty(ref _entryEmail, value);
-        }
-
-        private string _entryEmailPlaceholder;
-        public string EntryEmailPlaceholder
-        {
-            get => _entryEmailPlaceholder;
-            set => SetProperty(ref _entryEmailPlaceholder, value);
         }
 
         private string _labelEmailError;
@@ -158,7 +123,9 @@ namespace GPSNotepad.ViewModels
         {
             base.Initialize(parameters);
 
-            InitProperties();
+            //InitProperties();
+            BorderColorName = (Color)App.Current.Resources["entryBorder"];
+            BorderColorEmail = (Color)App.Current.Resources["entryBorder"];
         }
 
         #endregion
@@ -225,7 +192,7 @@ namespace GPSNotepad.ViewModels
             }
             else
             {
-                ClearSourceEmail = "ic_clear";
+                ClearSourceEmail = Constants.ImageClear;
             }
         }
 
@@ -237,7 +204,7 @@ namespace GPSNotepad.ViewModels
             }
             else
             {
-                ClearSourceName = "ic_clear";
+                ClearSourceName = Constants.ImageClear;
             }
         }
 
@@ -262,17 +229,6 @@ namespace GPSNotepad.ViewModels
             }
 
             return isSuccess;
-        }
-
-        private void InitProperties()
-        {
-            NavBarTitle = (string)App.Current.Resources["NavBarTitleRegister"];
-            LabelName = (string)App.Current.Resources["LabelName"];
-            EntryNamePlaceholder = (string)App.Current.Resources["LabelNamePlaceholder"];
-            LabelEmail = (string)App.Current.Resources["LabelEmail"];
-            EntryEmailPlaceholder = (string)App.Current.Resources["EntryPlaseholderEmail"];
-            BorderColorName = (Color)App.Current.Resources["entryBorder"];
-            BorderColorEmail = (Color)App.Current.Resources["entryBorder"];
         }
 
         #endregion

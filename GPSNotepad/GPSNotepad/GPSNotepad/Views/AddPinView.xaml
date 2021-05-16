@@ -63,7 +63,7 @@
                            Placeholder="{DynamicResource EntryPlaceholderLabel}"
                            ImageSource="{Binding ClearSourceName}"
                            ImageTapCommand="{Binding ImageNameClearTapCommand}"
-                           BorderColor="{DynamicResource entryBorder}"/>
+                           IsError="False"/>
 
         <local:CustomEntry Grid.Row="2"
                            Grid.Column="1"
@@ -72,7 +72,7 @@
                            Placeholder="{DynamicResource EntryDescriptionPlaceholder}"
                            ImageSource="{Binding ClearSourceDescription}"
                            ImageTapCommand="{Binding ImageDescriptionClearTapCommand}"
-                           BorderColor="{DynamicResource entryBorder}"/>
+                           IsError="False"/>
 
         <Grid Grid.Row="3" 
               Grid.Column="1" >

@@ -43,7 +43,7 @@
                               ImageSource="{Binding ClearSourceName}"
                               ImageTapCommand="{Binding ImageNameClearTapCommand}"
                               LabelErrorText="{Binding LabelNameError}"
-                              BorderColor="{Binding BorderColorName}"/>
+                              IsError="{Binding IsErrorName}"/>
 
         <controls:CustomEntry Grid.Row="2"
                               Grid.Column="1"
@@ -53,7 +53,7 @@
                               ImageSource="{Binding ClearSourceEmail}"
                               ImageTapCommand="{Binding ImageEmailClearTapCommand}"
                               LabelErrorText="{Binding LabelEmailError}"
-                              BorderColor="{Binding BorderColorEmail}"/>
+                              IsError="{Binding IsErrorEmail}"/>
 
         <Button Grid.Row="3"
                 Grid.Column="1"

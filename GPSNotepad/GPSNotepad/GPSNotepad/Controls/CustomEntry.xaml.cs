@@ -12,6 +12,8 @@ namespace GPSNotepad.Controls
             InitializeComponent();
         }
 
+        #region -- Public properties --
+
         public static readonly BindableProperty ImageTapCommandProperty = BindableProperty.Create(nameof(ImageTapCommand), 
             typeof(Command), typeof(CustomNavigationBar));
 
@@ -76,13 +78,15 @@ namespace GPSNotepad.Controls
             set => SetValue(LabelErrorTextProperty, value);
         }
 
-        public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), 
-            typeof(Color), typeof(CustomEntry));
+        public static readonly BindableProperty IsErrorProperty = BindableProperty.Create(nameof(IsError),
+             typeof(bool), typeof(CustomEntry));
 
-        public Color BorderColor
+        public bool IsError
         {
-            get => (Color)GetValue(BorderColorProperty);
-            set => SetValue(BorderColorProperty, value);
+            get => (bool)GetValue(IsErrorProperty);
+            set => SetValue(IsErrorProperty, value);
         }
+
+        #endregion
     }
 }

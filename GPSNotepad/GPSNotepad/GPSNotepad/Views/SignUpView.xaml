@@ -44,7 +44,7 @@
                               IsHidePassword="{Binding IsHidePassword}"
                               ImageTapCommand="{Binding ImagePasswordTapCommand}"
                               LabelErrorText="{Binding LabelPasswordError}"
-                              BorderColor="{Binding BorderColorPassword}"/>
+                              IsError="{Binding IsErrorPassword}"/>
 
         <controls:CustomEntry Grid.Row="2"
                               Grid.Column="1"
@@ -55,7 +55,7 @@
                               IsHidePassword="{Binding IsHidePassword}"
                               ImageTapCommand="{Binding ImageConfirmTapCommand}"
                               LabelErrorText="{Binding LabelConfirmPasswordError}"
-                              BorderColor="{Binding BorderColorConfirmPassword}"/>
+                              IsError="{Binding IsErrorConfirm}"/>
 
         <Button Grid.Row="3"
                 Grid.Column="1"

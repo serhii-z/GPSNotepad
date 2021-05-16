@@ -8,7 +8,7 @@ namespace GPSNotepad.Services.Permissions
 {
     public class PermissionService : IPermissionService
     {
-        #region --- IPermissionService implement ---
+        #region --- IPermissionService implementation ---
 
         [Obsolete]
         public async Task<bool> CheckStatusAsync()

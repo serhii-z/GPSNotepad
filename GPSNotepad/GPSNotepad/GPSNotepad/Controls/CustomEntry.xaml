@@ -35,7 +35,20 @@
            Grid.ColumnSpan="2"
            HasShadow="False"
            BackgroundColor="{DynamicResource frameBackground}"
-           BorderColor="{Binding BorderColor, Source={x:Reference customEntry}}"/>
+           BorderColor="{DynamicResource entryBorder}">
+
+        <Frame.Triggers>
+
+            <DataTrigger TargetType="Frame"
+                 Binding="{Binding IsError, Source={x:Reference customEntry}}" Value="True">
+
+                <Setter Property="BorderColor" Value="{DynamicResource entryBorderRed}" />
+                
+            </DataTrigger>
+
+        </Frame.Triggers>
+        
+    </Frame>
 
     <Entry Grid.Row="1"
            Grid.Column="0" 

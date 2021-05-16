@@ -6,6 +6,8 @@ namespace GPSNotepad.Services.GeoLocations
 {
     public class GeoLocationService : IGeoLocationService
     {
+        #region IGeolocationService implementation --
+
         public async Task<Position> GetUserPositionAsync()
         {
            var location = await Geolocation.GetLastKnownLocationAsync();
@@ -13,5 +15,7 @@ namespace GPSNotepad.Services.GeoLocations
 
             return userPosition;
         }
+
+        #endregion
     }
 }

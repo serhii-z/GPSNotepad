@@ -39,20 +39,6 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _cliarSourceEmail, value);
         }
 
-        private Color _borderColorName;
-        public Color BorderColorName
-        {
-            get => _borderColorName;
-            set => SetProperty(ref _borderColorName, value);
-        }
-
-        private Color _borderColorEmail;
-        public Color BorderColorEmail
-        {
-            get => _borderColorEmail;
-            set => SetProperty(ref _borderColorEmail, value);
-        }
-
         private string _entryName;
         public string EntryName
         {
@@ -88,6 +74,20 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _isEnabledButton, value);
         }
 
+        private bool _isErrorName;
+        public bool IsErrorName
+        {
+            get => _isErrorName;
+            set => SetProperty(ref _isErrorName, value);
+        }
+
+        private bool _isErrorEmail;
+        public bool IsErrorEmail
+        {
+            get => _isErrorEmail;
+            set => SetProperty(ref _isErrorEmail, value);
+        }
+
         #endregion
 
         #region -- Overrides --
@@ -119,15 +119,6 @@ namespace GPSNotepad.ViewModels
             }
         }
 
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-
-            //InitProperties();
-            BorderColorName = (Color)App.Current.Resources["entryBorder"];
-            BorderColorEmail = (Color)App.Current.Resources["entryBorder"];
-        }
-
         #endregion
 
 
@@ -142,8 +133,8 @@ namespace GPSNotepad.ViewModels
         {
             LabelNameError = string.Empty;
             LabelEmailError = string.Empty;
-            BorderColorName = (Color)App.Current.Resources["entryBorder"];
-            BorderColorEmail = (Color)App.Current.Resources["entryBorder"];
+            IsErrorName = false;
+            IsErrorEmail = false;
 
             var isSuccess = CheckValidation();
 
@@ -215,16 +206,14 @@ namespace GPSNotepad.ViewModels
 
             if (!StringValidator.CheckName(_entryName))
             {
-                LabelNameError = (string)App.Current.Resources["NameError"];
-                BorderColorName = Color.Red;
-                LabelNameError = (string)App.Current.Resources["Input"];
+                IsErrorName = true;
+                LabelNameError = (string)App.Current.Resources["NameError"];        
                 isSuccess = false;
             }
             if (!StringValidator.CheckEmail(_entryEmail) && isSuccess)
-            {
+            {  
+                IsErrorEmail = true;
                 LabelEmailError = (string)App.Current.Resources["EmailError"];
-                BorderColorEmail = Color.Red;
-                LabelEmailError = (string)App.Current.Resources["Input"];
                 isSuccess = false;
             }
 

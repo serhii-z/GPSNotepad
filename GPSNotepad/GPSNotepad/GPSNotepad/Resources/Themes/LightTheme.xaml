@@ -17,6 +17,7 @@
     <Color x:Key="navigationBar">Transparent</Color>
     
     <Color x:Key="entryBorder">Gray</Color>
+    <Color x:Key="entryBorderRed">Red</Color>
     <Color x:Key="entryPlaceholder">Gray</Color>
     <Color x:Key="entryText">Black</Color>
 

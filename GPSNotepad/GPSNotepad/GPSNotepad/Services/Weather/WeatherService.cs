@@ -13,7 +13,7 @@ namespace GPSNotepad.Services.Weather
     {
         private Root _weatherResponse;
 
-        #region -- IWeatherService implement --
+        #region -- IWeatherService implementation --
 
         public async Task<List<WeatherView>> GetWeatherAsync(double latitude, double longitude)
         {

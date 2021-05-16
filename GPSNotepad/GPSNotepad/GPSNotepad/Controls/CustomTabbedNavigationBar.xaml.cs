@@ -12,6 +12,8 @@ namespace GPSNotepad.Controls
             InitializeComponent();
         }
 
+        #region --Public properties --
+
         public static readonly BindableProperty ImageSettingsTapCommandProperty = BindableProperty.Create(nameof(ImageSettingsTapCommand),
             typeof(Command), typeof(CustomTabbedNavigationBar));
 
@@ -47,5 +49,7 @@ namespace GPSNotepad.Controls
             get => (ICommand)GetValue(ImageExitTapCommandProperty);
             set => SetValue(ImageExitTapCommandProperty, value);
         }
+
+        #endregion
     }
 }

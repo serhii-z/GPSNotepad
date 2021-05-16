@@ -86,18 +86,18 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _isEnabledButton, value);
         }
 
-        private Color _borderColorEmail;
-        public Color BorderColorEmail
+        private bool _isErrorEmail;
+        public bool IsErrorEmail
         {
-            get => _borderColorEmail;
-            set => SetProperty(ref _borderColorEmail, value);
+            get => _isErrorEmail;
+            set => SetProperty(ref _isErrorEmail, value);
         }
 
-        private Color _borderColorPassword;
-        public Color BorderColorPassword
+        private bool _isErrorPassword;
+        public bool IsErrorPassword
         {
-            get => _borderColorPassword;
-            set => SetProperty(ref _borderColorPassword, value);
+            get => _isErrorPassword;
+            set => SetProperty(ref _isErrorPassword, value);
         }
 
         #endregion
@@ -133,8 +133,6 @@ namespace GPSNotepad.ViewModels
         {
             base.Initialize(parameters);
 
-            BorderColorEmail = (Color)App.Current.Resources["entryBorder"];
-            BorderColorPassword = (Color)App.Current.Resources["entryBorder"];
             IsHidePassword = true;
         }
 
@@ -204,8 +202,8 @@ namespace GPSNotepad.ViewModels
 
             if (!isSuccess)
             {
-                BorderColorEmail = Color.Red;
-                BorderColorPassword = Color.Red;
+                IsErrorEmail = true;
+                IsErrorPassword = true;
                 LabelEmailError = (string)App.Current.Resources["LoginPasswordWrong"];
                 LabelPasswordError = (string)App.Current.Resources["LoginPasswordWrong"];
             }

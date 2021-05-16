@@ -17,7 +17,7 @@ namespace GPSNotepad.Services.Resources
             _settingsManager = settingsManager;
         }
 
-        #region -- IResourceService implement --
+        #region -- IResourceService implementation --
 
         public void ApplyTheme()
         {

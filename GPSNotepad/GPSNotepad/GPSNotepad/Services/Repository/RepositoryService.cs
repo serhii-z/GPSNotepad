@@ -24,7 +24,7 @@ namespace GPSNotepad.Services.Repository
             });
         }
 
-        #region -- IRepositoryService implement --
+        #region -- IRepositoryService implementation --
 
         public Task<int> InsertAsync<T>(T item) where T : IEntityBase, new()
         {

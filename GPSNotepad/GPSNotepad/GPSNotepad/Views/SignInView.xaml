@@ -43,7 +43,7 @@
                               ImageSource="{Binding ClearSource}"
                               ImageTapCommand="{Binding ImageEntryClearTapCommand}"
                               LabelErrorText="{Binding LabelEmailError}"
-                              BorderColor="{Binding BorderColorPassword}"/>
+                              IsError="{Binding IsErrorEmail}"/>
 
 
         <controls:CustomEntry Grid.Row="2"
@@ -55,7 +55,7 @@
                               IsHidePassword="{Binding IsHidePassword}"
                               ImageTapCommand="{Binding ImageEntryEyeTapCommand}"
                               LabelErrorText="{Binding LabelPasswordError}"
-                              BorderColor="{Binding BorderColorPassword}"/>
+                              IsError="{Binding IsErrorPassword}"/>
         
         
         <Button Grid.Row="3"

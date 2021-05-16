@@ -31,36 +31,8 @@ namespace GPSNotepad.ViewModels
         public ICommand ImageLeftTapCommand => new Command(OnImageLeftTapCommandAsync);
         public ICommand CreateAccountButtonTapCommand => new Command(OnCreateAccountButtonTapAsync);
         public ICommand ImagePasswordTapCommand => new Command(OnImagePasswordTapCommand);
-
-        private void OnImagePasswordTapCommand(object obj)
-        {
-            if (IsHidePassword)
-            {
-                EyePasswordSource = "ic_eye";
-                IsHidePassword = false;
-            }
-            else
-            {
-                EyePasswordSource = "ic_eye_off";
-                IsHidePassword = true;
-            }
-        }
-
         public ICommand ImageConfirmTapCommand => new Command(OnImageConfirmTapCommand);
 
-        private void OnImageConfirmTapCommand(object obj)
-        {
-            if (IsHidePassword)
-            {
-                EyeConfirmPasswordSource = Constants.ImageEye;
-                IsHidePassword = false;
-            }
-            else
-            {
-                EyeConfirmPasswordSource = Constants.ImageEyeOff;
-                IsHidePassword = true;
-            }
-        }
 
         private ImageSource _eyePasswordSource;
         public ImageSource EyePasswordSource
@@ -74,20 +46,6 @@ namespace GPSNotepad.ViewModels
         {
             get => _eyeConfirmPasswordSource;
             set => SetProperty(ref _eyeConfirmPasswordSource, value);
-        }
-
-        private Color _borderColorPassword;
-        public Color BorderColorPassword
-        {
-            get => _borderColorPassword;
-            set => SetProperty(ref _borderColorPassword, value);
-        }
-
-        private Color _borderColorConfirmPassword;
-        public Color BorderColorConfirmPassword
-        {
-            get => _borderColorConfirmPassword;
-            set => SetProperty(ref _borderColorConfirmPassword, value);
         }
 
         private string _entryPassword;
@@ -132,6 +90,20 @@ namespace GPSNotepad.ViewModels
             set => SetProperty(ref _isHidePassword, value);
         }
 
+        private bool _isErrorPassword;
+        public bool IsErrorPassword
+        {
+            get => _isErrorPassword;
+            set => SetProperty(ref _isErrorPassword, value);
+        }
+
+        private bool _isErrorConfirm;
+        public bool IsErrorConfirm
+        {
+            get => _isErrorConfirm;
+            set => SetProperty(ref _isErrorConfirm, value);
+        }
+
         #endregion   
 
         #region -- Overrides --
@@ -165,6 +137,7 @@ namespace GPSNotepad.ViewModels
             {
                 _email = login;
             }
+
             IsHidePassword = false;
             IsHidePassword = true;
         }
@@ -173,8 +146,6 @@ namespace GPSNotepad.ViewModels
         {
             base.Initialize(parameters);
 
-            BorderColorPassword = (Color)App.Current.Resources["entryBorder"];
-            BorderColorConfirmPassword = (Color)App.Current.Resources["entryBorder"];
             IsHidePassword = true;
         }
 
@@ -191,14 +162,42 @@ namespace GPSNotepad.ViewModels
         {
             LabelPasswordError = string.Empty;
             LabelConfirmPasswordError = string.Empty;
-            BorderColorPassword = (Color)App.Current.Resources["entryBorder"];
-            BorderColorConfirmPassword = (Color)App.Current.Resources["entryBorder"];
+            IsErrorPassword = false;
+            IsErrorConfirm = false;
 
             var isSuccess = await TrySignUpUserAsync();
 
             if (isSuccess)
             {
                 await navigationService.NavigateAsync($"{nameof(SignInView)}");
+            }
+        }
+
+        private void OnImagePasswordTapCommand()
+        {
+            if (IsHidePassword)
+            {
+                EyePasswordSource = Constants.ImageEye;
+                IsHidePassword = false;
+            }
+            else
+            {
+                EyePasswordSource = Constants.ImageEyeOff;
+                IsHidePassword = true;
+            }
+        }
+
+        private void OnImageConfirmTapCommand()
+        {
+            if (IsHidePassword)
+            {
+                EyeConfirmPasswordSource = Constants.ImageEye;
+                IsHidePassword = false;
+            }
+            else
+            {
+                EyeConfirmPasswordSource = Constants.ImageEyeOff;
+                IsHidePassword = true;
             }
         }
 
@@ -252,33 +251,25 @@ namespace GPSNotepad.ViewModels
             return user;
         }
 
-        private async void ShowAlert(string message)
-        {
-            await _pageDialog.DisplayAlertAsync((string)App.Current.Resources["AlertTitle"], message, (string)App.Current.Resources["AlertOK"]);
-        }
-
         private bool CheckValidation()
         {
             var isSuccess = true;
 
             if (!StringValidator.CheckQuantity(_entryPassword, 8))
             {
-                LabelPasswordError = (string)App.Current.Resources["PasswordCountingSimbols"];
-                BorderColorPassword = Color.Red;
+                IsErrorPassword = true;
                 LabelPasswordError = (string)App.Current.Resources["LabelPasswordError"];
                 isSuccess = false;
             }
             if (!StringValidator.CheckPresence(_entryPassword) && isSuccess)
             {
-                LabelPasswordError = (string)App.Current.Resources["PasswordPresence"];
-                BorderColorPassword = Color.Red;
+                IsErrorPassword = true;
                 LabelPasswordError = (string)App.Current.Resources["LabelPasswordError"];
                 isSuccess = false;
             }
             if (!StringValidator.CheckPasswordEquality(_entryPassword, _entryConfitmPassword) && isSuccess)
             {
-                LabelConfirmPasswordError = (string)App.Current.Resources["PasswordConfirmNotEqual"];
-                BorderColorConfirmPassword = Color.Red;
+                IsErrorConfirm = true;
                 LabelConfirmPasswordError = (string)App.Current.Resources["LabelConfirmPasswordError"];
                 isSuccess = false;
             }

@@ -6,7 +6,7 @@ namespace GPSNotepad.Services.Time
 {
     public class TimeService : ITimeService
     {
-        #region -- ITimeService implement --
+        #region -- ITimeService implementation --
 
         public int GetTimeCorrection(PinViewModel pinViewModel)
         {

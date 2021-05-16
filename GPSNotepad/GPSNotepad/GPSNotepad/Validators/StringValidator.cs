@@ -8,7 +8,7 @@ namespace GPSNotepad.Validators
 
         public static bool CheckName(string name)
         {
-            var hasSequence = new Regex(@"[A-Z][a-z]+");
+            var hasSequence = new Regex(@"^[A-Z][a-z]+$");
 
             return hasSequence.IsMatch(name);
         }

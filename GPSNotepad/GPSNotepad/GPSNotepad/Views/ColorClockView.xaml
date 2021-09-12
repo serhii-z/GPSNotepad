@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:GPSNotepad.Controls"
+             x:Class="GPSNotepad.Views.ColorClockView"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+             BackgroundColor="{DynamicResource viewBackground}">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="7*"/>
+
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="1*"/>
+
+        </Grid.ColumnDefinitions>
+
+        <controls:CustomNavigationBar Grid.Row="0" 
+                                      Grid.Column="0" 
+                                      Grid.ColumnSpan="3"
+                                      Title="{DynamicResource ColorClockTitle}"
+                                      ImageLeftTapCommand="{Binding GoBackTapCommand}"/>
+        <BoxView Grid.Row="0"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="3"
+                 VerticalOptions="End"
+                 HeightRequest="1"
+                 BackgroundColor="{DynamicResource boxView}"/>
+   
+
+        <Grid Grid.Row="1"
+              Grid.Column="0"
+              Grid.ColumnSpan="3">
+
+            <Grid.RowDefinitions>
+
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="0.5*"/>
+
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="7.7*"/>
+                <ColumnDefinition Width="2*"/>
+
+            </Grid.ColumnDefinitions>
+
+            <RadioButton Grid.Row="1"
+                         Grid.Column="1"
+                         VerticalOptions="CenterAndExpand"
+                         HorizontalOptions="Start"
+                         BackgroundColor="{DynamicResource radioButtonBackground}"
+                         TextColor="{DynamicResource radioButtonText}"
+                         BorderColor="{DynamicResource radioButtonBorder}"
+                         Text="{DynamicResource RadioButtonBlue}"
+                         FontFamily="Montserrat"
+                         IsChecked="{Binding IsChackedBlue}"
+                         Command="{Binding BlueTapCommand}"
+                         GroupName="color"/>
+            
+        </Grid>
+
+        <BoxView Grid.Row="1"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="3"
+                 VerticalOptions="End"
+                 HeightRequest="1"
+                 BackgroundColor="{DynamicResource boxView}"/>
+
+        <Grid Grid.Row="2"
+              Grid.Column="0"
+              Grid.ColumnSpan="3">
+
+            <Grid.RowDefinitions>
+
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="0.5*"/>
+
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="7.7*"/>
+                <ColumnDefinition Width="2*"/>
+
+            </Grid.ColumnDefinitions>
+
+            <RadioButton Grid.Row="1"
+                         Grid.Column="1"
+                         VerticalOptions="CenterAndExpand"
+                         HorizontalOptions="Start"
+                         BackgroundColor="{DynamicResource radioButtonBackground}"
+                         TextColor="{DynamicResource radioButtonText}"
+                         BorderColor="{DynamicResource radioButtonBorder}"
+                         Text="{DynamicResource RadioButtonRed}"
+                         FontFamily="Montserrat"
+                         IsChecked="{Binding IsChackedRed}"
+                         Command="{Binding RedTapCommand}"
+                         GroupName="color"/>
+
+        </Grid>
+
+        <BoxView Grid.Row="2"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="3"
+                 VerticalOptions="End"
+                 HeightRequest="1"
+                 BackgroundColor="{DynamicResource boxView}"/>
+
+    </Grid>
+
+</ContentPage>

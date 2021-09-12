@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GPSNotepad.Resources.Localization.En">
+
+    <x:String x:Key="LabelNameApplication">MapNotepad</x:String>
+    <x:String x:Key="LabelName">Name</x:String>
+    <x:String x:Key="LabelNamePlaceholder">Enter your name</x:String>
+    <x:String x:Key="LabelEmail">Email</x:String>
+    <x:String x:Key="LabelPassword">Password</x:String>
+    <x:String x:Key="LabelConfirmPassword">Confirm password</x:String>
+    <x:String x:Key="LabelPasswordError">The password is incorrect</x:String>
+    <x:String x:Key="LabelConfirmPasswordError">Password mismatch</x:String>
+    <x:String x:Key="LabelColorClock">Color of the clock</x:String>
+    <x:String x:Key="Label">Label</x:String>
+    <x:String x:Key="LabelDescription">Description</x:String>
+    <x:String x:Key="LabelCoordinates">Coordinates</x:String>
+    <x:String x:Key="LabelRussian">Russian</x:String>
+
+    <x:String x:Key="ButtonLogIn">Log in</x:String>
+    <x:String x:Key="ButtonCreateAccount">Create account</x:String>
+    <x:String x:Key="ButtonNext">Next</x:String>
+    
+    <x:String x:Key="NavBarTitleRegister">Create an account</x:String>
+    <x:String x:Key="NavBarTitleLogIn">Log in</x:String>
+    <x:String x:Key="NavBarTitleAddPin">Add pin</x:String>
+
+    <x:String x:Key="EntryPlaseholderEmail">Enter email</x:String>
+    <x:String x:Key="EntryConfirmPlaceholder">Repeat password</x:String>
+    <x:String x:Key="EntryPasswordPlaceholder">Enter password</x:String>
+    <x:String x:Key="EntryPlaceholderLabel">Enter the label</x:String>
+    <x:String x:Key="EntryDescriptionPlaceholder">Write a Dascription</x:String>
+    <x:String x:Key="EntryLatitudePlaceholder">Latitude</x:String>
+    <x:String x:Key="EntryLongitudePlaceholder">Longitude</x:String>
+
+    <x:String x:Key="PasswordPlaceholder">Create password</x:String>
+    <x:String x:Key="PasswordCountingSimbols">Count mismatch</x:String>
+    <x:String x:Key="PasswordPresence">Presence mismatch</x:String>
+    <x:String x:Key="PasswordConfirmNotEqual">Password and confirm password are not equal!</x:String>
+
+    <x:String x:Key="LoginPasswordWrong">Wrong login or password!</x:String>
+    
+    <x:String x:Key="NameError">It can't be a name</x:String>
+    <x:String x:Key="EmailError">It can't be a email</x:String>
+    
+    <x:String x:Key="Input">Incorrect input</x:String>
+   
+    <x:String x:Key="DarkTheme">Dark theme</x:String>
+    
+    <x:String x:Key="SettingsTitle">Settings</x:String>
+
+    <x:String x:Key="ColorClockTitle">Color of the clock</x:String>
+
+    <x:String x:Key="RadioButtonBlue">Blue</x:String>
+    <x:String x:Key="RadioButtonRed">Red</x:String>
+
+    <x:String x:Key="SearchBarPlaseholder">Search</x:String>
+
+    <x:String x:Key="LoginBusy">This login is busy</x:String>
+
+    <x:String x:Key="AlertTitle">Message</x:String>
+    <x:String x:Key="AlertOK">OK</x:String>
+    <x:String x:Key="AlertMessage">Do you really want delete pin?</x:String>
+    <x:String x:Key="AlertYes">Yes</x:String>
+    <x:String x:Key="AlertNo">No</x:String>
+
+
+</ResourceDictionary>

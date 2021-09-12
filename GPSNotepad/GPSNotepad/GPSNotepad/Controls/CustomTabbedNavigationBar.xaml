@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             x:Class="GPSNotepad.Controls.CustomTabbedNavigationBar"
+             x:Name="navigationBar"
+             BackgroundColor="{DynamicResource navigationBar}">
+
+    <Grid.RowDefinitions>
+
+        <RowDefinition Height="1*"/>
+        <RowDefinition Height="8*"/>
+        <RowDefinition Height="1*"/>
+
+    </Grid.RowDefinitions>
+
+    <Grid.ColumnDefinitions>
+
+        <ColumnDefinition Width="1.5*"/>
+        <ColumnDefinition Width="7*"/>
+        <ColumnDefinition Width="1.5*"/>
+
+    </Grid.ColumnDefinitions>
+
+    
+    <Image Grid.Column="0" Grid.Row="1"
+           Source="{DynamicResource iconSettings}">
+
+        <Image.GestureRecognizers>
+
+            <TapGestureRecognizer Command="{Binding ImageSettingsTapCommand, Source={x:Reference navigationBar}}"/>
+
+        </Image.GestureRecognizers>
+
+    </Image>
+
+    <Frame Grid.Row="1" 
+           Grid.Column="1"
+           HasShadow="False"
+           BackgroundColor="{DynamicResource entryNavBarBackground}"/>
+
+    <Entry Grid.Row="1"
+           Grid.Column="1" 
+           Margin="10,0,0,0"
+           Text="{Binding SearchText}"
+           FontFamily="Montserrat"
+           TextColor="{DynamicResource entryText}"
+           PlaceholderColor="{DynamicResource entryNavBarPlaceholder}"
+           Placeholder="{DynamicResource SearchBarPlaseholder}">
+
+        <Entry.Behaviors>
+
+            <behaviors:EventToCommandBehavior EventName="TextChanged"
+                                              Command="{Binding SearchCommand}"
+                                              EventArgsParameterPath="NewTextValue" />
+
+            <behaviors:EventToCommandBehavior EventName="Focused"
+                                              Command="{Binding FocusedCommand}" />
+
+        </Entry.Behaviors>
+
+    </Entry>
+
+    <Image Grid.Column="2" 
+           Grid.Row="1"
+           Source="{DynamicResource iconExid}">
+
+        <Image.GestureRecognizers>
+
+            <TapGestureRecognizer Command="{Binding ImageExitTapCommand, Source={x:Reference navigationBar}}"/>
+
+        </Image.GestureRecognizers>
+
+    </Image>
+
+</Grid>

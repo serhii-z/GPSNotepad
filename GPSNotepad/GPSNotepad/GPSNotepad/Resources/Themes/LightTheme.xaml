@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GPSNotepad.Resources.Themes.LightTheme">
+
+    <Color x:Key="buttonBackground">#596EFB</Color>
+    <Color x:Key="buttonText">White</Color>
+    
+    <Color x:Key="buttonStartBackground">Transparent</Color>
+    <Color x:Key="buttonStartText">#596EFB</Color>
+    <Color x:Key="buttonStartBorder">#596EFB</Color>
+
+    <Color x:Key="labelStartText">#596EFB</Color>
+    
+    <Color x:Key="viewBackground">White</Color>
+    
+    <Color x:Key="navigationBar">Transparent</Color>
+    
+    <Color x:Key="entryBorder">Gray</Color>
+    <Color x:Key="entryBorderRed">Red</Color>
+    <Color x:Key="entryPlaceholder">Gray</Color>
+    <Color x:Key="entryText">Black</Color>
+
+    <Color x:Key="boxView">#E5E5E5</Color>
+
+    <Color x:Key="labelTextBlack">Black</Color>
+    <Color x:Key="labelText">DarkGray</Color>
+    <Color x:Key="labelTextError">Red</Color>
+
+    <Color x:Key="labelNavBar">Black</Color>
+    <Color x:Key="entryNavBarBackground">AliceBlue</Color>
+    <Color x:Key="entryNavBarPlaceholder">LightGray</Color>
+    
+    <Color x:Key="listViewBackground">White</Color>
+    <Color x:Key="listViewSeparator">DarkGray</Color>
+
+    <Color x:Key="imageButton">Transparent</Color>
+    
+    <Color x:Key="frame">White</Color>
+
+    <Color x:Key="imageFavorit">AliceBlue</Color>
+
+    <Color x:Key="addViewFrameBackground">Transparent</Color>
+    <Color x:Key="addViewFrameBorder">Gray</Color>
+    
+    <Color x:Key="radioButtonText">Gray</Color>
+    <Color x:Key="radioButtonBorder">Gray</Color>
+    <Color x:Key="radioButtonBackground">Transparent</Color>
+
+    <Color x:Key="clockFrameBackground">White</Color>
+
+    <Color x:Key="switchOn">Gray</Color>
+    <Color x:Key="switchThumb">LightGray</Color>
+
+    <Color x:Key="tabColor">AliceBlue</Color>
+
+    <Color x:Key="frameBackground">Transparent</Color>
+
+    <ImageSource x:Key="iconMyLocation">my_location</ImageSource>
+
+</ResourceDictionary>

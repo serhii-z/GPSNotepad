@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:GPSNotepad.Controls"
+             x:Class="GPSNotepad.Views.PinListTabView"
+             NavigationPage.HasNavigationBar="False"
+             IconImageSource="{DynamicResource tabIconPin}" 
+             BackgroundColor="{DynamicResource viewBackground}"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="True">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="9*"/>
+
+        </Grid.RowDefinitions>
+
+        <local:CustomTabbedNavigationBar Grid.Row="0"
+                                         ImageSettingsTapCommand="{Binding SettingsTapCommand}"
+                                         SearchCommand="{Binding SearchCommand}"
+                                         ImageExitTapCommand="{Binding ExitTapCommand}"/>
+
+        <AbsoluteLayout Grid.Row="1">
+
+            <ListView CachingStrategy="RecycleElement"
+                      ItemsSource="{Binding Pins, Mode=TwoWay}"
+                      HasUnevenRows="True"
+                      VerticalOptions="FillAndExpand"
+                      x:Name="list"
+                      BackgroundColor="{DynamicResource viewBackground}"
+                      SeparatorColor="{DynamicResource listViewSeparator}">
+
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <ViewCell>
+
+                            <ViewCell.ContextActions>
+
+                                <MenuItem Text="Edit" 
+                                          Command="{Binding Path=BindingContext.EditTapCommand, Source={x:Reference list}}" 
+                                          CommandParameter="{Binding .}" />
+
+                                <MenuItem Text="Delete" 
+                                          Command="{Binding Path=BindingContext.DeleteTapCommand, Source={x:Reference list}}" 
+                                          CommandParameter="{Binding .}" />
+
+                            </ViewCell.ContextActions>
+
+                            <ViewCell.View>
+
+                                <Grid BackgroundColor="{DynamicResource viewBackground}">
+
+                                    <Grid.RowDefinitions>
+
+                                        <RowDefinition Height="0.5*"/>
+                                        <RowDefinition Height="0.5*"/>
+                                        <RowDefinition Height="0.5*"/>
+                                        <RowDefinition Height="0.5*"/>
+
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="5.5*"/>
+                                        <ColumnDefinition Width="1.5*"/>
+
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="0" 
+                                          Grid.Row="0" 
+                                          Grid.RowSpan="4">
+
+                                        <Grid.RowDefinitions>
+
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="1*"/>
+
+                                        </Grid.RowDefinitions>
+
+                                        <Grid.ColumnDefinitions>
+
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Grid.Column="1" 
+                                               Grid.ColumnSpan="2" 
+                                               Grid.Row="1" 
+                                               Grid.RowSpan="2"
+                                               BackgroundColor="{DynamicResource imageFavorit}"
+                                               Source="{Binding ImagePath}" >
+
+                                            <Image.GestureRecognizers>
+
+                                                <TapGestureRecognizer Command="{Binding Path=BindingContext.LikeTapCommand, Source={x:Reference list}}"
+                                                                      CommandParameter="{Binding .}" />
+
+                                            </Image.GestureRecognizers>
+
+                                        </Image>
+
+                                    </Grid>
+
+                                    <Label Grid.Row="1"
+                                           Grid.Column="1"
+                                           Text="{Binding Name}"
+                                           TextColor="{DynamicResource labelText}"
+                                           FontAttributes="Bold"
+                                           FontFamily="Montserrat"/>
+
+                                    <StackLayout Grid.Row="2"
+                                                 Grid.Column="1"
+                                                 Orientation="Horizontal">
+
+                                        <Label Text="{Binding Latitude}"
+                                               TextColor="{DynamicResource labelText}"
+                                               LineBreakMode="NoWrap"
+                                               FontFamily="Montserrat"/>
+
+                                        <Label Text="{Binding Longitude}"
+                                               TextColor="{DynamicResource labelText}"
+                                               LineBreakMode="NoWrap"
+                                               FontFamily="Montserrat"/>
+
+                                    </StackLayout>
+
+                                    <Image Grid.Column="2" 
+                                               Grid.Row="1" 
+                                               Grid.RowSpan="2"
+                                               HorizontalOptions="Center"
+                                               Source="{DynamicResource iconRight}" >
+
+                                        <Image.GestureRecognizers>
+
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.RightTapCommand, Source={x:Reference list}}"
+                                                                  CommandParameter="{Binding .}"/>
+
+                                        </Image.GestureRecognizers>
+
+                                    </Image>
+
+                                </Grid>
+
+                            </ViewCell.View>
+
+                        </ViewCell>
+
+                    </DataTemplate>
+
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+            <BoxView AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0,0,1,0.001"
+                     BackgroundColor="{DynamicResource boxView}"/>
+
+            <ImageButton Source="{DynamicResource iconAdd}"
+                     WidthRequest="96" 
+                     HeightRequest="96"
+                     HorizontalOptions="End" 
+                     VerticalOptions="End"
+                     BackgroundColor="{DynamicResource imageButton}"
+                     AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="1.0,1.0,-1,-1"
+                     Margin="0,0,40,20"
+                     Command="{Binding AddTapCommand}"/>
+
+            <BoxView AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0,0.9999,1,0.002"
+                     BackgroundColor="{DynamicResource tabColor}"/>
+
+        </AbsoluteLayout>
+
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:GPSNotepad.Controls"
+             x:Class="GPSNotepad.Views.SignInView"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+             BackgroundColor="{DynamicResource viewBackground}">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1.9*"/>
+            <RowDefinition Height="1.9*"/>
+            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="3.7*"/>
+
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="0.2*"/>
+            
+        </Grid.ColumnDefinitions>
+
+        <controls:CustomNavigationBar Grid.Row="0" 
+                                      Grid.Column="0" 
+                                      Grid.ColumnSpan="3"
+                                      Title="{DynamicResource NavBarTitleLogIn}"
+                                      ImageLeftTapCommand="{Binding GoBackTapCommand}"/>
+
+        <controls:CustomEntry Grid.Row="1"
+                              Grid.Column="1"
+                              LabelText="{DynamicResource LabelEmail}"
+                              EntryText="{Binding EntryEmail}"
+                              Placeholder="{DynamicResource EntryPlaseholderEmail}"
+                              ImageSource="{Binding ClearSource}"
+                              ImageTapCommand="{Binding ImageEntryClearTapCommand}"
+                              LabelErrorText="{Binding LabelEmailError}"
+                              IsError="{Binding IsErrorEmail}"/>
+
+
+        <controls:CustomEntry Grid.Row="2"
+                              Grid.Column="1"
+                              LabelText="{DynamicResource LabelPassword}"
+                              EntryText="{Binding EntryPassword}"
+                              Placeholder="{DynamicResource EntryPasswordPlaceholder}"
+                              ImageSource="{Binding EyeSource}"
+                              IsHidePassword="{Binding IsHidePassword}"
+                              ImageTapCommand="{Binding ImageEntryEyeTapCommand}"
+                              LabelErrorText="{Binding LabelPasswordError}"
+                              IsError="{Binding IsErrorPassword}"/>
+        
+        
+        <Button Grid.Row="3"
+                Grid.Column="1"
+                Text="{DynamicResource ButtonLogIn}"
+                TextColor="{DynamicResource buttonText}"
+                FontFamily="Montserrat"
+                BackgroundColor="{DynamicResource buttonBackground}"
+                Command="{Binding LogInButtonTapCommand}"
+                IsEnabled="{Binding IsEnabledButton}"/>
+
+        <StackLayout Grid.Row="4" 
+                     Grid.Column="1" 
+                     Orientation="Horizontal">
+
+            <BoxView HorizontalOptions="FillAndExpand"
+                     VerticalOptions="Center"
+                     HeightRequest="1"
+                     BackgroundColor="{DynamicResource boxView}"/>
+
+            <Label Text="or" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center"
+                   TextColor="{DynamicResource boxView}"
+                   FontFamily="Monserrat"/>
+
+            <BoxView HorizontalOptions="FillAndExpand"
+                     VerticalOptions="Center"
+                     HeightRequest="1"
+                     BackgroundColor="{DynamicResource boxView}"/>
+
+        </StackLayout>
+
+    </Grid>
+    
+</ContentPage>

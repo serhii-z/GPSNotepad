@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:GPSNotepad.Controls" 
+             x:Class="GPSNotepad.Views.AddPinView"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="True"
+             BackgroundColor="{DynamicResource viewBackground}">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="4.5*"/>
+
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="0.2*"/>
+
+        </Grid.ColumnDefinitions>
+
+        <local:CustomNavigationBar Grid.Row="0" 
+                                   Grid.Column="0" 
+                                   Grid.ColumnSpan="3"
+                                   Title="{DynamicResource NavBarTitleAddPin}"
+                                   ImageLeftTapCommand="{Binding GoBackTapCommand}">
+
+            <Image Source="{DynamicResource iconSave}" 
+                   Grid.Row="1"
+                   Grid.Column="2"
+                   HorizontalOptions="Center">
+
+                <Image.GestureRecognizers>
+                    
+                    <TapGestureRecognizer Command="{Binding SaveTapCommand}"/>
+
+                </Image.GestureRecognizers>
+
+            </Image>
+
+            <BoxView Grid.Row="2"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     VerticalOptions="Start"
+                     HeightRequest="1"
+                     BackgroundColor="{DynamicResource boxView}"/>
+
+        </local:CustomNavigationBar>
+
+        <local:CustomEntry Grid.Row="1"
+                           Grid.Column="1"
+                           LabelText="{DynamicResource Label}"
+                           EntryText="{Binding EntryName}"
+                           Placeholder="{DynamicResource EntryPlaceholderLabel}"
+                           ImageSource="{Binding ClearSourceName}"
+                           ImageTapCommand="{Binding ImageNameClearTapCommand}"
+                           IsError="False"/>
+
+        <local:CustomEntry Grid.Row="2"
+                           Grid.Column="1"
+                           LabelText="{DynamicResource LabelDescription}"
+                           EntryText="{Binding EntryDescription}"
+                           Placeholder="{DynamicResource EntryDescriptionPlaceholder}"
+                           ImageSource="{Binding ClearSourceDescription}"
+                           ImageTapCommand="{Binding ImageDescriptionClearTapCommand}"
+                           IsError="False"/>
+
+        <Grid Grid.Row="3" 
+              Grid.Column="1" >
+
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="0.5*"/>
+
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0"     
+                       Text="{DynamicResource LabelCoordinates}"
+                       TextColor="{DynamicResource labelText}"
+                       FontSize="Small"
+                       FontAttributes="Bold"
+                       FontFamily="Montserrat"/>
+
+                <Frame Grid.Row="1"
+                       HasShadow="False"
+                       BackgroundColor="{DynamicResource addViewFrameBackground}"
+                       BorderColor="{DynamicResource addViewFrameBorder}"/>
+
+                <Entry Grid.Row="1"
+                       HorizontalOptions="FillAndExpand"
+                       Margin="10,0,0,0"
+                       Placeholder="{DynamicResource EntryLatitudePlaceholder}"
+                       PlaceholderColor="{DynamicResource entryPlaceholder}"
+                       TextColor="{DynamicResource entryText}"
+                       Text="{Binding EntryLatitude}"
+                       FontSize="Small"
+                       FontFamily="Montserrat"/>
+
+            </Grid>
+
+            <Grid Grid.Column="1">
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="0.5*"/>
+
+                </Grid.RowDefinitions>
+
+                <Frame Grid.Row="1"
+                       HasShadow="False"
+                       BackgroundColor="{DynamicResource addViewFrameBackground}"
+                       BorderColor="{DynamicResource addViewFrameBorder}"/>
+
+                <Entry Grid.Row="1"
+                       HorizontalOptions="FillAndExpand"
+                       Margin="10,0,0,0"
+                       Placeholder="{DynamicResource EntryLongitudePlaceholder}"
+                       PlaceholderColor="{DynamicResource entryPlaceholder}"
+                       TextColor="{DynamicResource entryText}"
+                       Text="{Binding EntryLongitude}"
+                       FontSize="Small"
+                       FontFamily="Montserrat"/>
+
+            </Grid>
+
+        </Grid>
+
+        <local:CustomMap Grid.Row="4"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="3"
+                         Region="{Binding Region}"
+                         Animated="{Binding Animated}"
+                         CommandMapTap="{Binding MapTapCommand}"
+                         PinsSource="{Binding Pins}" 
+                         MyLocationEnabled="{Binding IsUserPosition}"
+                         StyleMap="{Binding Style}"/>
+
+        <ImageButton Grid.Row="4"
+                     Grid.Column="1"
+                     Source="{DynamicResource iconMyLocation}"
+                     WidthRequest="50" 
+                     HeightRequest="50"
+                     HorizontalOptions="End" 
+                     VerticalOptions="End"
+                     BackgroundColor="{DynamicResource imageButton}"
+                     Margin="0,0,5,20"
+                     Command="{Binding LocationButtonTapCommand}"/>
+
+    </Grid>
+
+</ContentPage>

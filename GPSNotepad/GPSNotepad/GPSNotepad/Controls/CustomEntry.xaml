@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+             x:Class="GPSNotepad.Controls.CustomEntry"
+             x:Name="customEntry">
+
+    <Grid.RowDefinitions>
+
+        <RowDefinition Height="1*"/>
+        <RowDefinition Height="1.5*"/>
+        <RowDefinition Height="0.5*"/>
+
+    </Grid.RowDefinitions>
+
+    <Grid.ColumnDefinitions>
+
+        <ColumnDefinition Width="9*"/>
+        <ColumnDefinition Width="1*"/>
+
+    </Grid.ColumnDefinitions>
+
+    <Label Grid.Row="0"
+           Text="{Binding LabelText, Source={x:Reference customEntry}}"
+           TextColor="{DynamicResource labelText}"
+           FontSize="Small"
+           FontFamily="Montserrat"
+           FontAttributes="Bold"
+           VerticalOptions="Center"
+           HorizontalOptions="StartAndExpand"/>
+
+    <Frame Grid.Row="1"
+           Grid.Column="0"
+           Grid.ColumnSpan="2"
+           HasShadow="False"
+           BackgroundColor="{DynamicResource frameBackground}"
+           BorderColor="{DynamicResource entryBorder}">
+
+        <Frame.Triggers>
+
+            <DataTrigger TargetType="Frame"
+                 Binding="{Binding IsError, Source={x:Reference customEntry}}" Value="True">
+
+                <Setter Property="BorderColor" Value="{DynamicResource entryBorderRed}" />
+                
+            </DataTrigger>
+
+        </Frame.Triggers>
+        
+    </Frame>
+
+    <Entry Grid.Row="1"
+           Grid.Column="0" 
+           Grid.ColumnSpan="2"
+           HorizontalOptions="FillAndExpand"
+           Margin="10,0,0,0"
+           IsPassword="{Binding IsHidePassword, Source={x:Reference customEntry}}"
+           Placeholder="{Binding Placeholder, Source={x:Reference customEntry}}"
+           PlaceholderColor="{DynamicResource entryPlaceholder}"
+           TextColor="{DynamicResource entryText}"
+           Text="{Binding EntryText, Source={x:Reference customEntry}}"
+           FontFamily="Montserrat"/>
+
+    <Image Grid.Column="1" Grid.Row="1"
+           Source="{Binding ImageSource, Source={x:Reference customEntry}}"
+           HorizontalOptions="Fill">
+
+        <Image.GestureRecognizers>
+
+            <TapGestureRecognizer Command="{Binding ImageTapCommand, Source={x:Reference customEntry}}"/>
+
+        </Image.GestureRecognizers>
+
+    </Image>
+
+    <Label Grid.Row="2"
+           Text="{Binding LabelErrorText, Source={x:Reference customEntry}}"
+           FontSize="Small"
+           FontFamily="Montserrat"
+           TextColor="{DynamicResource labelTextError}"/>
+
+</Grid>
